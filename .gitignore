@@ -2,3 +2,5 @@
 *#
 *.pyc
 /venv
+/dist
+*.egg-info
