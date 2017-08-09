@@ -1,3 +1,4 @@
+import limp.types as types
 from unittest import TestCase
 from limp.limp import *
 
@@ -15,8 +16,8 @@ class MiscellaneousLimpTest(TestCase):
 
     def test_atomising_symbols(self):
         data = [
-            ('abc', 'abc', Symbol),
-            ('def', 'def', Symbol),
+            ('abc', 'abc', types.Symbol),
+            ('def', 'def', types.Symbol),
             ('123', 123, int),
             ('456', 456, int),
             ('1.2', 1.2, float),
@@ -29,7 +30,7 @@ class MiscellaneousLimpTest(TestCase):
 
     def test_parsing_source_code(self):
         data = [
-            ('(+ 1 2)', [Symbol('+'), 1, 2]),
+            ('(+ 1 2)', [types.Symbol('+'), 1, 2]),
             ('(reverse (1 2 3 4 5))', ['reverse', [1, 2, 3, 4, 5]])
         ]
         for source_code, expected_abstract_syntax_tree in data:
@@ -51,8 +52,8 @@ class SyntaxTreeBuilderTest(TestCase):
         data = [
             (['(', ')'], []),
             (['(', 'abc', ')'], ['abc']),
-            (['(', '+', '1', '2', ')'], [Symbol('+'), 1, 2]),
-            (['(', '/', '10', '(', '-', '5', '3', ')', ')'], [Symbol('/'), 10, [Symbol('-'), 5, 3]])
+            (['(', '+', '1', '2', ')'], [types.Symbol('+'), 1, 2]),
+            (['(', '/', '10', '(', '-', '5', '3', ')', ')'], [types.Symbol('/'), 10, [types.Symbol('-'), 5, 3]])
         ]
         for tokens, expected_tree in data:
             self.assertEqual(

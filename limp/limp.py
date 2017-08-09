@@ -1,17 +1,13 @@
+import limp.types as types
 import operator
 
 OPENING_PARENTHESIS = '('
 CLOSING_PARENTHESIS = ')'
 PARENTHESES = [OPENING_PARENTHESIS, CLOSING_PARENTHESIS]
 
-Symbol = str
-List = list
-Number = (int, float)
-Environment = dict
-
 
 def standard_environment():
-    environment = Environment()
+    environment = types.Environment()
     environment.update({
         '+': operator.add,
         '-': operator.sub,
@@ -23,13 +19,13 @@ def standard_environment():
 
 
 def evaluate(syntax_tree, environment):
-    if isinstance(syntax_tree, Symbol):
+    if isinstance(syntax_tree, types.Symbol):
         symbol = syntax_tree
         try:
             return environment[symbol]
         except KeyError:
             raise NameError('Symbol "{}" is not defined'.format(symbol))
-    elif not isinstance(syntax_tree, List):
+    elif not isinstance(syntax_tree, types.List):
         return syntax_tree
     elif syntax_tree[0] == 'define':
         (_, variable, expression) = syntax_tree
@@ -67,7 +63,7 @@ def atomize(symbol):
     elif _represents(symbol, float):
         return float(symbol)
     else:
-        return Symbol(symbol)
+        return types.Symbol(symbol)
 
     
 def _represents(symbol, type_):
