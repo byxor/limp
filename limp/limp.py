@@ -1,10 +1,6 @@
-import limp.types as types
 import limp.environments as environments
-
-
-OPENING_PARENTHESIS = '('
-CLOSING_PARENTHESIS = ')'
-PARENTHESES = [OPENING_PARENTHESIS, CLOSING_PARENTHESIS]
+import limp.syntax as syntax
+import limp.types as types
 
 
 def evaluate(syntax_tree, environment):
@@ -26,7 +22,7 @@ def evaluate(syntax_tree, environment):
 
     
 def parse(source_code):
-    return build_syntax_tree(tokenize(source_code))
+    return build_syntax_tree(syntax.tokenize(source_code))
 
 
 def build_syntax_tree(tokens):
@@ -34,16 +30,12 @@ def build_syntax_tree(tokens):
     if len(tokens) == 0:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected EOF'))
     token = tokens.pop(0)
-    if token == OPENING_PARENTHESIS:
+    if token == syntax.OPENING_PARENTHESIS:
         return _build_sub_syntax_tree(tokens)
-    elif token == CLOSING_PARENTHESIS:
+    elif token == syntax.CLOSING_PARENTHESIS:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected closing parenthesis'))
     else:
         return atomize(token)
-
-    
-def tokenize(source_code):
-    return _pad_characters(source_code, PARENTHESES).split()
 
 
 def atomize(symbol):
@@ -65,19 +57,8 @@ def _represents(symbol, type_):
     
 def _build_sub_syntax_tree(tokens):
     tree = []
-    while tokens[0] != CLOSING_PARENTHESIS:
+    while tokens[0] != syntax.CLOSING_PARENTHESIS:
         tree.append(build_syntax_tree(tokens))
     tokens.pop(0)
     return tree    
-
-
-def _pad_characters(source_code, characters):
-    if characters == []:
-        return source_code
-    return _pad_characters(_pad(source_code, characters[0]), characters[1:])
-
-
-def _pad(source_code, character):
-    return source_code.replace(character, ' {} '.format(character))
-
 
