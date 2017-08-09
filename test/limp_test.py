@@ -1,4 +1,5 @@
 import limp.types as types
+import limp.environments as environments
 from unittest import TestCase
 from limp.limp import *
 
@@ -65,7 +66,7 @@ class SyntaxTreeBuilderTest(TestCase):
 class EvaluationTest(TestCase):
 
     def setUp(self):
-        environment = standard_environment()
+        environment = environments.create_standard()
         self.run = lambda source_code: evaluate(parse(source_code), environment)
 
     def test_constants(self):

@@ -1,21 +1,10 @@
 import limp.types as types
-import operator
+import limp.environments as environments
+
 
 OPENING_PARENTHESIS = '('
 CLOSING_PARENTHESIS = ')'
 PARENTHESES = [OPENING_PARENTHESIS, CLOSING_PARENTHESIS]
-
-
-def standard_environment():
-    environment = types.Environment()
-    environment.update({
-        '+': operator.add,
-        '-': operator.sub,
-        '*': operator.mul,
-        '/': operator.truediv,
-        '//': operator.floordiv
-    })
-    return environment
 
 
 def evaluate(syntax_tree, environment):
