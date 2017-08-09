@@ -1,5 +1,5 @@
 import limp.environments as environments
-import limp.syntax as syntax
+import limp.tokens as tokens
 import limp.types as types
 from unittest import TestCase
 from limp.limp import *
@@ -14,7 +14,7 @@ class MiscellaneousLimpTest(TestCase):
             ('(abc 1 2 3)', ['(', 'abc', '1', '2', '3', ')'])
         ]
         for source_code, expected_tokens in data:
-            self.assertEqual(expected_tokens, syntax.tokenize(source_code))
+            self.assertEqual(expected_tokens, tokens.create_from(source_code))
 
     def test_atomising_symbols(self):
         data = [

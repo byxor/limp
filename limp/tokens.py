@@ -3,7 +3,7 @@ CLOSING_PARENTHESIS = ')'
 PARENTHESES = [OPENING_PARENTHESIS, CLOSING_PARENTHESIS]
 
 
-def tokenize(source_code):
+def create_from(source_code):
     return _pad_characters(source_code, PARENTHESES).split()
 
 
