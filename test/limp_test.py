@@ -32,14 +32,6 @@ class MiscellaneousLimpTest(TestCase):
             self.assertEqual(atom_, expected_atom_value)
             self.assertEqual(type(atom_), expected_atom_type)
 
-    def test_parsing_source_code(self):
-        data = [
-            ('(+ 1 2)', [types.Symbol('+'), 1, 2]),
-            ('(reverse (1 2 3 4 5))', ['reverse', [1, 2, 3, 4, 5]])
-        ]
-        for source_code, expected_abstract_syntax_tree in data:
-            self.assertEqual(expected_abstract_syntax_tree, parse(source_code))
-            
 
 class SyntaxTreeBuilderTest(TestCase):
 
@@ -70,7 +62,7 @@ class EvaluationTest(TestCase):
 
     def setUp(self):
         environment = environments.create_standard()
-        self.run = lambda source_code: evaluate(parse(source_code), environment)
+        self.run = lambda source_code: evaluate(syntax_tree.create_from(tokens.create_from(source_code)), environment)
 
     def test_constants(self):
         data = [
