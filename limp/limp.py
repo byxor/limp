@@ -24,22 +24,4 @@ def evaluate(syntax_tree, environment):
     
 def parse(source_code):
     return syntax_tree.create_from(tokens.create_from(source_code))
-
-
-def atomize(symbol):
-    if _represents(symbol, int):
-        return int(symbol)
-    elif _represents(symbol, float):
-        return float(symbol)
-    else:
-        return types.Symbol(symbol)
-
-    
-def _represents(symbol, type_):
-    try:
-        type_(symbol)
-        return True
-    except ValueError:
-        return False
-
     

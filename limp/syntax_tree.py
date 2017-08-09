@@ -1,5 +1,6 @@
+import limp.atom as atom
 import limp.tokens as tokens
-import limp
+
 
 
 def create_from(tokens_):
@@ -12,7 +13,7 @@ def create_from(tokens_):
     elif token == tokens.CLOSING_PARENTHESIS:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected closing parenthesis'))
     else:
-        return limp.limp.atomize(token)
+        return atom.create_from(token)
 
 
 def _build_sub_syntax_tree(tokens_):

@@ -1,3 +1,4 @@
+import limp.atom as atom
 import limp.environments as environments
 import limp.syntax_tree as syntax_tree
 import limp.tokens as tokens
@@ -27,9 +28,9 @@ class MiscellaneousLimpTest(TestCase):
             ('2.4', 2.4, float)
         ]
         for symbol, expected_atom_value, expected_atom_type in data:
-            atom = atomize(symbol)
-            self.assertEqual(atom, expected_atom_value)
-            self.assertEqual(type(atom), expected_atom_type)
+            atom_ = atom.create_from(symbol)
+            self.assertEqual(atom_, expected_atom_value)
+            self.assertEqual(type(atom_), expected_atom_type)
 
     def test_parsing_source_code(self):
         data = [
