@@ -1,24 +1,23 @@
 import limp.atom as atom
-import limp.tokens as tokens
+import limp.syntax as syntax
 
 
-
-def create_from(tokens_):
+def create_from(tokens):
     SYNTAX_ERROR_MESSAGE = '{} while building Abstract Syntax Tree'
-    if len(tokens_) == 0:
+    if len(tokens) == 0:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected EOF'))
-    token = tokens_.pop(0)
-    if token == tokens.OPENING_PARENTHESIS:
-        return _build_sub_syntax_tree(tokens_)
-    elif token == tokens.CLOSING_PARENTHESIS:
+    token = tokens.pop(0)
+    if token == syntax.OPENING_PARENTHESIS:
+        return _create_sub_tree_from(tokens)
+    elif token == syntax.CLOSING_PARENTHESIS:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected closing parenthesis'))
     else:
         return atom.create_from(token)
 
 
-def _build_sub_syntax_tree(tokens_):
+def _create_sub_tree_from(tokens):
     tree = []
-    while tokens_[0] != tokens.CLOSING_PARENTHESIS:
-        tree.append(create_from(tokens_))
-    tokens_.pop(0)
+    while tokens[0] != syntax.CLOSING_PARENTHESIS:
+        tree.append(create_from(tokens))
+    tokens.pop(0)
     return tree

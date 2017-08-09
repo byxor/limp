@@ -1,10 +1,8 @@
-OPENING_PARENTHESIS = '('
-CLOSING_PARENTHESIS = ')'
-PARENTHESES = [OPENING_PARENTHESIS, CLOSING_PARENTHESIS]
+import limp.syntax as syntax
 
 
 def create_from(source_code):
-    return _pad_characters(source_code, PARENTHESES).split()
+    return _pad_characters(source_code, syntax.PARENTHESES).split()
 
 
 def _pad_characters(source_code, characters):
