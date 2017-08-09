@@ -1,5 +1,5 @@
 import limp.atom as atom
-import limp.syntax as syntax
+import limp.parentheses as parentheses
 
 
 def create_from(tokens):
@@ -7,9 +7,9 @@ def create_from(tokens):
     if len(tokens) == 0:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected EOF'))
     token = tokens.pop(0)
-    if token == syntax.OPENING_PARENTHESIS:
+    if token == parentheses.OPEN:
         return _create_sub_tree_from(tokens)
-    elif token == syntax.CLOSING_PARENTHESIS:
+    elif token == parentheses.CLOSE:
         raise SyntaxError(SYNTAX_ERROR_MESSAGE.format('Unexpected closing parenthesis'))
     else:
         return atom.create_from(token)
@@ -17,7 +17,7 @@ def create_from(tokens):
 
 def _create_sub_tree_from(tokens):
     tree = []
-    while tokens[0] != syntax.CLOSING_PARENTHESIS:
+    while tokens[0] != parentheses.CLOSE:
         tree.append(create_from(tokens))
     tokens.pop(0)
     return tree
