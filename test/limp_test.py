@@ -3,8 +3,8 @@ import limp.environments as environments
 import limp.syntax_tree as syntax_tree
 import limp.tokens as tokens
 import limp.types as types
+import limp.evaluation as evaluation
 from unittest import TestCase
-from limp.limp import *
 
 
 class MiscellaneousLimpTest(TestCase):
@@ -62,7 +62,7 @@ class EvaluationTest(TestCase):
 
     def setUp(self):
         environment = environments.create_standard()
-        self.run = lambda source_code: evaluate(syntax_tree.create_from(tokens.create_from(source_code)), environment)
+        self.run = lambda source_code: evaluation.execute(syntax_tree.create_from(tokens.create_from(source_code)), environment)
 
     def test_constants(self):
         data = [

@@ -1,9 +1,7 @@
-import limp.syntax_tree as syntax_tree
-import limp.tokens as tokens
 import limp.types as types
 
 
-def evaluate(syntax_tree, environment):
+def execute(syntax_tree, environment):
     if isinstance(syntax_tree, types.Symbol):
         symbol = syntax_tree
         try:
@@ -14,9 +12,8 @@ def evaluate(syntax_tree, environment):
         return syntax_tree
     elif syntax_tree[0] == 'define':
         (_, variable, expression) = syntax_tree
-        environment[variable] = evaluate(expression, environment)
+        environment[variable] = execute(expression, environment)
     else:
-        procedure = evaluate(syntax_tree[0], environment)
-        arguments = [evaluate(argument, environment) for argument in syntax_tree[1:]]
+        procedure = execute(syntax_tree[0], environment)
+        arguments = [execute(argument, environment) for argument in syntax_tree[1:]]
         return procedure(*arguments)
-
