@@ -1,4 +1,5 @@
 import limp.environments as environments
+import limp.syntax_tree as syntax_tree
 import limp.tokens as tokens
 import limp.types as types
 from unittest import TestCase
@@ -42,8 +43,8 @@ class MiscellaneousLimpTest(TestCase):
 class SyntaxTreeBuilderTest(TestCase):
 
     def setUp(self):
-        self.build_from = build_syntax_tree
-    
+        self.build_from = syntax_tree.create_from
+
     def test_empty_tokens_raise_SyntaxError(self):
         self.assertRaises(SyntaxError, self.build_from, [])
 
