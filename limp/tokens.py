@@ -1,8 +1,8 @@
-import limp.parentheses as parentheses
+import limp.parentheses as Parentheses
 
 
 def create_from(source_code):
-    return _pad_characters(source_code, parentheses.ALL).split()
+    return _pad_characters(source_code, Parentheses.ALL).split()
 
 
 def _pad_characters(source_code, characters):

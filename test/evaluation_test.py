@@ -1,19 +1,19 @@
-import limp.environments as environments
-import limp.evaluation as evaluation
-import limp.syntax_tree as syntax_tree
-import limp.tokens as tokens
+import limp.environments as Environments
+import limp.evaluation as Evaluation
+import limp.syntax_tree as SyntaxTree
+import limp.tokens as Tokens
 from unittest import TestCase
 
 
 class Tests(TestCase):
 
     def setUp(self):
-        environment = environments.create_standard()
+        environment = Environments.create_standard()
 
         def run(source_code):
-            return evaluation.execute(
-                syntax_tree.create_from(
-                    tokens.create_from(source_code)
+            return Evaluation.execute(
+                SyntaxTree.create_from(
+                    Tokens.create_from(source_code)
                 ),
                 environment
             )

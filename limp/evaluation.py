@@ -1,14 +1,14 @@
-import limp.types as types
+import limp.types as Types
 
 
 def execute(syntax_tree, environment):
-    if isinstance(syntax_tree, types.Symbol):
+    if isinstance(syntax_tree, Types.Symbol):
         symbol = syntax_tree
         try:
             return environment[symbol]
         except KeyError:
             raise NameError('Symbol "{}" is not defined'.format(symbol))
-    elif not isinstance(syntax_tree, types.List):
+    elif not isinstance(syntax_tree, Types.List):
         return syntax_tree
     elif syntax_tree[0] == 'define':
         (_, variable, expression) = syntax_tree

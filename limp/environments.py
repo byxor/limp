@@ -1,9 +1,9 @@
-import limp.types as types
+import limp.types as Types
 import operator
 
 
 def create_standard():
-    environment = types.Environment()
+    environment = Types.Environment()
     environment.update({
         '+': operator.add,
         '-': operator.sub,

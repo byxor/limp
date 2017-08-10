@@ -1,4 +1,4 @@
-import limp.types as types
+import limp.types as Types
 
 
 def create_from(symbol):
@@ -7,7 +7,7 @@ def create_from(symbol):
     elif _represents(symbol, float):
         return float(symbol)
     else:
-        return types.Symbol(symbol)
+        return Types.Symbol(symbol)
 
     
 def _represents(symbol, type_):
