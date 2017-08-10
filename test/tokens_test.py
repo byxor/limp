@@ -9,4 +9,3 @@ def test_creation_from_source_code():
     ]
     for source_code, expected_tokens in data:
         assert Tokens.create_from(source_code) == expected_tokens
-

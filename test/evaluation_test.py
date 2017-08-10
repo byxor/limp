@@ -17,7 +17,7 @@ class Tests(TestCase):
                 ),
                 environment
             )
-        
+
         self.run = run
 
     def test_literals(self):
@@ -32,7 +32,7 @@ class Tests(TestCase):
         self.assertRaises(NameError, self.run, 'x')
         self.assertRaises(NameError, self.run, 'y')
         self.assertRaises(NameError, self.run, 'z')
-    
+
     def test_defining_and_accessing_variables(self):
         self.run('(define x 10)')
         self.run('(define y 20)')

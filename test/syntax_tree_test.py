@@ -17,19 +17,17 @@ class SyntaxTreeBuilderTest(TestCase):
 
     def test_unmatched_closing_bracket_raises_SyntaxError(self):
         self.assertRaises(SyntaxError, self.build_from, [')'])
-    
+
     def test_valid_tokens(self):
         data = [
             (['(', ')'], []),
             (['(', 'abc', ')'], ['abc']),
             (['(', '+', '1', '2', ')'], [types.Symbol('+'), 1, 2]),
-            (['(', '/', '10', '(', '-', '5', '3', ')', ')'], [types.Symbol('/'), 10, [types.Symbol('-'), 5, 3]])
+            (['(', '/', '10', '(', '-', '5', '3', ')', ')'],
+             [types.Symbol('/'), 10, [types.Symbol('-'), 5, 3]])
         ]
         for tokens, expected_tree in data:
             self.assertEqual(
                 expected_tree,
                 self.build_from(tokens)
             )
-            
-
-        

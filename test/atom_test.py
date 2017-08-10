@@ -13,6 +13,5 @@ def test_creation_from_values():
     ]
     for symbol, expected_atom_value, expected_atom_type in data:
         atom = Atom.create_from(symbol)
-        assert atom ==  expected_atom_value
+        assert atom == expected_atom_value
         assert type(atom) == expected_atom_type
-
