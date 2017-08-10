@@ -8,9 +8,17 @@ from unittest import TestCase
 class Tests(TestCase):
 
     def setUp(self):
-        make_evaluatable = lambda source_code: syntax_tree.create_from(tokens.create_from(source_code))
         environment = environments.create_standard()
-        self.run = lambda source_code: evaluation.execute(make_evaluatable(source_code), environment)
+
+        def run(source_code):
+            return evaluation.execute(
+                syntax_tree.create_from(
+                    tokens.create_from(source_code)
+                ),
+                environment
+            )
+        
+        self.run = run
 
     def test_literals(self):
         data = [
