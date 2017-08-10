@@ -7,19 +7,6 @@ import limp.evaluation as evaluation
 from unittest import TestCase
 
 
-class TokensTest(TestCase):
-            
-    def test_tokenising_source_code(self):
-        data = [
-            ('()', ['(', ')']),
-            ('(abc)', ['(', 'abc', ')']),
-            ('(abc 1 2 3)', ['(', 'abc', '1', '2', '3', ')'])
-        ]
-        for source_code, expected_tokens in data:
-            self.assertEqual(expected_tokens, tokens.create_from(source_code))
-
-
-
 class SyntaxTreeBuilderTest(TestCase):
 
     def setUp(self):
