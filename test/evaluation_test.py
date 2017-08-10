@@ -5,7 +5,7 @@ import limp.tokens as tokens
 from unittest import TestCase
 
 
-class EvaluationTest(TestCase):
+class Tests(TestCase):
 
     def setUp(self):
         make_evaluatable = lambda source_code: syntax_tree.create_from(tokens.create_from(source_code))
