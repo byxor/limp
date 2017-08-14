@@ -9,6 +9,7 @@ def create_standard():
         '-': operator.sub,
         '*': operator.mul,
         '/': operator.truediv,
-        '//': operator.floordiv
+        '//': operator.floordiv,
+        '**': operator.pow,
     })
     return environment
