@@ -52,7 +52,9 @@ class Tests(TestCase):
             ('(/ 4 2)', 2),
             ('(/ 1 2)', 0.5),
             ('(// 1 2)', 0),
-            ('(// 5 2)', 2)
+            ('(// 5 2)', 2),
+            ('(** 2 3)', 8),
+            ('(** 0 0)', 1),
         ]
         for source_code, expected_result in data:
             self.assertEqual(expected_result, self.run(source_code))
