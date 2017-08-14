@@ -1,5 +1,6 @@
 import limp.types as Types
 import operator
+import math
 
 
 def create_standard():
@@ -11,5 +12,8 @@ def create_standard():
         '/': operator.truediv,
         '//': operator.floordiv,
         '**': operator.pow,
+        'mod': operator.mod,
+        'sqrt': math.sqrt,
+        '!': math.factorial,
     })
     return environment
