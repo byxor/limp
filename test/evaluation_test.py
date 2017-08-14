@@ -55,6 +55,16 @@ class Tests(TestCase):
             ('(// 5 2)', 2),
             ('(** 2 3)', 8),
             ('(** 0 0)', 1),
+            ('(sqrt 144)', 12),
+            ('(sqrt 0)', 0),
+            ('(sqrt 1)', 1),
+            ('(! 0)', 1),
+            ('(! 1)', 1),
+            ('(! 4)', 24),
+            ('(! 7)', 5040),
+            ('(mod 4 4)', 0),
+            ('(mod 5 6)', 5),
+            ('(mod 3 1)', 0),
         ]
         for source_code, expected_result in data:
             self.assertEqual(expected_result, self.run(source_code))
