@@ -9,7 +9,9 @@ def test_creation_from_values():
         ('123', 123, int),
         ('456', 456, int),
         ('1.2', 1.2, float),
-        ('2.4', 2.4, float)
+        ('2.4', 2.4, float),
+        ('0x5', 0x5, int),
+        ('0xABC', 0xABC, int)
     ]
     for symbol, expected_atom_value, expected_atom_type in data:
         atom = Atom.create_from(symbol)
