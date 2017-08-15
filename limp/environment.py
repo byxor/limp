@@ -12,7 +12,7 @@ def create_standard():
         '/': operator.truediv,
         '//': operator.floordiv,
         '**': operator.pow,
-        'mod': operator.mod,
+        '%': operator.mod,
         'sqrt': math.sqrt,
         '!': math.factorial,
     })
