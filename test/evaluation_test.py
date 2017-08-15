@@ -1,4 +1,4 @@
-import limp.environments as Environments
+import limp.environment as Environment
 import limp.evaluation as Evaluation
 import limp.syntax_tree as SyntaxTree
 import limp.tokens as Tokens
@@ -8,7 +8,7 @@ from unittest import TestCase
 class Tests(TestCase):
 
     def setUp(self):
-        environment = Environments.create_standard()
+        environment = Environment.create_standard()
 
         def run(source_code):
             return Evaluation.execute(
@@ -20,10 +20,10 @@ class Tests(TestCase):
 
         self.run = run
 
-    def test_literals(self):
+    def test_literals_are_evaluated(self):
         data = [
             ('10', 10),
-            ('3.5', 3.5)
+            ('3.5', 3.5),
         ]
         for literal, expected_result in data:
             self.assertEqual(expected_result, self.run(literal))

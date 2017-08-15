@@ -13,7 +13,7 @@ def test_creation_from_values():
         ('0x5', 0x5, int),
         ('0xABC', 0xABC, int)
     ]
-    for symbol, expected_atom_value, expected_atom_type in data:
+    for symbol, expected_value, expected_type in data:
         atom = Atom.create_from(symbol)
-        assert atom == expected_atom_value
-        assert type(atom) == expected_atom_type
+        assert atom == expected_value
+        assert type(atom) == expected_type
