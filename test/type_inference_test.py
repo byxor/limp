@@ -20,6 +20,9 @@ def test_type_inference():
         (['+', '0', '1'],       Types.Invocation),
         (['return10'],          Types.Invocation),
         ('true',                Types.Boolean),
+        ('false',               Types.Boolean),
+        ('"Github!"',           Types.String),
+        ('"Hello there"',       Types.String),
     ]
     for contents, expected_type in data:
         form = Types.Form.infer_from(contents, Helpers.SIMPLE_ENVIRONMENT)

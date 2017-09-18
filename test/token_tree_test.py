@@ -10,6 +10,7 @@ def test_complex_input():
         (['(','send','10',')'],                 ['send', '10']),
         (['(','+','1','(','-','2','3',')',')'], ['+','1',['-','2','3']]),
         (['(','%','(','+','1','2',')','3',')'], ['%',['+','1','2'],'3']),
+        (['(','send','"hey there"',')'],        ['send', '"hey there"']),
     ]
     for tokens, expected_token_tree in data:
         yield assert_equals, expected_token_tree, TokenTree.create_from(tokens)

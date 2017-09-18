@@ -69,6 +69,18 @@ def test_booleans():
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Boolean)
 
 
+### Strings ###
+
+def test_strings():
+    data = [
+        ('"Hey"',          "Hey"),
+        ('"Hello there!"', "Hello there!"),
+        ('"\n\n\n"',      "\n\n\n"),
+    ]
+    for contents, expected_value in data:
+        yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.String)
+
+        
         
 ### Symbols ###        
         

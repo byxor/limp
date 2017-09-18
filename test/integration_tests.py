@@ -25,6 +25,8 @@ def test_evaluating_source_code():
         ('(+ 1 2)',       3),
         ('(+ (+ 1 2) 3)', 6),
         ('variable',      20),
+        ('"Hello!"',      "Hello!"),
+        ('(+\n1\t2)',     3),
     ]        
     for source_code, expected_result in data:
         result = Types.Form.infer_from(

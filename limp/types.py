@@ -12,6 +12,7 @@ Types exposed here to ease testing.
 Definition  = limp.internal_types.behavioural.Definition
 Invocation  = limp.internal_types.behavioural.Invocation
 Symbol      = limp.internal_types.standard.Symbol
+String      = limp.internal_types.standard.String
 Integer     = limp.internal_types.numeric.Integer
 Hexadecimal = limp.internal_types.numeric.Hexadecimal
 Binary      = limp.internal_types.numeric.Binary
@@ -36,6 +37,7 @@ ALL_TYPES = [
     Binary,
     Float,
     Boolean,
+    String,
     Symbol
 ]
 
@@ -45,4 +47,5 @@ class Form:
         for type_ in ALL_TYPES:
             form = type_(contents, environment)
             if form.is_valid():
+                print(f'Inferred type: {type_}')
                 return form
