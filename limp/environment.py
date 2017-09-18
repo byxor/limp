@@ -1,10 +1,16 @@
-import limp.types as Types
 import operator
 import math
 
 
+Environment = dict
+
+
+def create_empty():
+    return Environment()
+
+
 def create_standard():
-    environment = Types.Environment()
+    environment = Environment()
     environment.update({
         '+': operator.add,
         '-': operator.sub,

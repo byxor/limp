@@ -1,29 +1,38 @@
+import functools
 import limp
-import limp.environment
-from unittest import TestCase
+import test.helpers as Helpers
+from nose.tools import assert_equals, assert_raises
 
 
-class Tests(TestCase):
+_EVALUATE = limp.evaluate
 
-    def setUp(self):
-        self.run = limp.evaluate
-    
-    def test_that_code_can_be_evaluated_with_a_simple_import(self):
-        self.assertEqual(10, self.run('10'))
-        self.assertEqual(2, self.run('(- 5 3)'))
-        self.assertEqual(100, self.run('(* 50 2)'))
 
-    def test_that_clean_environment_is_created_automatically(self):
-        self.run('(define x 10)')
-        self.assertRaises(Exception, self.run, 'x')
+def test_that_code_can_be_evaluated_with_a_simple_import():
+    data = [
+        ('10',       10),
+        ('(- 5 3)',  2),
+        ('(* 50 2)', 100),
+    ]
+    for code, expected_result in data:
+        result = _EVALUATE(code)
+        yield assert_equals, expected_result, result
+
+
+def test_that_clean_environment_is_created_automatically():
+    _EVALUATE('(define x 10)')
+    access_undefined_symbol = functools.partial(_EVALUATE, 'x')
+    yield assert_raises, Exception, access_undefined_symbol
+
         
-    def test_that_environment_can_be_provided(self):
-        environment = limp.environment.create_standard()
-        run = lambda source_code: self.run(source_code, environment)
-        run('(define x 10)')
-        run('(define y 20)')
-        run('(define z 30)')
-        self.assertEqual(10, run('x'))
-        self.assertEqual(20, run('y'))
-        self.assertEqual(30, run('z'))
-    
+def test_that_environment_can_be_provided():
+    data = [
+        ('(define x 10)', 'x', 10),
+        ('(define y 20)', 'y', 20),
+        ('(define z 30)', 'z', 30),
+    ]
+    environment = Helpers.SIMPLE_ENVIRONMENT
+    run = lambda source_code: _EVALUATE(source_code, environment)
+    for definition_code, access_code, expected_result in data:
+        run(definition_code)
+        result = run(access_code)
+        yield assert_equals, expected_result, result
