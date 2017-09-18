@@ -1,4 +1,5 @@
 import limp.internal_types.behavioural
+import limp.internal_types.logical
 import limp.internal_types.numeric
 import limp.internal_types.standard
 import limp.environment as Environment
@@ -15,6 +16,7 @@ Integer     = limp.internal_types.numeric.Integer
 Hexadecimal = limp.internal_types.numeric.Hexadecimal
 Binary      = limp.internal_types.numeric.Binary
 Float       = limp.internal_types.numeric.Float
+Boolean     = limp.internal_types.logical.Boolean
 
 
 """
@@ -33,6 +35,7 @@ ALL_TYPES = [
     Hexadecimal,
     Binary,
     Float,
+    Boolean,
     Symbol
 ]
 

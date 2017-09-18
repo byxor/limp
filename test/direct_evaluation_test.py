@@ -58,6 +58,18 @@ def test_floats():
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Float)
 
 
+### Booleans ###
+
+def test_booleans():
+    data = [
+        ('true',  True),
+        ('false', False),
+    ]
+    for contents, expected_value in data:
+        yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Boolean)
+
+
+        
 ### Symbols ###        
         
 def test_accessing_variables():
