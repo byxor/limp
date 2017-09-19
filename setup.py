@@ -1,12 +1,12 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name="limp",
-    packages=["limp"],
+    packages=find_packages(exclude=['contrib', 'docs', 'test*']),
     license="GPLv3",
-    version="0.2",
-    description="An interpreter for a lisp-flavoured language",
+    version="0.31",
+    description="A general purpose programming language",
     author="Brandon Ibbotson",
     author_email="brandon.ibbotson2@mail.dcu.ie",
     url="https://www.github.com/byxor/limp"
