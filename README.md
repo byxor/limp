@@ -9,7 +9,7 @@ A general purpose programming language, built with the aim to materialise the fo
 
 ## Installation
 
-Install globally: `pip install limp`
+Install globally: `pip install limp`  
 Install for user: `pip install limp --user`
 
 ## Try it out (REPL)
