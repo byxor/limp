@@ -51,5 +51,4 @@ class Form:
         for type_ in ALL_TYPES:
             form = type_(contents, environment)
             if form.is_valid():
-                print(f'Inferred type: {type_}')
                 return form

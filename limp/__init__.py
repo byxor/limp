@@ -20,13 +20,13 @@ def evaluate(source_code, environment=None):
 class Repl:
 
     PROMPT = "> "
-
     WELCOME_MESSAGE = "Welcome to LIMP! You're in a REPL, have fun!" + "\n"
 
     def __init__(self, input_=input, output=sys.stdout.write):
         self._input = input_
         self._output = output
         self.__displayed_welcome = False
+        self.__environment = Environment.create_standard()
 
     def start(self):
         while True:
@@ -37,7 +37,7 @@ class Repl:
         self.__display_prompt()
         code = self._input()
         result = self.__evaluate(code)
-        self._output(f"{result}\n")
+        self.__display_result(result)
 
     def __display_welcome_if_necessary(self):
         if not self.__displayed_welcome:
@@ -46,13 +46,12 @@ class Repl:
 
     def __display_prompt(self):
         self._output(Repl.PROMPT)
-        sys.stdout.flush()
 
     def __evaluate(self, code):
         try:
-            try:
-                return evaluate(code)
-            except Errors.EmptyCode:
-                return ""
-        except Exception as e:
-            self.__output(f"{e}\n")
+            return evaluate(code, self.__environment)
+        except Errors.EmptyCode:
+            return ""
+
+    def __display_result(self, result):
+        self._output(f"{result}\n")

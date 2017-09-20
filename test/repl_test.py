@@ -53,7 +53,7 @@ def test_repl_prompts_for_input_on_every_tick():
     prepare_repl()
     for _ in range(ARBITRARY_NUMBER_OF_TICKS):
         REPL._tick()
-    yield assert_equal, INPUT.call_count, ARBITRARY_NUMBER_OF_TICKS
+    yield assert_equals, INPUT.call_count, ARBITRARY_NUMBER_OF_TICKS
 
 
 def test_repl_evaluates_input_and_displays_it():
@@ -68,3 +68,12 @@ def test_repl_evaluates_input_and_displays_it():
         INPUT.return_value = input_text
         REPL._tick()
         yield OUTPUT.assert_called_with, expected_output_text
+
+
+def test_repl_maintains_an_environment_across_ticks():
+    prepare_repl()
+    INPUT.return_value = '(define abc 321)'
+    REPL._tick()
+    INPUT.return_value = 'abc'
+    REPL._tick()
+    yield OUTPUT.assert_called_with, "321\n"
