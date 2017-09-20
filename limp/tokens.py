@@ -1,9 +1,12 @@
+import limp.errors as Errors
 import limp.parentheses as Parentheses
 import limp.types as Types
 from collections import namedtuple
 
 
 def create_from(source_code):
+    if source_code.strip() == "":
+        raise Errors.EmptyCode()
     source_code = _pad_characters(source_code, Parentheses.ALL)
     SCAN_MODES = {
         'NORMAL': _scan_in_normal_mode, 
