@@ -9,6 +9,7 @@ from abc import ABCMeta, abstractmethod
 """
 Types exposed here to ease testing.
 """
+Function            = limp.internal_types.behavioural.Function
 Conditional         = limp.internal_types.behavioural.Conditional
 SequentialEvaluator = limp.internal_types.behavioural.SequentialEvaluator
 Definition          = limp.internal_types.behavioural.Definition
@@ -32,6 +33,7 @@ The types will be checked in the order they
 appear in the list.
 """
 ALL_TYPES = [
+    Function,
     Conditional,
     SequentialEvaluator,
     Definition,

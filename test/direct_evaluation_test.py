@@ -1,7 +1,8 @@
+import limp.environment as Environment
 import limp.types as Types
 import test.helpers as Helpers
 from copy import copy
-from nose.tools import assert_equals
+from nose.tools import *
 
 
 ### Numeric Types ###
@@ -183,4 +184,51 @@ def test_complex_conditional_statements():
         conditional = Types.Conditional(contents, Helpers.SIMPLE_ENVIRONMENT)
         value = conditional.evaluate()
         yield assert_equals, expected_value, value
+    
+
+### Functions ###
+
+def test_functions_with_no_arguments():
+    data = [
+        (['function', [], '10'],            10),
+        (['function', [], '20'],            20),
+        (['function', [], '0.1'],           0.1),
+        (['function', [], ['+', '1', '2']], 3),
+    ]
+    for contents, expected_value in data:
+        function = Types.Function(contents, Environment.create_standard())
+        internal_function = function.evaluate()
+        yield assert_equals, expected_value, internal_function()
+   
+
+def test_function_body_does_not_prematurely_evaluate():
+    environment = Environment.create_empty()
+    function = Types.Function(['function', [], ['define', 'foo', '0']], environment)
+    internal_function = function.evaluate()
+    yield assert_not_in, 'foo', environment
+    internal_function()
+    yield assert_in, 'foo', environment
+    
+
+def test_functions_with_arguments():
+    data = [
+        (['function', ['x'], 'x'], [10], 10),
+        (['function', ['x'], 'x'], [9],  9),
+        (['function', ['y'], 'y'], [2],  2),
+        (['function', ['y'], 'y'], [1],  1),
+
+        (['function', ['n'], ['**', 'n', '2']], [1], 1),
+        (['function', ['n'], ['**', 'n', '2']], [2], 4),
+        (['function', ['n'], ['**', 'n', '2']], [3], 9),
+        (['function', ['n'], ['**', 'n', '2']], [4], 16),
+        (['function', ['n'], ['**', 'n', '2']], [5], 25),
+
+        (['function', ['a', 'b'], ['+', 'a', 'b']], [0, 0], 0),
+        (['function', ['a', 'b'], ['+', 'a', 'b']], [0, 1], 1),
+        (['function', ['a', 'b'], ['+', 'a', 'b']], [5, 3], 8),
+    ]
+    for contents, arguments, expected_value in data:
+        function = Types.Function(contents, Environment.create_standard())
+        internal_function = function.evaluate()
+        yield assert_equals, expected_value, internal_function(*arguments)
     

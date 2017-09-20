@@ -6,6 +6,31 @@ class NullOperation:
         return None
 
 
+class Function:
+
+    KEYWORD = 'function'
+    
+    def __init__(self, contents, environment):
+        self.__contents = contents
+        self.__environment = environment
+
+    def is_valid(self):
+        return self.__contents[0] == Function.KEYWORD
+
+    def evaluate(self):
+        argument_names = self.__contents[1]
+        body_contents = self.__contents[2]
+        def _internal_function(*called_with):
+            for name, value in zip(argument_names, called_with):
+                self.__environment[name] = value
+            return self.__new_form(self.__contents[2]).evaluate()
+        return _internal_function
+
+    def __new_form(self, contents):
+        from limp.types import Form
+        return Form.infer_from(contents, self.__environment)
+    
+
 class Conditional:
 
     KEYWORD = 'if'

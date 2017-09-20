@@ -64,3 +64,29 @@ def test_comparison_functions_on_integers():
     ]
     for source_code, expected_result in data:
         yield assert_equals, expected_result, limp.evaluate(source_code)
+
+
+def test_boolean_functions():
+    data = [
+        ('(not true)',        False),
+        ('(not false)',       True),
+        ('(not (not true))',  True),
+        ('(not (not false))', False),
+
+        ('(and true true)',   True),
+        ('(and true false)',  False),
+        ('(and false true)',  False),
+        ('(and false false)', False),
+
+        ('(or true true)',   True),
+        ('(or true false)',  True),
+        ('(or false true)',  True),
+        ('(or false false)', False),
+
+        ('(xor true true)',   False),
+        ('(xor true false)',  True),
+        ('(xor false true)',  True),
+        ('(xor false false)', False),
+    ]
+    for source_code, expected_result in data:
+        yield assert_equals, expected_result, limp.evaluate(source_code)
