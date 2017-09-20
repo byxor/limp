@@ -156,3 +156,31 @@ def test_sequential_evaluators():
     for symbol, expected_value in data:
         value = environment[symbol]
         yield assert_equals, expected_value, value
+
+
+### Conditionals ###
+
+def test_simple_conditional_statements():
+    data = [
+        (['if', 'true',  '"yes!"', '"no!"'], "yes!"),
+        (['if', 'false', '"yes!"', '"no!"'], "no!"),
+        (['if', 'true',  '5'],               5),
+        (['if', 'false', '4'],               None),
+    ]
+    for contents, expected_value in data:
+        conditional = Types.Conditional(contents, Helpers.SIMPLE_ENVIRONMENT)
+        value = conditional.evaluate()
+        yield assert_equals, expected_value, value
+
+        
+def test_complex_conditional_statements():
+    data = [
+        (['if', ['>', '10', '0'], 'true'],                True),
+        (['if', ['=', '1', '1'],  ['+', '10', '10']],     20),
+        (['if', ['=', '1', '0'],  '0', ['-', '10', '5']], 5),
+    ]
+    for contents, expected_value in data:
+        conditional = Types.Conditional(contents, Helpers.SIMPLE_ENVIRONMENT)
+        value = conditional.evaluate()
+        yield assert_equals, expected_value, value
+    

@@ -26,7 +26,41 @@ def test_mathematical_functions():
         ('(! 7)',      5040),
         ('(% 4 4)',    0),
         ('(% 5 6)',    5),
-        ('(% 3 1)',    0)
+        ('(% 3 1)',    0),
+    ]
+    for source_code, expected_result in data:
+        yield assert_equals, expected_result, limp.evaluate(source_code)
+
+
+def test_comparison_functions_on_integers():
+    data = [
+        ('(> 1 0)',      True),
+        ('(> 1 1)',      False),
+        ('(> 0 1)',      False),
+        ('(> 9999 321)', True),
+        ('(> -10 -20)',  True),
+
+        ('(>= 1 0)',      True),
+        ('(>= 1 1)',      True),
+        ('(>= 0 1)',      False),
+        ('(>= 9999 321)', True),
+        ('(>= -10 -20)',  True),
+        
+        ('(< 10 11)',    True),
+        ('(< 11 11)',    False),
+        ('(< 12 10)',    False),
+        ('(< 100 4321)', True),
+        ('(< -99 -12)',  True),
+
+        ('(<= 10 11)',    True),
+        ('(<= 11 11)',    True),
+        ('(<= 12 10)',    False),
+        ('(<= 100 4321)', True),
+        ('(<= -99 -12)',  True),
+
+        ('(= 9 9)', True),
+        ('(= 4 5)', False),
+        ('(= 1 1)', True),
     ]
     for source_code, expected_result in data:
         yield assert_equals, expected_result, limp.evaluate(source_code)

@@ -24,6 +24,9 @@ def test_type_inference():
         ('"Github!"',           Types.String),
         ('"Hello there"',       Types.String),
         (['do'],                Types.SequentialEvaluator),
+        (['do', 'x', 'y', 'z'], Types.SequentialEvaluator),
+        (['if', 'true', 'x'],   Types.Conditional),
+        (['if', 'false', 'y'],  Types.Conditional),
     ]
     for contents, expected_type in data:
         form = Types.Form.infer_from(contents, Helpers.SIMPLE_ENVIRONMENT)
