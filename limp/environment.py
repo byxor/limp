@@ -11,7 +11,12 @@ def create_empty():
 
 def create_standard():
     environment = Environment()
-    environment.update({
+    environment.update(_mathematical_functions())
+    return environment
+
+
+def _mathematical_functions():
+    return {
         '+': operator.add,
         '-': operator.sub,
         '*': operator.mul,
@@ -21,5 +26,4 @@ def create_standard():
         '%': operator.mod,
         'sqrt': math.sqrt,
         '!': math.factorial,
-    })
-    return environment
+    }

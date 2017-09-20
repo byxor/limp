@@ -1,8 +1,9 @@
 import limp
+import test.helpers as Helpers
 from nose.tools import assert_equals
 
 
-def test_procedures():
+def test_mathematical_functions():
     data = [
         ('(+ 1 1)',    2),
         ('(+ 2 3)',    5),

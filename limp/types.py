@@ -9,15 +9,16 @@ from abc import ABCMeta, abstractmethod
 """
 Types exposed here to ease testing.
 """
-Definition  = limp.internal_types.behavioural.Definition
-Invocation  = limp.internal_types.behavioural.Invocation
-Symbol      = limp.internal_types.standard.Symbol
-String      = limp.internal_types.standard.String
-Integer     = limp.internal_types.numeric.Integer
-Hexadecimal = limp.internal_types.numeric.Hexadecimal
-Binary      = limp.internal_types.numeric.Binary
-Float       = limp.internal_types.numeric.Float
-Boolean     = limp.internal_types.logical.Boolean
+SequentialEvaluator = limp.internal_types.behavioural.SequentialEvaluator
+Definition          = limp.internal_types.behavioural.Definition
+Invocation          = limp.internal_types.behavioural.Invocation
+Symbol              = limp.internal_types.standard.Symbol
+String              = limp.internal_types.standard.String
+Integer             = limp.internal_types.numeric.Integer
+Hexadecimal         = limp.internal_types.numeric.Hexadecimal
+Binary              = limp.internal_types.numeric.Binary
+Float               = limp.internal_types.numeric.Float
+Boolean             = limp.internal_types.logical.Boolean
 
 
 """
@@ -30,6 +31,7 @@ The types will be checked in the order they
 appear in the list.
 """
 ALL_TYPES = [
+    SequentialEvaluator,
     Definition,
     Invocation,
     Integer,

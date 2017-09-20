@@ -132,3 +132,27 @@ def test_defining_variables():
         definition.evaluate()
         value = symbol.evaluate()
         yield assert_equals, expected_value, value
+
+
+### Sequential Evaluators ###
+
+def test_sequential_evaluators():
+    environment = Helpers.SIMPLE_ENVIRONMENT
+
+    sequential_evaluator = Types.SequentialEvaluator([
+        'do',
+        ['define', 'one',   '1'],
+        ['define', 'two',   '2'],
+        ['define', 'three', '3'],
+    ], environment)
+
+    sequential_evaluator.evaluate()
+    
+    data = [
+        ('one',   1),
+        ('two',   2),
+        ('three', 3),
+    ]
+    for symbol, expected_value in data:
+        value = environment[symbol]
+        yield assert_equals, expected_value, value
