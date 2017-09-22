@@ -128,9 +128,11 @@ class Definition:
 
     def evaluate(self):
         from limp.types import Form
-        variable = self.__contents[1]
+        name = self.__contents[1]
+        if name in self.__environment:
+            raise Errors.RedefinedSymbol(name)
         value = Form.infer_from(self.__contents[2], self.__environment).evaluate()
-        self.__environment[variable] = value
+        self.__environment[name] = value
     
     def is_valid(self):
         return self.__contents[0] == Definition.KEYWORD

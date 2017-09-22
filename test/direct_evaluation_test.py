@@ -60,8 +60,6 @@ def test_floats():
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Float)
 
 
-### Booleans ###
-
 def test_booleans():
     data = [
         ('true',  True),
@@ -70,9 +68,7 @@ def test_booleans():
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Boolean)
 
-
-### Strings ###
-
+        
 def test_strings():
     data = [
         ('"Hey"',          "Hey"),
@@ -82,7 +78,6 @@ def test_strings():
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.String)
 
-        
         
 ### Symbols ###        
         
@@ -138,18 +133,26 @@ def test_exception_raised_when_invoking_non_existent_function():
 ### Definitions ###
 
 def test_defining_variables():
-
     data = [
         (['define', 'age', '20'], 'age', 20),
         (['define', 'abc', '52'], 'abc', 52),
     ]
     for definition_contents, symbol_contents, expected_value in data:
-        environment = copy(Helpers.SIMPLE_ENVIRONMENT)
+        environment = Environment.create_empty()
         definition = Types.Definition(definition_contents, environment)
         symbol = Types.Symbol(symbol_contents, environment)
         definition.evaluate()
         value = symbol.evaluate()
         yield assert_equals, expected_value, value
+
+
+def test_redefining_variables_raises_an_exception():
+    data = ['foo', 'bar', 'baz']
+    for name in data:
+        value = '"does not matter"'
+        definition = Types.Definition(['define', name, value], Environment.create_empty())
+        definition.evaluate()
+        yield assert_raises, Errors.RedefinedSymbol, definition.evaluate
 
 
 ### Sequential Evaluators ###

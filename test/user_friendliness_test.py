@@ -1,5 +1,6 @@
 import functools
 import limp
+import limp.environment as Environment
 import test.helpers as Helpers
 from nose.tools import assert_equals, assert_raises
 
@@ -30,7 +31,7 @@ def test_that_environment_can_be_provided():
         ('(define y 20)', 'y', 20),
         ('(define z 30)', 'z', 30),
     ]
-    environment = Helpers.SIMPLE_ENVIRONMENT
+    environment = Environment.create_empty()
     run = lambda source_code: _EVALUATE(source_code, environment)
     for definition_code, access_code, expected_result in data:
         run(definition_code)
