@@ -21,3 +21,17 @@ def test_exception_raised_if_code_is_empty():
     data = ["", " ", "\n", "   \n\t"]
     for source_code in data:
         yield assert_raises, Errors.EmptyCode, Tokens.create_from, source_code
+
+
+def test_exception_raised_if_too_many_closing_parentheses():
+    data = ['())', ')', '(foo) )    ']
+    for source_code in data:
+        yield (assert_raises, Errors.ExtraClosingParenthesis,
+               Tokens.create_from, source_code)
+
+
+def test_exception_raised_if_too_few_closing_parentheses():
+    data = ['(', '((', '(()']
+    for source_code in data:
+        yield (assert_raises, Errors.MissingClosingParenthesis,
+               Tokens.create_from, source_code)

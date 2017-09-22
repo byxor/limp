@@ -24,14 +24,19 @@ def test_evaluating_source_code():
         ('1',             1),
         ('(+ 1 2)',       3),
         ('(+ (+ 1 2) 3)', 6),
-        ('variable',      20),
         ('"Hello!"',      "Hello!"),
         ('(+\n1\t2)',     3),
+        ('(do 1 2 3 4)',  None),
+        
+        ("""(do
+             (define a 1)
+             (define b 2)
+             (define c 3))""", None),
     ]        
     for source_code, expected_result in data:
         result = Types.Form.infer_from(
             TokenTree.create_from(
                 Tokens.create_from(source_code)),
-            Helpers.SIMPLE_ENVIRONMENT
+            Environment.create_standard()
         ).evaluate()
         yield assert_equals, expected_result, result

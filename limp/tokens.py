@@ -21,6 +21,7 @@ def create_from(source_code):
         mode = algorithm_step.next_mode
     algorithm_step = _AlgorithmStep(algorithm_step.token, True, algorithm_step.next_mode)
     _append_token_if_ready(algorithm_step, tokens)
+    _assert_valid_structure_of(tokens)
     return tokens
 
 
@@ -69,3 +70,14 @@ def _empty(string):
 
 
 _AlgorithmStep = namedtuple('_AlgorithmStep', 'token ready_to_append next_mode')
+
+
+def _assert_valid_structure_of(tokens):
+    opening = tokens.count(Parentheses.OPEN)
+    closing = tokens.count(Parentheses.CLOSE)
+    if closing > opening:
+        amount = closing - opening
+        raise Errors.ExtraClosingParenthesis(amount)
+    elif opening > closing:
+        amount = opening - closing
+        raise Errors.MissingClosingParenthesis(amount)

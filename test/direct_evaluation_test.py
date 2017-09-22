@@ -1,4 +1,5 @@
 import limp.environment as Environment
+import limp.errors as Errors
 import limp.types as Types
 import test.helpers as Helpers
 from copy import copy
@@ -94,6 +95,13 @@ def test_accessing_variables():
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Symbol)
+
+        
+def test_exception_raised_when_accessing_non_existent_variable():
+    data = ['year', 'boy', 'bones', 'dyliams', 'antichav', 'sesh']
+    for contents in data:
+        symbol = Types.Symbol(contents, Environment.create_empty())
+        yield assert_raises, Errors.UndefinedSymbol, symbol.evaluate
 
 
 ### Invocations ###
