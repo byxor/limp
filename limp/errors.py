@@ -1,4 +1,8 @@
-class UndefinedSymbol(Exception):
+class LimpError(Exception):
+    pass
+
+
+class UndefinedSymbol(LimpError):
     def __init__(self, name):
         message = f"The symbol '{name}' cannot be found in the current context.\n"
         message += "* Has it been defined?\n"
@@ -7,17 +11,17 @@ class UndefinedSymbol(Exception):
         super().__init__(message)
 
         
-class EmptyCode(Exception):
+class EmptyCode(LimpError):
     def __init__(self):
         super().__init__("There is no code here to run.")
 
 
-class ExtraClosingParenthesis(Exception):
+class ExtraClosingParenthesis(LimpError):
     def __init__(self, amount):
         super().__init__(_parentheses_message(amount, "many"))
 
 
-class MissingClosingParenthesis(Exception):
+class MissingClosingParenthesis(LimpError):
     def __init__(self, amount):
         super().__init__(_parentheses_message(amount, "few"))
 
