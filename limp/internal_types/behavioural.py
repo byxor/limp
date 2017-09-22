@@ -1,3 +1,4 @@
+import limp.errors as Errors
 from functional import seq
 
 
@@ -90,12 +91,14 @@ class Invocation:
     def __init__(self, contents, environment):
         self.__contents = contents
         self.__environment = environment
+        self.__name = self.__contents[0]
 
     def is_valid(self):
         return type(self.__contents) == list
         
     def evaluate(self):
-        function = self.__environment[self.__contents[0]]
+        self.__assert_symbol_exists()
+        function = self.__environment[self.__name]
         argument_nodes = self.__contents[1:]
         arguments = (seq(argument_nodes)
                      .map(self.__to_form)
@@ -108,6 +111,11 @@ class Invocation:
 
     def __evaluated(self, form):
         return form.evaluate()
+
+    def __assert_symbol_exists(self):
+        if self.__name not in self.__environment:
+            raise Errors.UndefinedSymbol(self.__name)
+
     
 
 class Definition:

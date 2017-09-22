@@ -125,6 +125,15 @@ def test_invoking_functions_with_variables():
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Invocation)
 
+        
+def test_exception_raised_when_invoking_non_existent_function():
+    data = [
+        (['reset']),
+    ]
+    for contents in data:
+        invocation = Types.Invocation(contents, Environment.create_empty())
+        yield assert_raises, Errors.UndefinedSymbol, invocation.evaluate
+        
 
 ### Definitions ###
 
