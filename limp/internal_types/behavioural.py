@@ -13,23 +13,55 @@ class Function:
     
     def __init__(self, contents, environment):
         self.__contents = contents
-        self.__environment = environment
+        self.__child_environment = environment.new_child()
 
     def is_valid(self):
         return self.__contents[0] == Function.KEYWORD
 
     def evaluate(self):
+        from limp.types import Form
         argument_names = self.__contents[1]
         body_contents = self.__contents[2]
-        def _internal_function(*called_with):
-            for name, value in zip(argument_names, called_with):
-                self.__environment[name] = value
-            return self.__new_form(self.__contents[2]).evaluate()
-        return _internal_function
+        
+        def __internal_function(*called_with):
+            execution_environment = self.__child_environment.new_child()
+            self.__bind_parameters(execution_environment, argument_names, called_with)
+            executable_form = Form.infer_from(body_contents, execution_environment)
+            function_output = executable_form.evaluate()
+            return function_output
+        
+        return __internal_function
 
-    def __new_form(self, contents):
+    def __bind_parameters(self, execution_environment, names, values):
+        for name, value in zip(names, values):
+            execution_environment.define(name, value)
+
+
+class Invocation:
+
+    def __init__(self, contents, environment):
+        self.__contents = contents
+        self.__environment = environment
+        self.__name = self.__contents[0]
+
+    def is_valid(self):
+        return type(self.__contents) == list
+        
+    def evaluate(self):
+        function = self.__environment.resolve(self.__name)
+        argument_nodes = self.__contents[1:]
+        arguments = (seq(argument_nodes)
+                     .map(self.__to_form)
+                     .map(self.__evaluated))
+        return function(*arguments)
+
+    def __to_form(self, node):
         from limp.types import Form
-        return Form.infer_from(contents, self.__environment)
+        return Form.infer_from(node, self.__environment)
+
+    def __evaluated(self, form):
+        return form.evaluate()
+
     
 
 class Conditional:
@@ -82,41 +114,8 @@ class SequentialEvaluator:
         from limp.types import Form
         for node in self.__contents[1:]:
             form = Form.infer_from(node, self.__environment)
-            form.evaluate()        
+            form.evaluate()
 
-
-
-class Invocation:
-
-    def __init__(self, contents, environment):
-        self.__contents = contents
-        self.__environment = environment
-        self.__name = self.__contents[0]
-
-    def is_valid(self):
-        return type(self.__contents) == list
-        
-    def evaluate(self):
-        self.__assert_symbol_exists()
-        function = self.__environment[self.__name]
-        argument_nodes = self.__contents[1:]
-        arguments = (seq(argument_nodes)
-                     .map(self.__to_form)
-                     .map(self.__evaluated))
-        return function(*arguments)
-
-    def __to_form(self, node):
-        from limp.types import Form
-        return Form.infer_from(node, self.__environment)
-
-    def __evaluated(self, form):
-        return form.evaluate()
-
-    def __assert_symbol_exists(self):
-        if self.__name not in self.__environment:
-            raise Errors.UndefinedSymbol(self.__name)
-
-    
 
 class Definition:
 
@@ -129,10 +128,8 @@ class Definition:
     def evaluate(self):
         from limp.types import Form
         name = self.__contents[1]
-        if name in self.__environment:
-            raise Errors.RedefinedSymbol(name)
         value = Form.infer_from(self.__contents[2], self.__environment).evaluate()
-        self.__environment[name] = value
+        self.__environment.define(name, value)
     
     def is_valid(self):
         return self.__contents[0] == Definition.KEYWORD

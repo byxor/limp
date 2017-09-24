@@ -34,5 +34,5 @@ def test_type_inference():
         (['function', ['x', 'y'], ['+', 'x', 'y']], Types.Function),
     ]
     for contents, expected_type in data:
-        form = Types.Form.infer_from(contents, Helpers.SIMPLE_ENVIRONMENT)
+        form = Types.Form.infer_from(contents, Helpers.sample_environment())
         yield assert_equals, expected_type, type(form)

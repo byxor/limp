@@ -158,7 +158,7 @@ def test_redefining_variables_raises_an_exception():
 ### Sequential Evaluators ###
 
 def test_sequential_evaluators():
-    environment = Helpers.SIMPLE_ENVIRONMENT
+    environment = Helpers.sample_environment()
 
     sequential_evaluator = Types.SequentialEvaluator([
         'do',
@@ -175,7 +175,7 @@ def test_sequential_evaluators():
         ('three', 3),
     ]
     for symbol, expected_value in data:
-        value = environment[symbol]
+        value = environment.resolve(symbol)
         yield assert_equals, expected_value, value
 
 
@@ -189,7 +189,7 @@ def test_simple_conditional_statements():
         (['if', 'false', '4'],               None),
     ]
     for contents, expected_value in data:
-        conditional = Types.Conditional(contents, Helpers.SIMPLE_ENVIRONMENT)
+        conditional = Types.Conditional(contents, Helpers.sample_environment())
         value = conditional.evaluate()
         yield assert_equals, expected_value, value
 
@@ -201,7 +201,7 @@ def test_complex_conditional_statements():
         (['if', ['=', '1', '0'],  '0', ['-', '10', '5']], 5),
     ]
     for contents, expected_value in data:
-        conditional = Types.Conditional(contents, Helpers.SIMPLE_ENVIRONMENT)
+        conditional = Types.Conditional(contents, Helpers.sample_environment())
         value = conditional.evaluate()
         yield assert_equals, expected_value, value
     
@@ -220,15 +220,6 @@ def test_functions_with_no_arguments():
         internal_function = function.evaluate()
         yield assert_equals, expected_value, internal_function()
    
-
-def test_function_body_does_not_prematurely_evaluate():
-    environment = Environment.create_empty()
-    function = Types.Function(['function', [], ['define', 'foo', '0']], environment)
-    internal_function = function.evaluate()
-    yield assert_not_in, 'foo', environment
-    internal_function()
-    yield assert_in, 'foo', environment
-    
 
 def test_functions_with_arguments():
     data = [

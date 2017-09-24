@@ -3,7 +3,7 @@ import operator
 from nose.tools import assert_equals
 
 
-def _create_simple_environment():
+def sample_environment():
     environment = Environment.create_standard()
     extras = {
         'variable': 20,
@@ -18,13 +18,10 @@ def _create_simple_environment():
         'z': 30,
         'foo': 100,
     }   
-    environment.update(extras)
+    environment.define_batch_of(extras)
     return environment
 
 
-SIMPLE_ENVIRONMENT = _create_simple_environment()
-
-
 def assert_form_evaluates_to(expected_value, contents, _type):
-    value = _type(contents, SIMPLE_ENVIRONMENT).evaluate()
+    value = _type(contents, sample_environment()).evaluate()
     return assert_equals, expected_value, value

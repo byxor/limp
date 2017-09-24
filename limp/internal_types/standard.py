@@ -8,16 +8,11 @@ class Symbol:
         self.__environment = environment
 
     def evaluate(self):
-        self.__assert_symbol_exists()
-        return self.__environment[self.__name]
+        return self.__environment.resolve(self.__name)
 
     def is_valid(self):
         contents = self.__name
         return type(contents) == str
-
-    def __assert_symbol_exists(self):
-        if self.__name not in self.__environment:
-            raise Errors.UndefinedSymbol(self.__name)
 
 
 class String:
