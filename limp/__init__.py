@@ -6,6 +6,9 @@ import limp.types as Types
 import sys
 
 
+VERSION = "0.4.1"
+
+
 def evaluate(source_code, environment=None):
     if environment is None:
         environment = Environment.create_standard()
@@ -20,7 +23,7 @@ def evaluate(source_code, environment=None):
 class Repl:
 
     PROMPT = "> "
-    WELCOME_MESSAGE = "Welcome to LIMP! You're in a REPL, have fun!" + "\n"
+    WELCOME_MESSAGE = f"Welcome to LIMP (version {VERSION}). You're in a REPL, have fun!\n"
 
     def __init__(self, input_=input, output=sys.stdout.write):
         self._input = input_
