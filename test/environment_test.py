@@ -29,4 +29,3 @@ def test_creating_child_environments():
     yield assert_equal, child_value, child.resolve(name)
     yield assert_equal, parent_value, parent.resolve(name)
     
-    
