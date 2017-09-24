@@ -3,7 +3,6 @@ import limp.errors as Errors
 import limp.tokens as Tokens
 import limp.token_tree as TokenTree
 import limp.types as Types
-import limp.metadata as Metadata
 import sys
 
 
@@ -21,7 +20,7 @@ def evaluate(source_code, environment=None):
 class Repl:
 
     PROMPT = "> "
-    WELCOME_MESSAGE = f"Welcome to LIMP (version {Metadata.VERSION}). You're in a REPL, have fun!\n"
+    WELCOME_MESSAGE = f"Welcome to LIMP! You're in a REPL, have fun!\n"
 
     def __init__(self, input_=input, output=sys.stdout.write):
         self._input = input_
