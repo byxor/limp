@@ -11,5 +11,6 @@ setup(
     author="Brandon Ibbotson",
     author_email="brandon.ibbotson2@mail.dcu.ie",
     url="https://www.github.com/byxor/limp",
-    install_requires=['PyFunctional']
+    install_requires=['PyFunctional'],
+    setup_requires=['PyFunctional']
 )
