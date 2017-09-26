@@ -26,7 +26,7 @@ Boolean             = limp.internal_types.logical.Boolean
 """
 The order of types here is important!
 
-When performing type inferrence, the provided data will
+When performing type inference, the provided data will
 be checked against each type to find a valid match.
 
 The types will be checked in the order they
