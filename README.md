@@ -18,7 +18,8 @@ Install for user: `pip install limp --user`
 ```python
 $ python
 >>> import limp
->>> repl = limp.Repl().start()
+>>> repl = limp.Repl()
+>>> repl.start()
 Welcome to LIMP! You're now in a REPL, have fun.
 > 5
 5
