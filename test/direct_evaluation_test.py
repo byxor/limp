@@ -192,6 +192,31 @@ def test_sequential_evaluators():
         yield assert_equals, expected_value, value
 
 
+def test_sequential_evaluators_raise_an_error_when_not_needed():
+    data = [
+        ['do', '0'],
+        ['do', ['+', '1', '2']],
+        ['do', '"foo"'],
+    ]
+    for contents in data:
+        sequential_evaluator = Types.SequentialEvaluator(contents, Helpers.sample_environment())
+        yield (assert_raises,
+               Errors.UnnecessarySequentialEvaluator,
+               sequential_evaluator.evaluate)
+
+
+def test_sequential_evaluators_return_value_of_last_form():
+    data = [
+        (['do', '1', '2', '3'],  3),
+        (['do', '5', '6', '7'],  7),
+        (['do', '3', '"tayne"'], "tayne"),
+    ]
+    for contents, expected_value in data:
+        sequential_evaluator = Types.SequentialEvaluator(contents, Helpers.sample_environment())
+        value = sequential_evaluator.evaluate()
+        yield assert_equals, expected_value, value
+        
+
 ### Conditionals ###
 
 def test_simple_conditional_statements():

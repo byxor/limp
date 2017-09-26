@@ -26,7 +26,7 @@ def test_evaluating_source_code():
         ('(+ (+ 1 2) 3)', 6),
         ('"Hello!"',      "Hello!"),
         ('(+\n1\t2)',     3),
-        ('(do 1 2 3 4)',  None),
+        ('(do 1 2 3 4)',  4),
         
         ("""(do
              (define a 1)

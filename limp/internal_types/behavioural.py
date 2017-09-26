@@ -112,9 +112,13 @@ class SequentialEvaluator:
         
     def evaluate(self):
         from limp.types import Form
-        for node in self.__contents[1:]:
+        forms = self.__contents[1:]
+        if len(forms) <= 1:
+            raise Errors.UnnecessarySequentialEvaluator()
+        for node in forms:
             form = Form.infer_from(node, self.__environment)
-            form.evaluate()
+            result = form.evaluate()
+        return result
 
 
 class Definition:

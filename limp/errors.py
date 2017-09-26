@@ -25,6 +25,13 @@ class EmptyCode(LimpError):
         super().__init__("There is no code here to run.")
 
 
+class UnnecessarySequentialEvaluator(LimpError):
+    def __init__(self):
+        message = "You have a SequentialEvaluator (do expression) with only 1 form in it.\n"
+        message += "It is not needed."
+        super().__init__(message)
+        
+
 class ExtraClosingParenthesis(LimpError):
     def __init__(self, amount):
         super().__init__(_parentheses_message(amount, "many"))
