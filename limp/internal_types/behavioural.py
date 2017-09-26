@@ -42,13 +42,13 @@ class Invocation:
     def __init__(self, contents, environment):
         self.__contents = contents
         self.__environment = environment
-        self.__name = self.__contents[0]
 
     def is_valid(self):
         return type(self.__contents) == list
         
     def evaluate(self):
-        function = self.__environment.resolve(self.__name)
+        function_node = self.__contents[0]
+        function = self.__to_form(function_node).evaluate()
         argument_nodes = self.__contents[1:]
         arguments = (seq(argument_nodes)
                      .map(self.__to_form)
@@ -125,12 +125,12 @@ class Definition:
         self.__contents = contents
         self.__environment = environment
 
+    def is_valid(self):
+        return self.__contents[0] == Definition.KEYWORD
+        
     def evaluate(self):
         from limp.types import Form
         name = self.__contents[1]
         value = Form.infer_from(self.__contents[2], self.__environment).evaluate()
         self.__environment.define(name, value)
-    
-    def is_valid(self):
-        return self.__contents[0] == Definition.KEYWORD
         

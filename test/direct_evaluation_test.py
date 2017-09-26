@@ -112,6 +112,19 @@ def test_invoking_functions():
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Invocation)
 
 
+def test_invoking_anonymous_functions():
+    data = [
+        ([['function', [], '0']],                                0),
+        ([['function', [], '4']],                                4),
+        ([['function', ['n'], 'n'], '0'],                        0),
+        ([['function', ['n'], 'n'], '9'],                        9),
+        ([['function', ['a', 'b'], ['+', 'a', 'b']], '10', '5'], 15),
+        ([['function', ['a', 'b'], ['+', 'a', 'b']], '20', '0'], 20),
+    ]
+    for contents, expected_value in data:
+        yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Invocation)
+
+
 def test_invoking_functions_with_variables():
     data = [
         (['add', 'x', 'y'],      30),
