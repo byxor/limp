@@ -49,3 +49,4 @@ def _parentheses_message(amount, quantifier):
         message = message.format("is", amount, quantifier)
     else:
         message = message.format("are", amount, quantifier)
+    return message
