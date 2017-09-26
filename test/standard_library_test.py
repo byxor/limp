@@ -1,10 +1,11 @@
 import limp
-import test.helpers as Helpers
 from nose.tools import assert_equals
 
 
 def test_mathematical_functions():
     data = [
+        
+        # Mathematical functions
         ('(+ 1 1)',    2),
         ('(+ 2 3)',    5),
         ('(- 1 1)',    0),
@@ -27,13 +28,8 @@ def test_mathematical_functions():
         ('(% 4 4)',    0),
         ('(% 5 6)',    5),
         ('(% 3 1)',    0),
-    ]
-    for source_code, expected_result in data:
-        yield assert_equals, expected_result, limp.evaluate(source_code)
 
-
-def test_comparison_functions_on_integers():
-    data = [
+        # Comparison functions on integers             
         ('(> 1 0)',      True),
         ('(> 1 1)',      False),
         ('(> 0 1)',      False),
@@ -61,13 +57,8 @@ def test_comparison_functions_on_integers():
         ('(= 9 9)', True),
         ('(= 4 5)', False),
         ('(= 1 1)', True),
-    ]
-    for source_code, expected_result in data:
-        yield assert_equals, expected_result, limp.evaluate(source_code)
 
-
-def test_boolean_functions():
-    data = [
+        # Boolean functions
         ('(not true)',        False),
         ('(not false)',       True),
         ('(not (not true))',  True),
@@ -87,6 +78,16 @@ def test_boolean_functions():
         ('(xor true false)',  True),
         ('(xor false true)',  True),
         ('(xor false false)', False),
+
+        # String functions
+        ('(concatenate "foo" "bar")',      "foobar"),
+        ('(concatenate "hello" " there")', "hello there"),
+        ('(concatenate "a" "b" "c" "d")',  "abcd"),
+        ('(concatenate "x" "y" "z" "?")',  "xyz?"),
+
+        ('(string 123)',  "123"),
+        ('(string 999)',  "999"),
     ]
+    
     for source_code, expected_result in data:
-        yield assert_equals, expected_result, limp.evaluate(source_code)
+        yield (assert_equals, expected_result, limp.evaluate(source_code))
