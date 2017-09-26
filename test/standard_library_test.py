@@ -2,7 +2,7 @@ import limp
 from nose.tools import assert_equals
 
 
-def test_mathematical_functions():
+def test_standard_library():
     data = [
         
         # Mathematical functions
@@ -54,9 +54,17 @@ def test_mathematical_functions():
         ('(<= 100 4321)', True),
         ('(<= -99 -12)',  True),
 
+        # Integer equality function
         ('(= 9 9)', True),
         ('(= 4 5)', False),
         ('(= 1 1)', True),
+
+        # String equality function
+        ('(= "" "")',            True),
+        ('(= "a" "a")',          True),
+        ('(= "ab" "ab")',        True),
+        ('(= "car" "avan")',     False),
+        ('(= "tayne" "mayne")',  False),
 
         # Boolean functions
         ('(not true)',        False),
@@ -87,6 +95,30 @@ def test_mathematical_functions():
 
         ('(string 123)',  "123"),
         ('(string 999)',  "999"),
+        ('(string 0)',    "0"),
+
+        ('(strip " x ")',                "x"),
+        ('(strip " abc ")',              "abc"),
+        ('(strip " x \t\n")',            "x"),
+        ('(strip "hello \n\t\n there")', "hello \n\t\n there"),
+
+        ('(length "")',      0),
+        ('(length "a")',     1),
+        ('(length "ab")',    2),
+        ('(length "abc")',   3),
+        ('(length "tayne")', 5),
+
+        ('(in "" "")',                            True),
+        ('(in "a" "a")',                          True),
+        ('(in "abc" "abcde")',                    True),
+        ('(in "bc" "abcde")',                     True),
+        ('(in "car" "car is red")',               True),
+        ('(in "a" "b")',                          False),
+        ('(in "abacus" "b")',                     False),
+        ('(in "self-respect" "php-programmers")', False),
+
+        # Easter egg definitions
+        ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
     ]
     
     for source_code, expected_result in data:

@@ -55,6 +55,7 @@ def create_standard():
     environment.define_batch_of(_comparison_functions())
     environment.define_batch_of(_boolean_functions())
     environment.define_batch_of(_string_functions())
+    environment.define_batch_of(_easter_egg_symbols())
     return environment
 
 
@@ -93,6 +94,15 @@ def _boolean_functions():
 
 def _string_functions():
     return {
-        'string': str,
-        'concatenate': lambda *args: seq(args).map(str).reduce(operator.add)
+        'string':      str,
+        'concatenate': lambda *args: seq(args).map(str).reduce(operator.add),
+        'strip':       lambda s: s.strip(),
+        'length':      lambda s: len(s),
+        'in':          lambda a, b: a in b,
+    }
+
+
+def _easter_egg_symbols():
+    return {
+        'bizkit': "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!",
     }

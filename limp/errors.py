@@ -4,7 +4,8 @@ class LimpError(Exception):
 
 class UndefinedSymbol(LimpError):
     def __init__(self, name):
-        message = f"The symbol '{name}' cannot be found in the current context.\n"
+        message = "The symbol..."
+        message += f"\n'{name}' cannot be found in the current context.\n"
         message += "* Has it been defined?\n"
         message += "* Is there a typo?\n"
         message += "* Was it defined with a typo?"
