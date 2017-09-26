@@ -66,6 +66,12 @@ def test_standard_library():
         ('(= "car" "avan")',     False),
         ('(= "tayne" "mayne")',  False),
 
+        # Boolean equality function
+        ('(= true false)',  False),
+        ('(= false true)',  False),
+        ('(= true true)',  True),
+        ('(= false false)',  True),
+
         # Boolean functions
         ('(not true)',        False),
         ('(not false)',       True),
