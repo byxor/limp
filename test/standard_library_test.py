@@ -123,6 +123,26 @@ def test_standard_library():
         ('(in "abacus" "b")',                     False),
         ('(in "self-respect" "php-programmers")', False),
 
+        ('(repeat "" 10)',       ""),
+        ('(repeat "a" 5)',       "aaaaa"),
+        ('(repeat "hey " 3)',    "hey hey hey "),
+        ('(repeat "racecar" 3)', "racecarracecarracecar"),
+
+        ('(reverse "")',      ""),
+        ('(reverse "abc")',   "cba"),
+        ('(reverse "lol")',   "lol"),
+        ('(reverse "jesus")', "susej"),
+
+        ('(lowercase "abc")',       "abc"),
+        ('(lowercase "AbC")',       "abc"),
+        ('(lowercase "LIMP 2017")', "limp 2017"),
+        ('(lowercase "Byxor")',     "byxor"),
+
+        ('(uppercase "abc")',       "ABC"),
+        ('(uppercase "AbC")',       "ABC"),
+        ('(uppercase "LIMP 2017")', "LIMP 2017"),
+        ('(uppercase "Byxor")',     "BYXOR"),
+
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
     ]

@@ -99,6 +99,10 @@ def _string_functions():
         'strip':       lambda s: s.strip(),
         'length':      lambda s: len(s),
         'in':          lambda a, b: a in b,
+        'repeat':      lambda s, amount: s * amount,
+        'reverse':     lambda s: s[::-1],
+        'lowercase':   lambda s: s.lower(),
+        'uppercase':   lambda s: s.upper()
     }
 
 
