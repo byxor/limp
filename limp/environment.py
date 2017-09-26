@@ -56,6 +56,7 @@ def create_standard():
     environment.define_batch_of(_boolean_functions())
     environment.define_batch_of(_string_functions())
     environment.define_batch_of(_easter_egg_symbols())
+    environment.define_batch_of(_looping_functions())
     return environment
 
 
@@ -105,6 +106,21 @@ def _string_functions():
         'uppercase':   lambda s: s.upper()
     }
 
+
+def _looping_functions():
+    return {
+        'times': _times,
+        'iterate': _iterate,
+    }
+
+
+def _times(iterations, callback):
+    for _ in range(iterations): callback()
+
+
+def _iterate(iterations, callback):
+    for i in range(iterations): callback(i)
+    
 
 def _easter_egg_symbols():
     return {

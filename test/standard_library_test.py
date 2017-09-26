@@ -1,4 +1,6 @@
 import limp
+import limp.environment as Environment
+from unittest.mock import MagicMock
 from nose.tools import assert_equals
 
 
@@ -149,3 +151,25 @@ def test_standard_library():
     
     for source_code, expected_result in data:
         yield (assert_equals, expected_result, limp.evaluate(source_code))
+
+
+def test_looping_functions():
+    FUNCTION_NAME = 'my_function'
+    ARBITRARY_ITERATION_LIMIT = 100
+
+    # test 'times' function
+    for iterations in range(ARBITRARY_ITERATION_LIMIT):
+        my_function = MagicMock()
+        environment = Environment.create_standard()
+        environment.define(FUNCTION_NAME, my_function)
+        limp.evaluate(f'(times {iterations} {FUNCTION_NAME})', environment)
+        yield assert_equals, iterations, my_function.call_count
+
+
+    # test 'iterate' function
+    my_function = MagicMock()
+    environment = Environment.create_standard()
+    environment.define(FUNCTION_NAME, my_function)
+    limp.evaluate(f'(iterate {ARBITRARY_ITERATION_LIMIT} {FUNCTION_NAME})', environment)
+    for i in range(iterations):
+        yield my_function.assert_any_call, i
