@@ -27,8 +27,11 @@ def test_type_inference():
         (['return10'],          Types.Invocation),
         (['do'],                Types.SequentialEvaluator),
         (['do', 'x', 'y', 'z'], Types.SequentialEvaluator),
-        (['if', 'true', 'x'],   Types.Conditional),
-        (['if', 'false', 'y'],  Types.Conditional),
+        (['if', 'true', 'x'],   Types.SimpleConditional),
+        (['if', 'false', 'y'],  Types.SimpleConditional),
+        
+        (['condition', ['true', '"bar"']],                     Types.ComplexConditional),
+        (['condition', ['false', '"bar"'], ['true', '"baz"']], Types.ComplexConditional),
         
         (['function', [], '0'],                     Types.Function),
         (['function', ['x', 'y'], ['+', 'x', 'y']], Types.Function),

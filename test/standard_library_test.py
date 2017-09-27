@@ -148,7 +148,6 @@ def test_standard_library():
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
     ]
-    
     for source_code, expected_result in data:
         yield (assert_equals, expected_result, limp.evaluate(source_code))
 

@@ -10,7 +10,8 @@ from abc import ABCMeta, abstractmethod
 Types exposed here to ease testing.
 """
 Function            = limp.internal_types.behavioural.Function
-Conditional         = limp.internal_types.behavioural.Conditional
+ComplexConditional  = limp.internal_types.behavioural.ComplexConditional
+SimpleConditional   = limp.internal_types.behavioural.SimpleConditional
 SequentialEvaluator = limp.internal_types.behavioural.SequentialEvaluator
 Definition          = limp.internal_types.behavioural.Definition
 Invocation          = limp.internal_types.behavioural.Invocation
@@ -34,7 +35,8 @@ appear in the list.
 """
 ALL_TYPES = [
     Function,
-    Conditional,
+    SimpleConditional,
+    ComplexConditional,
     SequentialEvaluator,
     Definition,
     Invocation,

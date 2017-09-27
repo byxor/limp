@@ -64,7 +64,7 @@ class Invocation:
 
     
 
-class Conditional:
+class SimpleConditional:
 
     KEYWORD = 'if'
 
@@ -73,7 +73,7 @@ class Conditional:
         self.__environment = environment
 
     def is_valid(self):
-        return self.__contents[0] == Conditional.KEYWORD
+        return self.__contents[0] == SimpleConditional.KEYWORD
 
     def evaluate(self):
         condition = self.__new_form(self.__contents[1])
@@ -97,6 +97,32 @@ class Conditional:
     def __else_form_supplied(self):
         return len(self.__contents) >= 4
 
+
+class ComplexConditional:
+
+    KEYWORD = 'condition'
+    
+    def __init__(self, contents, environment):
+        self.__contents = contents
+        self.__environment = environment
+
+    def is_valid(self):
+        return self.__contents[0] == ComplexConditional.KEYWORD
+
+    def evaluate(self):
+        result_form = NullOperation()
+        pairs = self.__contents[1:]
+        for pair in pairs:
+            condition = self.__new_form(pair[0])
+            outcome = condition.evaluate()
+            if outcome:
+                result_form = self.__new_form(pair[1])
+                break
+        return result_form.evaluate()
+
+    def __new_form(self, contents):
+        from limp.types import Form
+        return Form.infer_from(contents, self.__environment)
 
 
 class SequentialEvaluator:

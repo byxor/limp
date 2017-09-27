@@ -225,21 +225,33 @@ def test_simple_conditional_statements():
         (['if', 'false', '"yes!"', '"no!"'], "no!"),
         (['if', 'true',  '5'],               5),
         (['if', 'false', '4'],               None),
-    ]
-    for contents, expected_value in data:
-        conditional = Types.Conditional(contents, Helpers.sample_environment())
-        value = conditional.evaluate()
-        yield assert_equals, expected_value, value
 
-        
-def test_complex_conditional_statements():
-    data = [
         (['if', ['>', '10', '0'], 'true'],                True),
         (['if', ['=', '1', '1'],  ['+', '10', '10']],     20),
         (['if', ['=', '1', '0'],  '0', ['-', '10', '5']], 5),
     ]
     for contents, expected_value in data:
-        conditional = Types.Conditional(contents, Helpers.sample_environment())
+        conditional = Types.SimpleConditional(contents, Helpers.sample_environment())
+        value = conditional.evaluate()
+        yield assert_equals, expected_value, value
+
+
+def test_complex_conditional_statements():
+    data = [
+        (['condition', ['true', '0']], 0),
+        (['condition', ['true', '1']], 1),
+        (['condition', ['false', '2']], None),
+        
+        (['condition', ['false', '0'], ['true', '1']], 1),
+
+        (['condition',
+          [['=', '0', '1'], '"NotThisOne"'],
+          [['=', '0', '2'], '"NorThisOne"'],
+          [['=', '0', '0'], ['concatenate', '"This"', '"One"']],
+          [['=', '0', '3'], '"NorNorThisOne"']], "ThisOne")
+    ]
+    for contents, expected_value in data:
+        conditional = Types.ComplexConditional(contents, Helpers.sample_environment())
         value = conditional.evaluate()
         yield assert_equals, expected_value, value
     
