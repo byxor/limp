@@ -5,7 +5,7 @@ setup(
     name="limp",
     packages=find_packages(exclude=['contrib', 'docs', 'test*']),
     license="GPLv3",
-    version="0.4.9",
+    version="0.5.0",
     description="A general purpose programming language",
     author="Brandon Ibbotson",
     author_email="brandon.ibbotson2@mail.dcu.ie",
