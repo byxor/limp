@@ -51,7 +51,10 @@ class Repl:
         try:
             return evaluate(code, self.__environment)
         except Errors.EmptyCode:
-            return ""
+            pass
+        except Exception as e:
+            print(e.args[0], file=sys.stderr)
+        return ""
 
     def __display_result(self, result):
         self._output(f"{result}\n")
