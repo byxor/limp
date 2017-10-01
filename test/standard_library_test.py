@@ -150,6 +150,9 @@ def test_standard_library():
         ('(map (list 1 2 3) (function (n) (+ n 1)))', [2, 3, 4]),
         ('(map (list 10 20) (function (n) (/ n 2)))', [5, 10]),
 
+        ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 0)))', [2, 4]),
+        ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 1)))', [1, 3]),
+
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
     ]

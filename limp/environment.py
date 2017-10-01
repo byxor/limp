@@ -63,7 +63,7 @@ def _string_functions():
         'repeat':      lambda s, amount: s * amount,
         'reverse':     lambda s: s[::-1],
         'lowercase':   lambda s: s.lower(),
-        'uppercase':   lambda s: s.upper()
+        'uppercase':   lambda s: s.upper(),
     }
 
 
@@ -76,7 +76,8 @@ def _looping_functions():
 
 def _list_manipulation_functions():
     return {
-        'map': lambda elements, function: list(map(function, elements))
+        'map':    lambda elements, function: list(map(function, elements)),
+        'filter': lambda elements, function: list(filter(function, elements)),
     }
 
 
