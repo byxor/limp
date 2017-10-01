@@ -6,9 +6,6 @@ from collections import namedtuple
 from enum import Enum
 
 
-_AlgorithmStep = namedtuple('_AlgorithmStep', 'token ready_to_append next_mode')
-
-
 def create_from(source_code):
     if is_empty(source_code.strip()):
         raise Errors.EmptyCode()
@@ -49,12 +46,7 @@ def _pad_parentheses(source_code):
     return padded_source_code
 
 
-def _append_token_if_ready(algorithm_step, tokens):
-    if algorithm_step.ready_to_append:
-        if not is_empty(algorithm_step.token):
-            tokens.append(algorithm_step.token)
-            return _AlgorithmStep('', False, algorithm_step.next_mode)
-    return algorithm_step
+_AlgorithmStep = namedtuple('_AlgorithmStep', 'token ready_to_append next_mode')
 
 
 def _scan_in_normal_mode(character, current_token):
@@ -83,6 +75,15 @@ class _ScanMode(Enum):
     NORMAL = _scan_in_normal_mode 
     STRING = _scan_in_string_mode
 
+
+def _append_token_if_ready(algorithm_step, tokens):
+    if algorithm_step.ready_to_append:
+        if not is_empty(algorithm_step.token):
+            tokens.append(algorithm_step.token)
+            return _AlgorithmStep('', False, algorithm_step.next_mode)
+    return algorithm_step
+
+    
 
 def _assert_structure_is_valid(tokens):
     opening = tokens.count(Parentheses.OPEN)
