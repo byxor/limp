@@ -145,6 +145,11 @@ def test_standard_library():
         ('(uppercase "LIMP 2017")', "LIMP 2017"),
         ('(uppercase "Byxor")',     "BYXOR"),
 
+        # Higher-order functions for lists
+        ('(map (list 1 2 3) (function (n) (* n 2)))', [2, 4, 6]),
+        ('(map (list 1 2 3) (function (n) (+ n 1)))', [2, 3, 4]),
+        ('(map (list 10 20) (function (n) (/ n 2)))', [5, 10]),
+
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
     ]
