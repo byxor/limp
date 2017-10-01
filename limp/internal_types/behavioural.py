@@ -1,10 +1,6 @@
 import limp.errors as Errors
+import limp.internal_types.helpers as Helpers
 from functional import seq
-
-
-class NullOperation:
-    def evaluate(self):
-        return None
 
 
 class Function:
@@ -47,22 +43,10 @@ class Invocation:
         return type(self.__contents) == list
         
     def evaluate(self):
-        function_node = self.__contents[0]
-        function = self.__to_form(function_node).evaluate()
-        argument_nodes = self.__contents[1:]
-        arguments = (seq(argument_nodes)
-                     .map(self.__to_form)
-                     .map(self.__evaluated))
+        function = Helpers.evaluate(self.__contents[0], self.__environment)
+        arguments = Helpers.evaluate_list_of(self.__contents[1:], self.__environment)
         return function(*arguments)
 
-    def __to_form(self, node):
-        from limp.types import Form
-        return Form.infer_from(node, self.__environment)
-
-    def __evaluated(self, form):
-        return form.evaluate()
-
-    
 
 class SimpleConditional:
 
@@ -76,26 +60,19 @@ class SimpleConditional:
         return self.__contents[0] == SimpleConditional.KEYWORD
 
     def evaluate(self):
-        condition = self.__new_form(self.__contents[1])
-        outcome = condition.evaluate()
-        result_form = self.__get_result_form_for(outcome)
-        return result_form.evaluate()
+        outcome = Helpers.evaluate(self.__contents[1], self.__environment)
+        return self.__get_result_for(outcome)
 
-    def __new_form(self, contents):
-        from limp.types import Form
-        return Form.infer_from(contents, self.__environment)
-
-    def __get_result_form_for(self, outcome):
-        form = NullOperation()
+    def __get_result_for(self, outcome):
         if outcome == True:
-            form = self.__new_form(self.__contents[2])
+            return Helpers.evaluate(self.__contents[2], self.__environment)
         elif outcome == False:
             if self.__else_form_supplied():
-                form = self.__new_form(self.__contents[3])
-        return form
+                return Helpers.evaluate(self.__contents[3], self.__environment)
     
     def __else_form_supplied(self):
-        return len(self.__contents) >= 4
+        MINIMUM_NUMBER_OF_CONTENTS = 4
+        return len(self.__contents) >= MINIMUM_NUMBER_OF_CONTENTS
 
 
 class ComplexConditional:
@@ -110,19 +87,11 @@ class ComplexConditional:
         return self.__contents[0] == ComplexConditional.KEYWORD
 
     def evaluate(self):
-        result_form = NullOperation()
         pairs = self.__contents[1:]
         for pair in pairs:
-            condition = self.__new_form(pair[0])
-            outcome = condition.evaluate()
+            outcome = Helpers.evaluate(pair[0], self.__environment)
             if outcome:
-                result_form = self.__new_form(pair[1])
-                break
-        return result_form.evaluate()
-
-    def __new_form(self, contents):
-        from limp.types import Form
-        return Form.infer_from(contents, self.__environment)
+                return Helpers.evaluate(pair[1], self.__environment)
 
 
 class SequentialEvaluator:
@@ -137,13 +106,11 @@ class SequentialEvaluator:
         return self.__contents[0] == SequentialEvaluator.KEYWORD
         
     def evaluate(self):
-        from limp.types import Form
-        forms = self.__contents[1:]
-        if len(forms) <= 1:
+        nodes = self.__contents[1:]
+        if len(nodes) <= 1:
             raise Errors.UnnecessarySequentialEvaluator()
-        for node in forms:
-            form = Form.infer_from(node, self.__environment)
-            result = form.evaluate()
+        for node in nodes:
+            result = Helpers.evaluate(node, self.__environment)
         return result
 
 
@@ -161,6 +128,6 @@ class Definition:
     def evaluate(self):
         from limp.types import Form
         name = self.__contents[1]
-        value = Form.infer_from(self.__contents[2], self.__environment).evaluate()
+        value = Helpers.evaluate(self.__contents[2], self.__environment)
         self.__environment.define(name, value)
         

@@ -1,4 +1,5 @@
 import limp.errors as Errors
+import limp.internal_types.helpers as Helpers
 from functional import seq
 
 
@@ -8,12 +9,12 @@ class Symbol:
         self.__name = contents
         self.__environment = environment
 
-    def evaluate(self):
-        return self.__environment.resolve(self.__name)
-
     def is_valid(self):
         contents = self.__name
         return type(contents) == str
+        
+    def evaluate(self):
+        return self.__environment.resolve(self.__name)
 
 
 class String:
@@ -29,7 +30,8 @@ class String:
         self.__has_correct_delimiter_count()
 
     def evaluate(self):
-        return self.__contents[1:-1]
+        string = self.__contents[1:-1]
+        return string
 
     def __is_long_enough(self):
         return len(self.__contents) >= 2
@@ -56,13 +58,4 @@ class List:
 
     def evaluate(self):
         nodes = self.__contents[1:]
-        return (seq(nodes)
-                .map(self.__to_form)
-                .map(self.__evaluated))
-
-    def __to_form(self, node):
-        from limp.types import Form
-        return Form.infer_from(node, self.__environment)
-
-    def __evaluated(self, form):
-        return form.evaluate()
+        return Helpers.evaluate_list_of(nodes, self.__environment)
