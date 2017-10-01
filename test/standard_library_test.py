@@ -152,6 +152,7 @@ def test_standard_library():
 
         ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 0)))', [2, 4]),
         ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 1)))', [1, 3]),
+        ('(filter (list 1 1 1 0) (function (n) (= n 1)))',       [1, 1, 1]),
 
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
