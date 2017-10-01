@@ -82,7 +82,6 @@ def _append_token_if_ready(algorithm_step, tokens):
             tokens.append(algorithm_step.token)
             return _AlgorithmStep('', False, algorithm_step.next_mode)
     return algorithm_step
-
     
 
 def _assert_structure_is_valid(tokens):

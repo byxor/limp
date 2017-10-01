@@ -17,6 +17,7 @@ Definition          = limp.internal_types.behavioural.Definition
 Invocation          = limp.internal_types.behavioural.Invocation
 Symbol              = limp.internal_types.standard.Symbol
 String              = limp.internal_types.standard.String
+List                = limp.internal_types.standard.List
 Integer             = limp.internal_types.numeric.Integer
 Hexadecimal         = limp.internal_types.numeric.Hexadecimal
 Binary              = limp.internal_types.numeric.Binary
@@ -34,6 +35,7 @@ The types will be checked in the order they
 appear in the list.
 """
 ALL_TYPES = [
+    List,
     Function,
     SimpleConditional,
     ComplexConditional,

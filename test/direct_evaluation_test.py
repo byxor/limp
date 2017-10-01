@@ -293,3 +293,14 @@ def test_functions_with_arguments():
         internal_function = function.evaluate()
         yield assert_equals, expected_value, internal_function(*arguments)
     
+
+### Lists ###
+
+def test_lists():
+    data = [
+        (['list', '1', '2', '3'],       [1, 2, 3]),
+        (['list', '"celery"', '"man"'], ["celery", "man"]),
+    ]
+    for contents, expected_value in data:
+        list_ = Types.List(contents, Environment.create_standard())
+        yield assert_equals, expected_value, list_.evaluate()

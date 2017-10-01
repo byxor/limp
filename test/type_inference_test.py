@@ -35,6 +35,9 @@ def test_type_inference():
         
         (['function', [], '0'],                     Types.Function),
         (['function', ['x', 'y'], ['+', 'x', 'y']], Types.Function),
+
+        (['list', 'x', 'y', 'z'], Types.List),
+        (['list', '100', '200'],  Types.List),
     ]
     for contents, expected_type in data:
         form = Types.Form.infer_from(contents, Helpers.sample_environment())

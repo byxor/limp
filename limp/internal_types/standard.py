@@ -1,4 +1,5 @@
 import limp.errors as Errors
+from functional import seq
 
 
 class Symbol:
@@ -40,3 +41,28 @@ class String:
 
     def __has_correct_delimiter_count(self):
         return True
+
+
+class List:
+
+    KEYWORD = 'list'
+    
+    def __init__(self, contents, environment):
+        self.__contents = contents
+        self.__environment = environment
+
+    def is_valid(self):
+        return self.__contents[0] == List.KEYWORD
+
+    def evaluate(self):
+        nodes = self.__contents[1:]
+        return (seq(nodes)
+                .map(self.__to_form)
+                .map(self.__evaluated))
+
+    def __to_form(self, node):
+        from limp.types import Form
+        return Form.infer_from(node, self.__environment)
+
+    def __evaluated(self, form):
+        return form.evaluate()
