@@ -4,3 +4,7 @@ def evaluates_safely(form):
         return True
     except:
         return False
+
+
+def is_empty(string):
+    return string == ""
