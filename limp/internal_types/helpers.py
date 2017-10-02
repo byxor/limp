@@ -7,7 +7,7 @@ def evaluate(node, environment):
 
 def evaluate_list_of(nodes, environment):
     _to_form_ = lambda node: _to_form(node, environment)
-    return (seq(nodes)
+    return list(seq(nodes)
             .map(_to_form_)
             .map(_evaluated))
 

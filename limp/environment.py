@@ -10,13 +10,19 @@ def create_empty():
 
 def create_standard():
     environment = _Environment()
-    environment.define_batch_of(_mathematical_functions())
-    environment.define_batch_of(_comparison_functions())
-    environment.define_batch_of(_boolean_functions())
-    environment.define_batch_of(_string_functions())
-    environment.define_batch_of(_easter_egg_symbols())
-    environment.define_batch_of(_looping_functions())
-    environment.define_batch_of(_list_manipulation_functions())
+    modules = [
+        _mathematical_functions,
+        _comparison_functions,
+        _boolean_functions,
+        _string_functions,
+        _easter_egg_symbols,
+        _looping_functions,
+        _list_functions,
+        _shared_functions,
+    ]
+    for module in modules:
+        symbols = module()
+        environment.define_batch_of(symbols)
     return environment
 
 
@@ -55,8 +61,7 @@ def _boolean_functions():
 
 def _string_functions():
     return {
-        'string':      str,
-        'concatenate': lambda *args: seq(args).map(str).reduce(operator.add),
+        'string':      str, 
         'strip':       lambda s: s.strip(),
         'length':      lambda s: len(s),
         'in':          lambda a, b: a in b,
@@ -74,20 +79,56 @@ def _looping_functions():
     }
 
 
-def _list_manipulation_functions():
-    return {
-        'map':    lambda elements, function: list(map(function, elements)),
-        'filter': lambda elements, function: list(filter(function, elements)),
-    }
-
-
 def _times(iterations, callback):
     for _ in range(iterations): callback()
 
 
 def _iterate(iterations, callback):
     for i in range(iterations): callback(i)
+
     
+def _list_functions():
+    return {
+        'map':           lambda elements, function: list(map(function, elements)),
+        'filter':        lambda elements, function: list(filter(function, elements)),
+        'element':       lambda elements, index: elements[index],
+        'append':        _append,
+        'first':         lambda elements: elements[0],
+        'last':          lambda elements: elements[-1],
+        'all-but-first': lambda elements: elements[1:],
+        'all-but-last':  lambda elements: elements[:-1],
+    }
+
+
+def _append(elements, element):
+    elements.append(element)
+    return elements
+
+
+def _shared_functions():
+    return {
+        'concatenate': _concatenate,
+    }
+
+
+def _concatenate(*args):
+    first = args[0]
+    second = args[1]
+    rest = args[1:]
+    count = len(args)
+    if type(first) == list:
+        concatenated = first
+        if count <= 2:
+            for arg in second:
+                concatenated.append(arg)
+        else:
+            for arg in rest:
+                concatenated.append(arg)
+        return concatenated
+    else:
+        return seq(args).map(str).reduce(operator.add)
+        
+
 
 def _easter_egg_symbols():
     return {

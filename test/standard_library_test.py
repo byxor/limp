@@ -145,7 +145,7 @@ def test_standard_library():
         ('(uppercase "LIMP 2017")', "LIMP 2017"),
         ('(uppercase "Byxor")',     "BYXOR"),
 
-        # Higher-order functions for lists
+        # List functions
         ('(map (list 1 2 3) (function (n) (* n 2)))', [2, 4, 6]),
         ('(map (list 1 2 3) (function (n) (+ n 1)))', [2, 3, 4]),
         ('(map (list 10 20) (function (n) (/ n 2)))', [5, 10]),
@@ -153,6 +153,36 @@ def test_standard_library():
         ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 0)))', [2, 4]),
         ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 1)))', [1, 3]),
         ('(filter (list 1 1 1 0) (function (n) (= n 1)))',       [1, 1, 1]),
+
+        ('(element (list 0 1 2) 0)',       0),
+        ('(element (list 0 1 2) 1)',       1),
+        ('(element (list 0 1 2) 2)',       2),
+        ('(element (list "foo" "bar") 0)', "foo"),
+        ('(element (list "foo" "bar") 1)', "bar"),
+
+        ('(append (list) 1)',                 [1]),
+        ('(append (list "foo") 2)',           ["foo", 2]),
+        ('(append (list "foo" "bar") "baz")', ["foo", "bar", "baz"]),
+
+        ('(concatenate (list 0 1) (list 2 3))',  [0, 1, 2, 3]),
+        ('(concatenate (list 0 1) 2 3 4 5 6 7)', [0, 1, 2, 3, 4, 5, 6, 7]),
+        ('(concatenate (list true) false true)', [True, False, True]),
+        
+        ('(first (list "barry" "the" "blender"))', "barry"),
+        ('(first (list "lazy" "game" "reviews"))', "lazy"),
+        ('(first (list 8 "bit" "guy"))',           8),
+
+        ('(last (list "barry" "the" "blender"))', "blender"),
+        ('(last (list "lazy" "game" "reviews"))', "reviews"),
+        ('(last (list 8 "bit" "guy"))',           "guy"),
+
+        ('(all-but-first (list 1 2 3))', [2, 3]),
+        ('(all-but-first (list 3 4 5))', [4, 5]),
+        ('(all-but-first (list 5 6 7))', [6, 7]),
+
+        ('(all-but-last (list 1 2 3))', [1, 2]),
+        ('(all-but-last (list 3 4 5))', [3, 4]),
+        ('(all-but-last (list 5 6 7))', [5, 6]),
 
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
