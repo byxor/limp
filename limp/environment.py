@@ -18,6 +18,7 @@ def create_standard():
         _easter_egg_symbols,
         _looping_functions,
         _list_functions,
+        _conversion_functions,
         _shared_functions,
     ]
     for module in modules:
@@ -61,7 +62,6 @@ def _boolean_functions():
 
 def _string_functions():
     return {
-        'string':      str, 
         'strip':       lambda s: s.strip(),
         'length':      lambda s: len(s),
         'in':          lambda a, b: a in b,
@@ -127,7 +127,16 @@ def _concatenate(*args):
         return concatenated
     else:
         return seq(args).map(str).reduce(operator.add)
-        
+
+
+def _conversion_functions():
+    return {
+        'integer': int,
+        'string':  str,
+        'float':   float,
+        'boolean': lambda b: b == "true"
+    }
+    
 
 
 def _easter_egg_symbols():

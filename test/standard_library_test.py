@@ -101,10 +101,6 @@ def test_standard_library():
         ('(concatenate "a" "b" "c" "d")',  "abcd"),
         ('(concatenate "x" "y" "z" "?")',  "xyz?"),
 
-        ('(string 123)',  "123"),
-        ('(string 999)',  "999"),
-        ('(string 0)',    "0"),
-
         ('(strip " x ")',                "x"),
         ('(strip " abc ")',              "abc"),
         ('(strip " x \t\n")',            "x"),
@@ -183,6 +179,20 @@ def test_standard_library():
         ('(all-but-last (list 1 2 3))', [1, 2]),
         ('(all-but-last (list 3 4 5))', [3, 4]),
         ('(all-but-last (list 5 6 7))', [5, 6]),
+
+        # Conversion functions
+        ('(string 123)', "123"),
+        ('(string 999)', "999"),
+        ('(string 0)',   "0"),
+
+        ('(integer "32")', 32),
+        ('(integer "-1")', -1),
+
+        ('(float "4.2")',  4.2),
+        ('(float "97.4")', 97.4),
+
+        ('(boolean "false")', False),
+        ('(boolean "true")',  True),
 
         # Easter egg definitions
         ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
