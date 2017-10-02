@@ -155,6 +155,10 @@ def test_standard_library():
         ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 1)))', [1, 3]),
         ('(filter (list 1 1 1 0) (function (n) (= n 1)))',       [1, 1, 1]),
 
+        ('(reduce (list 1 2 3 4) +)', 10),
+        ('(reduce (list 1 2 3 4) -)', -8),
+        ('(reduce (list 9 10 11) +)', 30),
+
         ('(element (list 0 1 2) 0)',       0),
         ('(element (list 0 1 2) 1)',       1),
         ('(element (list 0 1 2) 2)',       2),

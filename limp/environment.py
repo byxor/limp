@@ -1,3 +1,4 @@
+import functools
 import limp.errors as Errors
 import operator
 import math
@@ -91,6 +92,7 @@ def _list_functions():
     return {
         'map':           lambda elements, function: list(map(function, elements)),
         'filter':        lambda elements, function: list(filter(function, elements)),
+        'reduce':        lambda elements, function: seq(elements).reduce(function),
         'element':       lambda elements, index: elements[index],
         'append':        _append,
         'first':         lambda elements: elements[0],
