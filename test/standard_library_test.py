@@ -6,6 +6,8 @@ from nose.tools import assert_equals
 
 def test_standard_library():
     data = [
+        # Easter egg definitions
+        ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
         
         # Mathematical functions
         ('(+ 1 1)',     2),
@@ -203,8 +205,16 @@ def test_standard_library():
         ('(boolean "false")', False),
         ('(boolean "true")',  True),
 
-        # Easter egg definitions
-        ('bizkit', "Keep ROLLIN ROLLIN ROLLIN ROLLIN whaaat!"),
+        # Chain function
+        ("""(chain 0
+              (function (n) (+ n 10))
+              (function (n) (// n 2))
+              string)""", "5"),
+
+        ("""(chain (list 1 2 3 4 5 6 7 8 9 10)
+              (function (numbers) (map numbers (function (n) (* n 2))))
+              (function (numbers) (filter numbers (function (n) (= (% n 4) 0)))))
+              """, [4, 8, 12, 16, 20]),
     ]
     for source_code, expected_result in data:
         yield (assert_equals, expected_result, limp.evaluate(source_code))

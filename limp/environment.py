@@ -21,6 +21,7 @@ def create_standard():
         _list_functions,
         _conversion_functions,
         _shared_functions,
+        _functional_functions
     ]
     for module in modules:
         symbols = module()
@@ -138,7 +139,19 @@ def _conversion_functions():
         'float':   float,
         'boolean': lambda b: b == "true"
     }
-    
+
+
+def _functional_functions():
+    return {
+        'chain': _chain,
+    }
+
+
+def _chain(input_, *functions):
+    output = input_
+    for function in functions:
+        output = function(output)
+    return output
 
 
 def _easter_egg_symbols():
