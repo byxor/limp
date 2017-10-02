@@ -29,11 +29,11 @@ def create_standard():
 
 def _mathematical_functions():
     return {
-        '+':    operator.add,
-        '-':    operator.sub,
-        '*':    operator.mul,
-        '/':    operator.truediv,
-        '//':   operator.floordiv,
+        '+':    lambda *args: seq(args).reduce(operator.add),
+        '-':    lambda *args: seq(args).reduce(operator.sub),
+        '*':    lambda *args: seq(args).reduce(operator.mul),
+        '/':    lambda *args: seq(args).reduce(operator.truediv),
+        '//':   lambda *args: seq(args).reduce(operator.floordiv),
         '**':   operator.pow,
         '%':    operator.mod,
         'sqrt': math.sqrt,
