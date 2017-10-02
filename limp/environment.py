@@ -71,6 +71,8 @@ def _string_functions():
         'reverse':     lambda s: s[::-1],
         'lowercase':   lambda s: s.lower(),
         'uppercase':   lambda s: s.upper(),
+        'split':       lambda delimiter, string: string.split(delimiter),
+        'join-string': lambda separator, list_: separator.join(list_),
     }
 
 

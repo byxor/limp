@@ -148,6 +148,15 @@ def test_standard_library():
         ('(uppercase "LIMP 2017")', "LIMP 2017"),
         ('(uppercase "Byxor")',     "BYXOR"),
 
+        ('(split " " "a b c")',             ['a', 'b', 'c']),
+        ('(split " " "ruby   81")',         ['ruby', '', '', '81']),
+        ('(split ", " "test, 1, 2, 3")',    ['test', '1', '2', '3']),
+        ('(split ", " "cars, the, movie")', ['cars', 'the', 'movie']),
+
+        ('(join-string " " (list "1" "2" "3"))',        "1 2 3"),
+        ('(join-string " " (list "4" "5" "6"))',        "4 5 6"),
+        ('(join-string "_::_" (list "tayne" "brain"))', "tayne_::_brain"),
+
         # List functions
         ('(map (function (n) (* n 2)) (list 1 2 3))', [2, 4, 6]),
         ('(map (function (n) (+ n 1)) (list 1 2 3))', [2, 3, 4]),
@@ -221,9 +230,11 @@ def test_standard_library():
         ("""
           (chain (list 1 2 3 4 5 6 7 8 9 10)
             (curry map    (function (n) (* n 2)))
-            (curry filter (function (n) (= (% n 4) 0))))
-         """,
-         [4, 8, 12, 16, 20]),
+            (curry map    (function (n) (+ n 1)))
+            (curry map    (function (n) (- n 1)))
+            (curry filter (function (n) (= (% n 4) 0)))
+            (curry reduce +))
+         """, 60),
 
     ]
     for source_code, expected_result in data:
