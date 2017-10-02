@@ -91,9 +91,9 @@ def _iterate(iterations, callback):
     
 def _list_functions():
     return {
-        'map':           lambda elements, function: list(map(function, elements)),
-        'filter':        lambda elements, function: list(filter(function, elements)),
-        'reduce':        lambda elements, function: seq(elements).reduce(function),
+        'map':           lambda function, elements: seq(elements).map(function),
+        'filter':        lambda function, elements: seq(elements).filter(function),
+        'reduce':        lambda function, elements: seq(elements).reduce(function),
         'element':       lambda elements, index: elements[index],
         'append':        _append,
         'first':         lambda elements: elements[0],
@@ -144,6 +144,7 @@ def _conversion_functions():
 def _functional_functions():
     return {
         'chain': _chain,
+        'curry': _curry,
     }
 
 
@@ -152,6 +153,10 @@ def _chain(input_, *functions):
     for function in functions:
         output = function(output)
     return output
+
+
+def _curry(function, *early_arguments):
+    return lambda *late_arguments: function(*early_arguments, *late_arguments)
 
 
 def _easter_egg_symbols():

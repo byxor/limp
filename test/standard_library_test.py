@@ -149,17 +149,17 @@ def test_standard_library():
         ('(uppercase "Byxor")',     "BYXOR"),
 
         # List functions
-        ('(map (list 1 2 3) (function (n) (* n 2)))', [2, 4, 6]),
-        ('(map (list 1 2 3) (function (n) (+ n 1)))', [2, 3, 4]),
-        ('(map (list 10 20) (function (n) (/ n 2)))', [5, 10]),
+        ('(map (function (n) (* n 2)) (list 1 2 3))', [2, 4, 6]),
+        ('(map (function (n) (+ n 1)) (list 1 2 3))', [2, 3, 4]),
+        ('(map (function (n) (/ n 2)) (list 10 20))', [5, 10]),
 
-        ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 0)))', [2, 4]),
-        ('(filter (list 1 2 3 4) (function (n) (= (% n 2) 1)))', [1, 3]),
-        ('(filter (list 1 1 1 0) (function (n) (= n 1)))',       [1, 1, 1]),
+        ('(filter (function (n) (= (% n 2) 0)) (list 1 2 3 4))', [2, 4]),
+        ('(filter (function (n) (= (% n 2) 1)) (list 1 2 3 4))', [1, 3]),
+        ('(filter (function (n) (= n 1)) (list 1 1 1 0))',       [1, 1, 1]),
 
-        ('(reduce (list 1 2 3 4) +)', 10),
-        ('(reduce (list 1 2 3 4) -)', -8),
-        ('(reduce (list 9 10 11) +)', 30),
+        ('(reduce + (list 1 2 3 4))', 10),
+        ('(reduce - (list 1 2 3 4))', -8),
+        ('(reduce + (list 9 10 11))', 30),
 
         ('(element (list 0 1 2) 0)',       0),
         ('(element (list 0 1 2) 1)',       1),
@@ -205,16 +205,26 @@ def test_standard_library():
         ('(boolean "false")', False),
         ('(boolean "true")',  True),
 
+        # Curry function
+        ('((curry + 10) 20)',     30),
+        ('((curry + 10 1 2) 20)', 33),
+        
+        ('((curry map (function (n) (* n 2))) (list 1 2 3))', [2, 4, 6]),
+        ('((curry filter (function (n) (= n 1))) (list 1 2 3))', [1]),
+        
         # Chain function
         ("""(chain 0
               (function (n) (+ n 10))
               (function (n) (// n 2))
               string)""", "5"),
 
-        ("""(chain (list 1 2 3 4 5 6 7 8 9 10)
-              (function (numbers) (map numbers (function (n) (* n 2))))
-              (function (numbers) (filter numbers (function (n) (= (% n 4) 0)))))
-              """, [4, 8, 12, 16, 20]),
+        ("""
+          (chain (list 1 2 3 4 5 6 7 8 9 10)
+            (curry map    (function (n) (* n 2)))
+            (curry filter (function (n) (= (% n 4) 0))))
+         """,
+         [4, 8, 12, 16, 20]),
+
     ]
     for source_code, expected_result in data:
         yield (assert_equals, expected_result, limp.evaluate(source_code))
