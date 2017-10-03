@@ -40,7 +40,22 @@ def _mathematical_functions():
         '%':    operator.mod,
         'sqrt': math.sqrt,
         '!':    math.factorial,
+
+        'divisor?': _divisor,
+        'even?':    _even,
+        'odd?':     _odd,
     }
+
+
+def _divisor(potential_divisor, number):
+    return number % potential_divisor == 0
+
+
+def _even(number): return _divisor(2, number)
+
+
+def _odd(number): return not _even(number)
+    
 
 
 def _comparison_functions():
@@ -66,7 +81,8 @@ def _string_functions():
     return {
         'strip':       lambda s: s.strip(),
         'length':      lambda s: len(s),
-        'in':          lambda a, b: a in b,
+        'empty?':      lambda s: len(s) == 0, 
+        'in?':         lambda a, b: a in b,
         'repeat':      lambda s, amount: s * amount,
         'reverse':     lambda s: s[::-1],
         'lowercase':   lambda s: s.lower(),
@@ -194,15 +210,3 @@ class _Environment:
     def new_child(self):
         return _Environment(self)
         
-    def __str__(self):
-        BORDER_WIDTH = 32
-        BORDER_CHARACTER = '-'
-        NEW_LINE = '\n'
-        BORDER = (BORDER_CHARACTER * BORDER_WIDTH) + NEW_LINE
-        s = BORDER
-        for name, value in self.__symbols.items():
-            s += f'{name}: {value}{NEW_LINE}'
-        if self.__parent is not None:
-            s += str(self.__parent)
-        s += BORDER
-        return s

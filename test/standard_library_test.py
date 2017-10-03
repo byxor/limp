@@ -37,6 +37,26 @@ def test_standard_library():
         ('(% 4 4)',     0),
         ('(% 5 6)',     5),
         ('(% 3 1)',     0),
+        
+        ('(divisor? 3 9)',   True),
+        ('(divisor? 3 99)',  True),
+        ('(divisor? 2 44)',  True),
+        ('(divisor? 2 45)',  False),
+        ('(divisor? 44 45)', False),
+
+        ('(even? 0)', True),
+        ('(even? 1)', False),
+        ('(even? 2)', True),
+        ('(even? 3)', False),
+        ('(even? 4)', True),
+        ('(even? 5)', False),
+
+        ('(odd? 0)', False),
+        ('(odd? 1)', True),
+        ('(odd? 2)', False),
+        ('(odd? 3)', True),
+        ('(odd? 4)', False),
+        ('(odd? 5)', True),
 
         # Comparison functions on integers             
         ('(> 1 0)',      True),
@@ -119,14 +139,18 @@ def test_standard_library():
         ('(length "abc")',   3),
         ('(length "tayne")', 5),
 
-        ('(in "" "")',                            True),
-        ('(in "a" "a")',                          True),
-        ('(in "abc" "abcde")',                    True),
-        ('(in "bc" "abcde")',                     True),
-        ('(in "car" "car is red")',               True),
-        ('(in "a" "b")',                          False),
-        ('(in "abacus" "b")',                     False),
-        ('(in "self-respect" "php-programmers")', False),
+        ('(in? "" "")',                            True),
+        ('(in? "a" "a")',                          True),
+        ('(in? "abc" "abcde")',                    True),
+        ('(in? "bc" "abcde")',                     True),
+        ('(in? "car" "car is red")',               True),
+        ('(in? "a" "b")',                          False),
+        ('(in? "abacus" "b")',                     False),
+        ('(in? "self-respect" "php-programmers")', False),
+
+        ('(empty? "")',       True),
+        ('(empty? ".")',      False),
+        ('(empty? "hello!")', False),
 
         ('(repeat "" 10)',       ""),
         ('(repeat "a" 5)',       "aaaaa"),
