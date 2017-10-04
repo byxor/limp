@@ -1,7 +1,7 @@
 import limp.environment as Environment
 import limp.errors as Errors
 import limp.types as Types
-import test.helpers as Helpers
+import tests.helpers as Helpers
 from copy import copy
 from nose.tools import *
 

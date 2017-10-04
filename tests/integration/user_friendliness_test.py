@@ -1,7 +1,7 @@
 import functools
 import limp
 import limp.environment as Environment
-import test.helpers as Helpers
+import tests.helpers as Helpers
 from nose.tools import assert_equals, assert_raises
 
 

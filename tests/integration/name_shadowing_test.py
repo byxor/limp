@@ -3,7 +3,7 @@ import limp.environment as Environment
 from nose.tools import assert_equal
 
 
-def test_name_shadowing_is_handled_for_function_parameters():
+def test_function_parameters_can_shadow_globally_defined_variables():
     variable_name = 'n'
     original_value = 0
     function_name = "number"
