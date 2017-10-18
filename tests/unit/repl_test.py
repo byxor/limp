@@ -8,7 +8,8 @@ from tests.syntax import *
 
 ARBITRARY_NUMBER_OF_TICKS = 10
 EXPECTED_OUTPUT_CALLS_PER_TICK = 2
-EXPECTED_PROMPT = "> "
+EXPECTED_PROMPT = limp.Repl.PROMPT
+
 
 INPUT = 'input'
 OUTPUT = 'output'
