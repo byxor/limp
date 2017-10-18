@@ -37,3 +37,15 @@ def assert_form_evaluates_to(expected_value, contents, _type):
 def run_evaluation_test_on(data):
     for source_code, expected_result in data:
         assert_equal(expected_result, limp.evaluate(source_code))
+
+
+def test_chain(*functions):
+    EMPTY_STATE = dict()
+    return _chain(EMPTY_STATE, *functions)
+
+
+def _chain(input_, *functions):
+    lastOutput = input_
+    for function in functions:
+        lastOutput = function(lastOutput)
+    return lastOutput

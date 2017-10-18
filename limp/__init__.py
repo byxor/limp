@@ -22,7 +22,7 @@ class Repl:
     PROMPT = "> "
     WELCOME_MESSAGE = f"Welcome to LIMP! You're in a REPL, have fun!\n"
 
-    def __init__(self, input_=input, output=sys.stdout.write):
+    def __init__(self, input_=sys.stdin.readline, output=sys.stdout.write):
         self._input = input_
         self._output = output
         self.__displayed_welcome = False
