@@ -1,25 +1,37 @@
 import limp
 import limp.environment as Environment
 from nose.tools import assert_equal
+from tests.syntax import *
+
+
+MAP_FUNCTION = function(['n'], invoke('+', 'n', integer(1)))
+FILTER_FUNCTION = function(['x'], invoke('=', 'x', integer(1)))
+REDUCE_FUNCTION = function(['a', 'b'], invoke('+', 'a', 'b'))
 
 
 def test_lists_are_immutable():
-    LIST_NAME = 'my-list'
+    LIST = 'my-list'
     LIST_VALUE = [1, 2, 3]
 
     environment = Environment.create_standard()
-    environment.define(LIST_NAME, LIST_VALUE)
-    
-    run = lambda source_code: limp.evaluate(source_code, environment)
+    environment.define(LIST, LIST_VALUE)
 
-    run(f'(append {LIST_NAME} 1)')
-    run(f'(concatenate {LIST_NAME} (list 1 2 3))')
-    run(f'(map (function (n) (+ n 1)) {LIST_NAME})')
-    run(f'(filter (function (x) (= x 1)) {LIST_NAME})')
-    run(f'(reduce (function (a b) (+ a b)) {LIST_NAME})')
-    run(f'(first {LIST_NAME})')
-    run(f'(last {LIST_NAME})')
-    run(f'(all-but-first {LIST_NAME})')
-    run(f'(all-but-last {LIST_NAME})')
+    invocations = [
+        invoke('append', LIST, integer(1)),
+        invoke('concatenate', LIST, list_of(string("foo"), string("bar"))),
+        invoke('map', MAP_FUNCTION, LIST),
+        invoke('filter', FILTER_FUNCTION, LIST),
+        invoke('reduce', REDUCE_FUNCTION, LIST),
+        invoke('first', LIST),
+        invoke('last', LIST),
+        invoke('all-but-first', LIST),
+        invoke('all-but-last', LIST),
+        invoke('prepend', LIST, string("foo")),
+    ]
+    for invocation in invocations:
+        print('\nAbout to run...')
+        print(invocation)
+        print(environment.resolve(LIST))
+        limp.evaluate(invocation, environment)
 
-    yield assert_equal, LIST_VALUE, environment.resolve(LIST_NAME)
+    yield assert_equal, LIST_VALUE, environment.resolve(LIST)

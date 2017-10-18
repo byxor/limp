@@ -2,6 +2,7 @@ import limp.environment as Environment
 import limp.errors as Errors
 import limp.types as Types
 import tests.helpers as Helpers
+from tests.syntax import *
 from copy import copy
 from nose.tools import *
 
@@ -10,11 +11,11 @@ from nose.tools import *
 
 def test_decimal_integers():
     data = [
-        ('0',  0),
-        ('10', 10),
-        ('23', 23),
-        ('-4', -4),
-        ('+4', +4),
+        (integer(0),           0),
+        (integer(10),          10),
+        (integer(23),          23),
+        (negative(integer(4)), -4),
+        (positive(integer(4)), +4),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Integer)
@@ -22,12 +23,12 @@ def test_decimal_integers():
 
 def test_hexadecimal_integers():
     data = [
-        ('0x0',       0x0),
-        ('0x123',     0x123),
-        ('0xDEADA55', 0xDEADA55),
-        ('-0x1',      -0x1),
-        ('-0xBEEF',   -0xBEEF),
-        ('+0xB00B5',  +0xB00B5),
+        (hexadecimal(0x0),               0x0),
+        (hexadecimal(0x123),             0x123),
+        (hexadecimal(0xDEADA55),         0xDEADA55),
+        (negative(hexadecimal(0x1)),     -0x1),
+        (negative(hexadecimal(0xBEEF)),  -0xBEEF),
+        (positive(hexadecimal(0xB00B5)), +0xB00B5),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Hexadecimal)
@@ -35,12 +36,12 @@ def test_hexadecimal_integers():
 
 def test_binary_integers():
     data = [
-        ('0b0',    0b0),
-        ('0b1',    0b1),
-        ('0b101',  0b101),
-        ('-0b1',   -0b1),
-        ('-0b111', -0b111),
-        ('+0b10',  +0b10),
+        (binary(0b0),             0b0),
+        (binary(0b1),             0b1),
+        (binary(0b101),           0b101),
+        (negative(binary(0b1)),   -0b1),
+        (negative(binary(0b111)), -0b111),
+        (positive(binary(0b10)),  +0b10),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Binary)
@@ -48,13 +49,13 @@ def test_binary_integers():
 
 def test_floats():
     data = [
-        ('0',          0.0),
-        ('0.5',        0.5),
-        ('2.3',        2.3),
-        ('1.23456789', 1.23456789),
-        ('-2.5',       -2.5),
-        ('-60.12',     -60.12),
-        ('+20.3',      +20.3),
+        (float_(0),               0.0),
+        (float_(0.5),             0.5),
+        (float_(2.3),             2.3),
+        (float_(1.23456789),      1.23456789),
+        (negative(float_(2.5)),   -2.5),
+        (negative(float_(60.12)), -60.12),
+        (positive(float_(20.3)),  +20.3),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Float)
@@ -62,8 +63,8 @@ def test_floats():
 
 def test_booleans():
     data = [
-        ('true',  True),
-        ('false', False),
+        (boolean(True),  True),
+        (boolean(False), False),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Boolean)
@@ -71,9 +72,9 @@ def test_booleans():
         
 def test_strings():
     data = [
-        ('"Hey"',          "Hey"),
-        ('"Hello there!"', "Hello there!"),
-        ('"\n\n\n"',      "\n\n\n"),
+        (string("Hey"),          "Hey"),
+        (string("Hello there!"), "Hello there!"),
+        (string("\n\n\n"),       "\n\n\n"),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.String)
@@ -83,30 +84,37 @@ def test_strings():
         
 def test_accessing_variables():
     data = [
-        ('x',   10),
-        ('y',   20),
-        ('z',   30),
-        ('foo', 100),
+        (symbol('x'),   10),
+        (symbol('y'),   20),
+        (symbol('z'),   30),
+        (symbol('foo'), 100),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Symbol)
 
         
 def test_exception_raised_when_accessing_non_existent_variable():
-    data = ['year', 'boy', 'bones', 'dyliams', 'antichav', 'sesh']
+    data = [
+        symbol('year'),
+        symbol('boy'),
+        symbol('bones'),
+        symbol('dyliams'),
+        symbol('antichav'),
+        symbol('sesh')
+    ]
     for contents in data:
-        symbol = Types.Symbol(contents, Environment.create_empty())
-        yield assert_raises, Errors.UndefinedSymbol, symbol.evaluate
+        symbol_ = Types.Symbol(contents, Environment.create_empty())
+        yield assert_raises, Errors.UndefinedSymbol, symbol_.evaluate
 
 
 ### Invocations ###
         
 def test_invoking_functions():
     data = [
-        (['add', '1', '2'],           3),
-        (['subtract', '10', '5'],     5),
-        (['multiply', '2', '3', '5'], 30),
-        (['return10'],                10),
+        ([symbol('add'), integer(1), integer(2)],                   3),
+        ([symbol('subtract'), integer(10), integer(5)],             5),
+        ([symbol('multiply'), integer(2), integer(3), integer(5)], 30),
+        ([symbol('return10')],                                     10),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Invocation)
@@ -114,12 +122,16 @@ def test_invoking_functions():
 
 def test_invoking_anonymous_functions():
     data = [
-        ([['function', [], '0']],                                0),
-        ([['function', [], '4']],                                4),
-        ([['function', ['n'], 'n'], '0'],                        0),
-        ([['function', ['n'], 'n'], '9'],                        9),
-        ([['function', ['a', 'b'], ['+', 'a', 'b']], '10', '5'], 15),
-        ([['function', ['a', 'b'], ['+', 'a', 'b']], '20', '0'], 20),
+        ([[Types.Function.KEYWORD, [], integer(0)]],                                0),
+        ([[Types.Function.KEYWORD, [], integer(4)]],                                4),
+        ([[Types.Function.KEYWORD, [symbol('n')], symbol('n')], integer(0)],                        0),
+        ([[Types.Function.KEYWORD, [symbol('n')], symbol('n')], integer(9)],                        9),
+        
+        ([[Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]],
+          integer(10), integer(5)], 15),
+
+        ([[Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]],
+          integer(20), integer(0)], 20),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Invocation)
@@ -127,8 +139,8 @@ def test_invoking_anonymous_functions():
 
 def test_invoking_functions_with_variables():
     data = [
-        (['add', 'x', 'y'],      30),
-        (['subtract', 'z', 'x'], 20),
+        ([symbol('add'), symbol('x'), symbol('y')],      30),
+        ([symbol('subtract'), symbol('z'), symbol('x')], 20),
     ]
     for contents, expected_value in data:
         yield Helpers.assert_form_evaluates_to(expected_value, contents, Types.Invocation)
@@ -136,7 +148,7 @@ def test_invoking_functions_with_variables():
         
 def test_exception_raised_when_invoking_non_existent_function():
     data = [
-        (['reset']),
+        ([symbol('reset')]),
     ]
     for contents in data:
         invocation = Types.Invocation(contents, Environment.create_empty())
@@ -147,23 +159,23 @@ def test_exception_raised_when_invoking_non_existent_function():
 
 def test_defining_variables():
     data = [
-        (['define', 'age', '20'], 'age', 20),
-        (['define', 'abc', '52'], 'abc', 52),
+        ([Types.Definition.KEYWORD, symbol('age'), integer(20)], symbol('age'), 20),
+        ([Types.Definition.KEYWORD, symbol('abc'), integer(52)], symbol('abc'), 52),
     ]
     for definition_contents, symbol_contents, expected_value in data:
         environment = Environment.create_empty()
         definition = Types.Definition(definition_contents, environment)
-        symbol = Types.Symbol(symbol_contents, environment)
+        symbol_ = Types.Symbol(symbol_contents, environment)
         definition.evaluate()
-        value = symbol.evaluate()
+        value = symbol_.evaluate()
         yield assert_equals, expected_value, value
 
 
 def test_redefining_variables_raises_an_exception():
-    data = ['foo', 'bar', 'baz']
+    data = [symbol('foo'), symbol('bar'), symbol('baz')]
     for name in data:
-        value = '"does not matter"'
-        definition = Types.Definition(['define', name, value], Environment.create_empty())
+        value = string("does not matter")
+        definition = Types.Definition([Types.Definition.KEYWORD, name, value], Environment.create_empty())
         definition.evaluate()
         yield assert_raises, Errors.RedefinedSymbol, definition.evaluate
 
@@ -174,29 +186,29 @@ def test_sequential_evaluators():
     environment = Helpers.sample_environment()
 
     sequential_evaluator = Types.SequentialEvaluator([
-        'do',
-        ['define', 'one',   '1'],
-        ['define', 'two',   '2'],
-        ['define', 'three', '3'],
+        Types.SequentialEvaluator.KEYWORD,
+        [Types.Definition.KEYWORD, symbol('one'),   integer(1)],
+        [Types.Definition.KEYWORD, symbol('two'),   integer(2)],
+        [Types.Definition.KEYWORD, symbol('three'), integer(3)],
     ], environment)
 
     sequential_evaluator.evaluate()
     
     data = [
-        ('one',   1),
-        ('two',   2),
-        ('three', 3),
+        (symbol('one'),   1),
+        (symbol('two'),   2),
+        (symbol('three'), 3),
     ]
-    for symbol, expected_value in data:
-        value = environment.resolve(symbol)
+    for symbol_, expected_value in data:
+        value = environment.resolve(symbol_)
         yield assert_equals, expected_value, value
 
 
 def test_sequential_evaluators_raise_an_error_when_not_needed():
     data = [
-        ['do', '0'],
-        ['do', ['+', '1', '2']],
-        ['do', '"foo"'],
+        [Types.SequentialEvaluator.KEYWORD, integer(0)],
+        [Types.SequentialEvaluator.KEYWORD, [symbol('+'), integer(1), integer(2)]],
+        [Types.SequentialEvaluator.KEYWORD, string("foo")],
     ]
     for contents in data:
         sequential_evaluator = Types.SequentialEvaluator(contents, Helpers.sample_environment())
@@ -207,9 +219,9 @@ def test_sequential_evaluators_raise_an_error_when_not_needed():
 
 def test_sequential_evaluators_return_value_of_last_form():
     data = [
-        (['do', '1', '2', '3'],  3),
-        (['do', '5', '6', '7'],  7),
-        (['do', '3', '"tayne"'], "tayne"),
+        ([Types.SequentialEvaluator.KEYWORD, integer(1), integer(2), integer(3)],  3),
+        ([Types.SequentialEvaluator.KEYWORD, integer(5), integer(6), integer(7)],  7),
+        ([Types.SequentialEvaluator.KEYWORD, integer(3), string("tayne")],         "tayne"),
     ]
     for contents, expected_value in data:
         sequential_evaluator = Types.SequentialEvaluator(contents, Helpers.sample_environment())
@@ -221,14 +233,22 @@ def test_sequential_evaluators_return_value_of_last_form():
 
 def test_simple_conditional_statements():
     data = [
-        (['if', 'true',  '"yes!"', '"no!"'], "yes!"),
-        (['if', 'false', '"yes!"', '"no!"'], "no!"),
-        (['if', 'true',  '5'],               5),
-        (['if', 'false', '4'],               None),
+        ([Types.SimpleConditional.KEYWORD, boolean(True),  string("yes!"), string("no!")], "yes!"),
+        ([Types.SimpleConditional.KEYWORD, boolean(False), string("yes!"), string("no!")], "no!"),
+        ([Types.SimpleConditional.KEYWORD, boolean(True),  integer(5)],                    5),
+        ([Types.SimpleConditional.KEYWORD, boolean(False), integer(4)],                    None),
 
-        (['if', ['>', '10', '0'], 'true'],                True),
-        (['if', ['=', '1', '1'],  ['+', '10', '10']],     20),
-        (['if', ['=', '1', '0'],  '0', ['-', '10', '5']], 5),
+        ([Types.SimpleConditional.KEYWORD,
+          [symbol('>'), integer(10), integer(0)], boolean(True)],
+         True),
+
+        ([Types.SimpleConditional.KEYWORD,
+          [symbol('='), integer(1), integer(1)],  [symbol('+'), integer(10), integer(10)]],
+         20),
+        
+        ([Types.SimpleConditional.KEYWORD,
+          [symbol('='), integer(1), integer(0)], integer(0), [symbol('-'), integer(10), integer(5)]],
+         5),
     ]
     for contents, expected_value in data:
         conditional = Types.SimpleConditional(contents, Helpers.sample_environment())
@@ -238,17 +258,17 @@ def test_simple_conditional_statements():
 
 def test_complex_conditional_statements():
     data = [
-        (['condition', ['true', '0']], 0),
-        (['condition', ['true', '1']], 1),
-        (['condition', ['false', '2']], None),
+        ([Types.ComplexConditional.KEYWORD, [boolean(True), integer(0)]],  0),
+        ([Types.ComplexConditional.KEYWORD, [boolean(True), integer(1)]],  1),
+        ([Types.ComplexConditional.KEYWORD, [boolean(False), integer(2)]], None),
         
-        (['condition', ['false', '0'], ['true', '1']], 1),
+        ([Types.ComplexConditional.KEYWORD, [boolean(False), integer(0)], [boolean(True), integer(1)]], 1),
 
-        (['condition',
-          [['=', '0', '1'], '"NotThisOne"'],
-          [['=', '0', '2'], '"NorThisOne"'],
-          [['=', '0', '0'], ['concatenate', '"This"', '"One"']],
-          [['=', '0', '3'], '"NorNorThisOne"']], "ThisOne")
+        ([Types.ComplexConditional.KEYWORD,
+          [[symbol('='), integer(0), integer(1)], string("NotThisOne")],
+          [[symbol('='), integer(0), integer(2)], string("NorThisOne")],
+          [[symbol('='), integer(0), integer(0)], [symbol('concatenate'), string("This"), string("One")]],
+          [[symbol('='), integer(0), integer(3)], string("NorNorThisOne")]], "ThisOne")
     ]
     for contents, expected_value in data:
         conditional = Types.ComplexConditional(contents, Helpers.sample_environment())
@@ -260,10 +280,11 @@ def test_complex_conditional_statements():
 
 def test_functions_with_no_arguments():
     data = [
-        (['function', [], '10'],            10),
-        (['function', [], '20'],            20),
-        (['function', [], '0.1'],           0.1),
-        (['function', [], ['+', '1', '2']], 3),
+        ([Types.Function.KEYWORD, [], integer(10)],            10),
+        ([Types.Function.KEYWORD, [], integer(20)],            20),
+        ([Types.Function.KEYWORD, [], float_(0.1)],           0.1),
+        
+        ([Types.Function.KEYWORD, [], [symbol('+'), integer(1), integer(2)]], 3),
     ]
     for contents, expected_value in data:
         function = Types.Function(contents, Environment.create_standard())
@@ -273,20 +294,20 @@ def test_functions_with_no_arguments():
 
 def test_functions_with_arguments():
     data = [
-        (['function', ['x'], 'x'], [10], 10),
-        (['function', ['x'], 'x'], [9],  9),
-        (['function', ['y'], 'y'], [2],  2),
-        (['function', ['y'], 'y'], [1],  1),
+        ([Types.Function.KEYWORD, [symbol('x')], symbol('x')], [10], 10),
+        ([Types.Function.KEYWORD, [symbol('x')], symbol('x')], [9],  9),
+        ([Types.Function.KEYWORD, [symbol('y')], symbol('y')], [2],  2),
+        ([Types.Function.KEYWORD, [symbol('y')], symbol('y')], [1],  1),
 
-        (['function', ['n'], ['**', 'n', '2']], [1], 1),
-        (['function', ['n'], ['**', 'n', '2']], [2], 4),
-        (['function', ['n'], ['**', 'n', '2']], [3], 9),
-        (['function', ['n'], ['**', 'n', '2']], [4], 16),
-        (['function', ['n'], ['**', 'n', '2']], [5], 25),
+        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [1], 1),
+        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [2], 4),
+        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [3], 9),
+        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [4], 16),
+        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [5], 25),
 
-        (['function', ['a', 'b'], ['+', 'a', 'b']], [0, 0], 0),
-        (['function', ['a', 'b'], ['+', 'a', 'b']], [0, 1], 1),
-        (['function', ['a', 'b'], ['+', 'a', 'b']], [5, 3], 8),
+        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]], [0, 0], 0),
+        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]], [0, 1], 1),
+        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]], [5, 3], 8),
     ]
     for contents, arguments, expected_value in data:
         function = Types.Function(contents, Environment.create_standard())
@@ -298,8 +319,8 @@ def test_functions_with_arguments():
 
 def test_lists():
     data = [
-        (['list', '1', '2', '3'],       [1, 2, 3]),
-        (['list', '"celery"', '"man"'], ["celery", "man"]),
+        ([Types.List.KEYWORD, integer(1), integer(2), integer(3)], [1, 2, 3]),
+        ([Types.List.KEYWORD, string("celery"), string("man")],    ["celery", "man"]),
     ]
     for contents, expected_value in data:
         list_ = Types.List(contents, Environment.create_standard())

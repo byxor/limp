@@ -114,6 +114,7 @@ def _list_functions():
         'reduce':        lambda function, elements: seq(elements).reduce(function),
         'element':       lambda elements, index: elements[index],
         'append':        _append,
+        'prepend':       _prepend,
         'first':         lambda elements: elements[0],
         'last':          lambda elements: elements[-1],
         'all-but-first': lambda elements: elements[1:],
@@ -122,8 +123,13 @@ def _list_functions():
 
 
 def _append(elements, element):
-    elements.append(element)
-    return elements
+    copy = elements[::]
+    copy.append(element)
+    return copy
+
+
+def _prepend(elements, element):
+    return [element] + elements
 
 
 def _shared_functions():
@@ -138,7 +144,7 @@ def _concatenate(*args):
     rest = args[1:]
     count = len(args)
     if type(first) == list:
-        concatenated = first
+        concatenated = first[::]
         if count <= 2:
             for arg in second:
                 concatenated.append(arg)

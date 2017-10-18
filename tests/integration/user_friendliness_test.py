@@ -3,6 +3,7 @@ import limp
 import limp.environment as Environment
 import tests.helpers as Helpers
 from nose.tools import assert_equals, assert_raises
+from tests.syntax import *
 
 
 _EVALUATE = limp.evaluate
@@ -10,9 +11,9 @@ _EVALUATE = limp.evaluate
 
 def test_that_code_can_be_evaluated_with_a_simple_import():
     data = [
-        ('10',       10),
-        ('(- 5 3)',  2),
-        ('(* 50 2)', 100),
+        (integer(0),                           0),
+        (invoke('-', integer(5), integer(3)),  2),
+        (invoke('*', integer(50), integer(2)), 100),
     ]
     for code, expected_result in data:
         result = _EVALUATE(code)
@@ -20,16 +21,17 @@ def test_that_code_can_be_evaluated_with_a_simple_import():
 
 
 def test_that_clean_environment_is_created_automatically():
-    _EVALUATE('(define x 10)')
-    access_undefined_symbol = functools.partial(_EVALUATE, 'x')
+    VARIABLE = 'foo'
+    _EVALUATE(define(VARIABLE, integer(10)))
+    access_undefined_symbol = functools.partial(_EVALUATE, VARIABLE)
     yield assert_raises, Exception, access_undefined_symbol
 
         
 def test_that_environment_can_be_provided():
     data = [
-        ('(define x 10)', 'x', 10),
-        ('(define y 20)', 'y', 20),
-        ('(define z 30)', 'z', 30),
+        (define('x', integer(10)), 'x', 10),
+        (define('y', integer(20)), 'y', 20),
+        (define('z', integer(30)), 'z', 30),
     ]
     environment = Environment.create_empty()
     run = lambda source_code: _EVALUATE(source_code, environment)

@@ -1,8 +1,11 @@
 class Boolean:
 
+    TRUE_KEYWORD = 'true'
+    FALSE_KEYWORD = 'false'
+    
     MAP = {
-        'true': True,
-        'false': False
+        TRUE_KEYWORD: True,
+        FALSE_KEYWORD: False
     }
     
     def __init__(self, contents, environment):

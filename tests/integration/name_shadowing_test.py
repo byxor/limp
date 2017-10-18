@@ -1,21 +1,21 @@
 import limp
 import limp.environment as Environment
+import tests.helpers as Helpers
 from nose.tools import assert_equal
+from tests.syntax import *
 
+
+ENVIRONMENT = Environment.create_empty()
+EVALUATE = lambda code: limp.evaluate(code, ENVIRONMENT)
+    
 
 def test_function_parameters_can_shadow_globally_defined_variables():
-    variable_name = 'n'
-    original_value = 0
-    function_name = "number"
-    function_definition = f"(define {function_name} (function ({variable_name}) {variable_name}))"
+    REUSABLE_NAME = Helpers.ARBITRARY_NAME
+    OUTER_VALUE, INNER_VALUE = Helpers.ARBITRARY_VALUES[:2]
     
-    environment = Environment.create_empty()
-    environment.define(variable_name, original_value)
+    ENVIRONMENT.define(REUSABLE_NAME, OUTER_VALUE)
 
-    run = lambda code: limp.evaluate(code, environment)
-    variable_is_unchanged = lambda: (assert_equal, original_value, run(variable_name))
-    run(function_definition)
-
-    run(f"({function_name} 1)")
-
-    yield variable_is_unchanged()
+    SHADOWING_FUNCTION = function([REUSABLE_NAME], REUSABLE_NAME)
+    EVALUATE(invoke(SHADOWING_FUNCTION))
+    
+    yield (assert_equal, OUTER_VALUE, EVALUATE(REUSABLE_NAME))
