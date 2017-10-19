@@ -1,11 +1,6 @@
 import tests.helpers as Helpers
 from tests.syntax import *
-
-
-NOT = "not"
-AND = "and"
-OR =  "or"
-XOR = "xor"
+from tests.standard_library import *
 
 
 def test():

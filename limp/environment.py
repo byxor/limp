@@ -51,12 +51,13 @@ def _divisor(potential_divisor, number):
     return number % potential_divisor == 0
 
 
-def _even(number): return _divisor(2, number)
+def _even(number):
+    return _divisor(2, number)
 
 
-def _odd(number): return not _even(number)
+def _odd(number):
+    return not _even(number)
     
-
 
 def _comparison_functions():
     return {

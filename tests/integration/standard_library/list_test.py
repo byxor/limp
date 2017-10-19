@@ -1,5 +1,6 @@
 import tests.helpers as Helpers
 from tests.syntax import *
+from tests.standard_library import *
 
 
 VARIABLE = "variable"
@@ -8,43 +9,29 @@ STRINGS =  list_of(string("foo"), string("bar"), string("baz"))
 EMPTY =    list_of()
 
 
-MAP =             "map"
-FILTER =          "filter"
-REDUCE =          "reduce"
-GET_ELEMENT =     "element"
-APPEND_ELEMENT =  "append"
-PREPEND_ELEMENT = "prepend"
-CONCATENATE =     "concatenate"
-FIRST_ELEMENT =   "first"
-LAST_ELEMENT =    "last"
-ALL_BUT_FIRST =   "all-but-first"
-ALL_BUT_LAST =    "all-but-last"
-LENGTH =          "length"
-
-
 def test():
     Helpers.run_evaluation_test_on([ 
 
-        (invoke(MAP, function([VARIABLE], invoke("*", VARIABLE, integer(2))), NUMBERS),
+        (invoke(MAP, function([VARIABLE], invoke(MULTIPLY, VARIABLE, integer(2))), NUMBERS),
          [2, 4, 6, 8]),
 
-        (invoke(MAP, function([VARIABLE], invoke("+", VARIABLE, integer(1))), NUMBERS),
+        (invoke(MAP, function([VARIABLE], invoke(ADD, VARIABLE, integer(1))), NUMBERS),
          [2, 3, 4, 5]),
         
-        (invoke(MAP, function([VARIABLE], invoke("/", VARIABLE, integer(2))), list_of(integer(10), integer(20))),
+        (invoke(MAP, function([VARIABLE], invoke(DIVIDE, VARIABLE, integer(2))), list_of(integer(10), integer(20))),
          [5, 10]),
         
-        (invoke(FILTER, function([VARIABLE], invoke("=", invoke("%", VARIABLE, integer(2)), integer(0))), NUMBERS),
+        (invoke(FILTER, function([VARIABLE], invoke(ARE_EQUAL, invoke(MODULO, VARIABLE, integer(2)), integer(0))), NUMBERS),
          [2, 4]),
 
-        (invoke(FILTER, function([VARIABLE], invoke("=", invoke("%", VARIABLE, integer(2)), integer(1))), NUMBERS),
+        (invoke(FILTER, function([VARIABLE], invoke(ARE_EQUAL, invoke(MODULO, VARIABLE, integer(2)), integer(1))), NUMBERS),
          [1, 3]),
 
-        (invoke(FILTER, function([VARIABLE], invoke("=", VARIABLE, integer(1))), NUMBERS),
+        (invoke(FILTER, function([VARIABLE], invoke(ARE_EQUAL, VARIABLE, integer(1))), NUMBERS),
          [1]),
 
-        (invoke(REDUCE, "+", NUMBERS), 10),
-        (invoke(REDUCE, "-", NUMBERS), -8),
+        (invoke(REDUCE, ADD, NUMBERS), 10),
+        (invoke(REDUCE, SUBTRACT, NUMBERS), -8),
 
         (invoke(GET_ELEMENT, NUMBERS, integer(0)), 1),
         (invoke(GET_ELEMENT, NUMBERS, integer(1)), 2),
