@@ -47,7 +47,6 @@ def test():
         (invoke(IS_DIVISOR, integer(2), integer(45)),  False),
         (invoke(IS_DIVISOR, integer(44), integer(45)), False),
 
-
         (invoke(IS_EVEN, integer(0)), True),
         (invoke(IS_EVEN, integer(1)), False),
         (invoke(IS_EVEN, integer(2)), True),
