@@ -1,13 +1,14 @@
 import limp.environment as Environment
 from nose.tools import assert_equal
+from tests.syntax import *
 
 
 def test_defining_symbols():
     environment = Environment.create_empty()
     data = [
-        ('x', 0),
-        ('y', 1),
-        ('z', 2),
+        (symbol('x'), 0),
+        (symbol('y'), 1),
+        (symbol('z'), 2),
     ]
     for name, expected_value in data:
         environment.define(name, expected_value)

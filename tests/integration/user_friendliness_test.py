@@ -4,6 +4,7 @@ import limp.environment as Environment
 import tests.helpers as Helpers
 from nose.tools import assert_equals, assert_raises
 from tests.syntax import *
+from tests.standard_library import *
 
 
 _EVALUATE = limp.evaluate
@@ -11,9 +12,9 @@ _EVALUATE = limp.evaluate
 
 def test_that_code_can_be_evaluated_with_a_simple_import():
     data = [
-        (integer(0),                           0),
-        (invoke('-', integer(5), integer(3)),  2),
-        (invoke('*', integer(50), integer(2)), 100),
+        (integer(0),                                0),
+        (invoke(SUBTRACT, integer(5), integer(3)),  2),
+        (invoke(MULTIPLY, integer(50), integer(2)), 100),
     ]
     for code, expected_result in data:
         result = _EVALUATE(code)

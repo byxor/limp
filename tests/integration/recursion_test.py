@@ -1,6 +1,7 @@
 import limp
 import limp.environment as Environment
 from tests.syntax import *
+from tests.standard_library import *
 from unittest import TestCase
 
 
@@ -8,19 +9,20 @@ class TailCallRecursion(TestCase):
 
     FUNCTION_NAME = "factorial"
     ARGUMENT_NAME = "n"
+    
     IMPLEMENTATION = function(
         [ARGUMENT_NAME],
         if_statement(
-            invoke(">", ARGUMENT_NAME, "1"),
+            invoke(GREATER_THAN, ARGUMENT_NAME, integer(1)),
             invoke(
-                "*",
+                MULTIPLY,
                 ARGUMENT_NAME,
                 invoke(
                     FUNCTION_NAME,
-                    invoke("-", ARGUMENT_NAME, "1")
+                    invoke(SUBTRACT, ARGUMENT_NAME, integer(1))
                 )
             ),
-            "1"
+            integer(1)
         )
     )
     

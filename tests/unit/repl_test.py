@@ -43,10 +43,10 @@ def test_repl_evaluates_input_and_displays_it():
     Helpers.test_chain(
         _given_a_repl_with_mocked_streams,
         _input_is_evaluated_and_output_is_displayed([
-            ("",                                          "\n"),
-            (integer(10),                                 "10\n"),
-            (integer(20),                                 "20\n"),
-            (invoke(symbol("+"), integer(1), integer(2)), "3\n"),
+            ("",                                          ""),
+            (integer(10),                                 "10"),
+            (integer(20),                                 "20"),
+            (invoke(symbol("+"), integer(1), integer(2)), "3"),
         ]))
 
 
@@ -126,7 +126,7 @@ def _input_is_evaluated_and_output_is_displayed(data):
         for input_text, expected_output_text in data:
             _next_input_is(input_text)(state)
             _tick(state)
-            _output_was_written(expected_output_text)(state)
+            _output_was_written(expected_output_text + "\n")(state)
         return state
     return generated_function
 
