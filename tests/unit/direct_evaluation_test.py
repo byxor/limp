@@ -3,6 +3,7 @@ import limp.errors as Errors
 import limp.types as Types
 import tests.helpers as Helpers
 from tests.syntax import *
+from tests.standard_library import *
 from copy import copy
 from nose.tools import *
 
@@ -108,7 +109,7 @@ def test_exception_raised_when_accessing_non_existent_variable():
 
 
 ### Invocations ###
-        
+
 def test_invoking_functions():
     data = [
         ([symbol('add'), integer(1), integer(2)],                   3),
@@ -127,10 +128,10 @@ def test_invoking_anonymous_functions():
         ([[Types.Function.KEYWORD, [symbol('n')], symbol('n')], integer(0)],                        0),
         ([[Types.Function.KEYWORD, [symbol('n')], symbol('n')], integer(9)],                        9),
         
-        ([[Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]],
+        ([[Types.Function.KEYWORD, [symbol('a'), symbol('b')], [ADD, symbol('a'), symbol('b')]],
           integer(10), integer(5)], 15),
 
-        ([[Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]],
+        ([[Types.Function.KEYWORD, [symbol('a'), symbol('b')], [ADD, symbol('a'), symbol('b')]],
           integer(20), integer(0)], 20),
     ]
     for contents, expected_value in data:
@@ -299,15 +300,15 @@ def test_functions_with_arguments():
         ([Types.Function.KEYWORD, [symbol('y')], symbol('y')], [2],  2),
         ([Types.Function.KEYWORD, [symbol('y')], symbol('y')], [1],  1),
 
-        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [1], 1),
-        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [2], 4),
-        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [3], 9),
-        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [4], 16),
-        ([Types.Function.KEYWORD, [symbol('n')], [symbol('**'), symbol('n'), integer(2)]], [5], 25),
+        ([Types.Function.KEYWORD, [symbol('n')], [EXPONENT, symbol('n'), integer(2)]], [1], 1),
+        ([Types.Function.KEYWORD, [symbol('n')], [EXPONENT, symbol('n'), integer(2)]], [2], 4),
+        ([Types.Function.KEYWORD, [symbol('n')], [EXPONENT, symbol('n'), integer(2)]], [3], 9),
+        ([Types.Function.KEYWORD, [symbol('n')], [EXPONENT, symbol('n'), integer(2)]], [4], 16),
+        ([Types.Function.KEYWORD, [symbol('n')], [EXPONENT, symbol('n'), integer(2)]], [5], 25),
 
-        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]], [0, 0], 0),
-        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]], [0, 1], 1),
-        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [symbol('+'), symbol('a'), symbol('b')]], [5, 3], 8),
+        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [ADD, symbol('a'), symbol('b')]], [0, 0], 0),
+        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [ADD, symbol('a'), symbol('b')]], [0, 1], 1),
+        ([Types.Function.KEYWORD, [symbol('a'), symbol('b')], [ADD, symbol('a'), symbol('b')]], [5, 3], 8),
     ]
     for contents, arguments, expected_value in data:
         function = Types.Function(contents, Environment.create_standard())

@@ -18,16 +18,16 @@ def test_lists_are_immutable():
     environment.define(LIST, LIST_VALUE)
 
     invocations = [
-        invoke(APPEND_ELEMENT, LIST, integer(1)),
-        invoke(CONCATENATE, LIST, list_of(string("foo"), string("bar"))),
-        invoke(MAP, TEMPORARY_MAP_FUNCTION, LIST),
-        invoke(FILTER, TEMPORARY_FILTER_FUNCTION, LIST),
-        invoke(REDUCE, TEMPORARY_REDUCE_FUNCTION, LIST),
-        invoke(FIRST_ELEMENT, LIST),
-        invoke(LAST_ELEMENT, LIST),
-        invoke(ALL_BUT_FIRST, LIST),
-        invoke(ALL_BUT_LAST, LIST),
-        invoke(PREPEND_ELEMENT, LIST, string("foo")),
+        invoke(LIST_APPEND_ELEMENT, LIST, integer(1)),
+        invoke(LIST_CONCATENATE, LIST, list_of(string("foo"), string("bar"))),
+        invoke(LIST_MAP, TEMPORARY_MAP_FUNCTION, LIST),
+        invoke(LIST_FILTER, TEMPORARY_FILTER_FUNCTION, LIST),
+        invoke(LIST_REDUCE, TEMPORARY_REDUCE_FUNCTION, LIST),
+        invoke(LIST_FIRST_ELEMENT, LIST),
+        invoke(LIST_LAST_ELEMENT, LIST),
+        invoke(LIST_ALL_BUT_FIRST, LIST),
+        invoke(LIST_ALL_BUT_LAST, LIST),
+        invoke(LIST_PREPEND_ELEMENT, LIST, string("foo")),
     ]
     for invocation in invocations:
         print('\nAbout to run...')

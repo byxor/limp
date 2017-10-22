@@ -1,63 +1,72 @@
 import tests.helpers as Helpers
+from tests.syntax import *
+from tests.standard_library import *
 
 
 def test():
     Helpers.run_evaluation_test_on([
-        ('(concatenate "foo" "bar")',      "foobar"),
-        ('(concatenate "hello" " there")', "hello there"),
-        ('(concatenate "a" "b" "c" "d")',  "abcd"),
-        ('(concatenate "x" "y" "z" "?")',  "xyz?"),
 
-        ('(strip " x ")',                "x"),
-        ('(strip " abc ")',              "abc"),
-        ('(strip " x \t\n")',            "x"),
-        ('(strip "hello \n\t\n there")', "hello \n\t\n there"),
+        (invoke(STRING_CONCATENATE, string("foo"), string("bar")),
+         "foobar"),
+        
+        (invoke(STRING_CONCATENATE, string("hello"), string(" "), string("there")),
+         "hello there"),
 
-        ('(length "")',      0),
-        ('(length "a")',     1),
-        ('(length "ab")',    2),
-        ('(length "abc")',   3),
-        ('(length "tayne")', 5),
+        (invoke(STRING_STRIP, string(" x ")),                "x"),
+        (invoke(STRING_STRIP, string(" abc ")),              "abc"),
+        (invoke(STRING_STRIP, string(" x \t\n")),            "x"),
+        (invoke(STRING_STRIP, string("hello \n\t\n there")), "hello \n\t\n there"),
 
-        ('(in? "" "")',                            True),
-        ('(in? "a" "a")',                          True),
-        ('(in? "abc" "abcde")',                    True),
-        ('(in? "bc" "abcde")',                     True),
-        ('(in? "car" "car is red")',               True),
-        ('(in? "a" "b")',                          False),
-        ('(in? "abacus" "b")',                     False),
-        ('(in? "self-respect" "php-programmers")', False),
+        (invoke(STRING_LENGTH, string("")),      0),
+        (invoke(STRING_LENGTH, string("a")),     1),
+        (invoke(STRING_LENGTH, string("ab")),    2),
+        (invoke(STRING_LENGTH, string("abc")),   3),
+        (invoke(STRING_LENGTH, string("tayne")), 5),
 
-        ('(empty? "")',       True),
-        ('(empty? ".")',      False),
-        ('(empty? "hello!")', False),
+        (invoke(STRING_CONTAINS, string(""), string("")),                            True),
+        (invoke(STRING_CONTAINS, string("a"), string("a")),                          True),
+        (invoke(STRING_CONTAINS, string("abcde"), string("abc")),                    True),
+        (invoke(STRING_CONTAINS, string("abcde"), string("bc")),                     True),
+        (invoke(STRING_CONTAINS, string("car is red"), string("car")),               True),
+        (invoke(STRING_CONTAINS, string("b"), string("a")),                          False),
+        (invoke(STRING_CONTAINS, string("b"), string("abacus")),                     False),
+        (invoke(STRING_CONTAINS, string("php-programmers"), string("self-respect")), False),
 
-        ('(repeat "" 10)',       ""),
-        ('(repeat "a" 5)',       "aaaaa"),
-        ('(repeat "hey " 3)',    "hey hey hey "),
-        ('(repeat "racecar" 3)', "racecarracecarracecar"),
+        (invoke(STRING_EMPTY, string("")),       True),
+        (invoke(STRING_EMPTY, string(".")),      False),
+        (invoke(STRING_EMPTY, string("hello!")), False),
 
-        ('(reverse "")',      ""),
-        ('(reverse "abc")',   "cba"),
-        ('(reverse "lol")',   "lol"),
-        ('(reverse "jesus")', "susej"),
+        (invoke(STRING_REPEAT, string(""), integer(10)),       ""),
+        (invoke(STRING_REPEAT, string("a"), integer(5)),       "aaaaa"),
+        (invoke(STRING_REPEAT, string("hey"), integer(3)),     "heyheyhey"),
+        (invoke(STRING_REPEAT, string("racecar"), integer(3)), "racecarracecarracecar"),
 
-        ('(lowercase "abc")',       "abc"),
-        ('(lowercase "AbC")',       "abc"),
-        ('(lowercase "LIMP 2017")', "limp 2017"),
-        ('(lowercase "Byxor")',     "byxor"),
+        (invoke(STRING_REVERSE, string("")),      ""),
+        (invoke(STRING_REVERSE, string("abc")),   "cba"),
+        (invoke(STRING_REVERSE, string("lol")),   "lol"),
+        (invoke(STRING_REVERSE, string("jesus")), "susej"),
 
-        ('(uppercase "abc")',       "ABC"),
-        ('(uppercase "AbC")',       "ABC"),
-        ('(uppercase "LIMP 2017")', "LIMP 2017"),
-        ('(uppercase "Byxor")',     "BYXOR"),
+        (invoke(STRING_LOWERCASE, string("abc")),       "abc"),
+        (invoke(STRING_LOWERCASE, string("AbC")),       "abc"),
+        (invoke(STRING_LOWERCASE, string("LIMP 2017")), "limp 2017"),
+        (invoke(STRING_LOWERCASE, string("Byxor")),     "byxor"),
 
-        ('(split " " "a b c")',             ['a', 'b', 'c']),
-        ('(split " " "ruby   81")',         ['ruby', '', '', '81']),
-        ('(split ", " "test, 1, 2, 3")',    ['test', '1', '2', '3']),
-        ('(split ", " "cars, the, movie")', ['cars', 'the', 'movie']),
+        (invoke(STRING_UPPERCASE, string("abc")),       "ABC"),
+        (invoke(STRING_UPPERCASE, string("AbC")),       "ABC"),
+        (invoke(STRING_UPPERCASE, string("LIMP 2017")), "LIMP 2017"),
+        (invoke(STRING_UPPERCASE, string("Byxor")),     "BYXOR"),
 
-        ('(join-string " " (list "1" "2" "3"))',        "1 2 3"),
-        ('(join-string " " (list "4" "5" "6"))',        "4 5 6"),
-        ('(join-string "_::_" (list "tayne" "brain"))', "tayne_::_brain"),
+        (invoke(STRING_SPLIT, string(" "), string("a b c")),          ['a', 'b', 'c']),
+        (invoke(STRING_SPLIT, string(", "), string("test, 1, 2, 3")), ['test', '1', '2', '3']),
+        (invoke(STRING_SPLIT, string("-"), string("cars-the-movie")), ['cars', 'the', 'movie']),
+
+        (invoke(STRING_JOIN, string(" "), list_of(string("1"), string("2"), string("3"))),
+         "1 2 3"),
+        
+        (invoke(STRING_JOIN, string(" "), list_of(string("4"), string("5"), string("6"))),
+         "4 5 6"),
+        
+        (invoke(STRING_JOIN, string("_::_"), list_of(string("tayne"), string("brain"))),
+         "tayne_::_brain"),
+
     ])

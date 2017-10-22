@@ -83,7 +83,7 @@ def _string_functions():
         'strip':       lambda s: s.strip(),
         'length':      lambda s: len(s),
         'empty?':      lambda s: len(s) == 0, 
-        'in?':         lambda a, b: a in b,
+        'contains?':   lambda a, b: b in a,
         'repeat':      lambda s, amount: s * amount,
         'reverse':     lambda s: s[::-1],
         'lowercase':   lambda s: s.lower(),
@@ -162,8 +162,16 @@ def _conversion_functions():
         'integer': int,
         'string':  str,
         'float':   float,
-        'boolean': lambda b: b == "true"
+        'boolean': _boolean,
     }
+
+
+def _boolean(x):
+    if type(x) == str:
+        import limp.types as Types
+        return x == Types.Boolean.TRUE_KEYWORD
+    else:
+        return bool(x)
 
 
 def _functional_functions():

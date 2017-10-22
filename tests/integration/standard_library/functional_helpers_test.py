@@ -20,7 +20,7 @@ def test():
         (invoke(
             invoke(
                 PARTIAL,
-                MAP,
+                LIST_MAP,
                 IS_EVEN),
             TEMPORARY_NUMBERS),
          [False, True, False, True]),
@@ -38,7 +38,7 @@ def test():
         (invoke(
             invoke(
                 PARTIAL,
-                MAP,
+                LIST_MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -51,7 +51,7 @@ def test():
         (invoke(
             invoke(
                 PARTIAL,
-                FILTER,
+                LIST_FILTER,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -83,7 +83,7 @@ def test():
             TEMPORARY_NUMBERS,
             invoke(
                 PARTIAL,
-                MAP,
+                LIST_MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -92,7 +92,7 @@ def test():
                         integer(2)))),
             invoke(
                 PARTIAL,
-                MAP,
+                LIST_MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -101,7 +101,7 @@ def test():
                         integer(1)))),
             invoke(
                 PARTIAL,
-                MAP,
+                LIST_MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -110,7 +110,7 @@ def test():
                         integer(1)))),
             invoke(
                 PARTIAL,
-                FILTER,
+                LIST_FILTER,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -122,7 +122,7 @@ def test():
                         integer(0)))),
             invoke(
                 PARTIAL,
-                REDUCE,
+                LIST_REDUCE,
                 ADD)),
          12)
 

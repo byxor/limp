@@ -1,18 +1,27 @@
 import tests.helpers as Helpers
+from tests.syntax import *
+from tests.standard_library import *
 
 
 def test():
     Helpers.run_evaluation_test_on([
-        ('(string 123)', "123"),
-        ('(string 999)', "999"),
-        ('(string 0)',   "0"),
+        (invoke(STRING, integer(123)),  "123"),
+        (invoke(STRING, float_(0.1)),   "0.1"),
+        (invoke(STRING, boolean(True)), "True"),
+        (invoke(STRING, string("foo")), "foo"),
 
-        ('(integer "32")', 32),
-        ('(integer "-1")', -1),
+        (invoke(INTEGER, string("32")), 32),
+        (invoke(INTEGER, string("-1")), -1),
+        (invoke(INTEGER, integer(10)),  10),
 
-        ('(float "4.2")',  4.2),
-        ('(float "97.4")', 97.4),
+        (invoke(FLOAT, string("5.2")), 5.2),
+        (invoke(FLOAT, string("0.3")), 0.3),
+        (invoke(FLOAT, float_(9.99)),  9.99),
 
-        ('(boolean "false")', False),
-        ('(boolean "true")',  True),
+        (invoke(BOOLEAN, string("false")), False),
+        (invoke(BOOLEAN, string("true")),  True),
+        (invoke(BOOLEAN, integer(1)),      True),
+        (invoke(BOOLEAN, integer(0)),      False),
+        (invoke(BOOLEAN, boolean(True)),   True),
+        (invoke(BOOLEAN, boolean(False)),  False),
     ])
