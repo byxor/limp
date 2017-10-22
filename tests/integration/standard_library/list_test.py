@@ -1,6 +1,6 @@
 import tests.helpers as Helpers
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 
 
 VARIABLE = "variable"
@@ -66,5 +66,11 @@ def test():
 
         (invoke(LIST_LENGTH, NUMBERS), 4),
         (invoke(LIST_LENGTH, STRINGS), 3),
+
+        (invoke(LIST_CONTAINS, NUMBERS, integer(1)),  True),
+        (invoke(LIST_CONTAINS, NUMBERS, integer(2)),  True),
+        (invoke(LIST_CONTAINS, NUMBERS, integer(3)),  True),
+        (invoke(LIST_CONTAINS, NUMBERS, integer(4)),  True),
+        (invoke(LIST_CONTAINS, NUMBERS, integer(5)),  False),
     ])
 

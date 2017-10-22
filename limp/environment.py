@@ -12,24 +12,9 @@ def create_empty():
 
 def create_standard():
     environment = _Environment()
-    environment.define_batch_of(StandardLibrary.symbols())
+    for name, value in StandardLibrary.symbols():
+        environment.define(name, value)
     return environment
-    # modules = [
-    #     _mathematical_functions,
-    #     _comparison_functions,
-    #     _boolean_functions,
-    #     _string_functions,
-    #     _easter_egg_symbols,
-    #     _looping_functions,
-    #     _list_functions,
-    #     _conversion_functions,
-    #     _shared_functions,
-    #     _functional_functions
-    # ]
-    # for module in modules:
-    #     symbols = module()
-    #     environment.define_batch_of(symbols)
-    # return environment
 
 
 class _Environment:
@@ -54,7 +39,8 @@ class _Environment:
                 raise Errors.UndefinedSymbol(name)
 
     def define_batch_of(self, symbols):
-        self.__symbols.update(symbols)
+        for name, value in symbols.items():
+            self.define(name, value)
             
     def new_child(self):
         return _Environment(self)

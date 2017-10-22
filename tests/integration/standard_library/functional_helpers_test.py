@@ -1,6 +1,6 @@
 import tests.helpers as Helpers
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 
 
 TEMPORARY_NUMBERS = list_of(integer(1), integer(2), integer(3), integer(4))

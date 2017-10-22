@@ -1,7 +1,7 @@
 import limp
 import limp.environment as Environment
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 from unittest import TestCase
 
 

@@ -4,7 +4,7 @@ import limp.environment as Environment
 import tests.helpers as Helpers
 from nose.tools import assert_equals, assert_raises
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 
 
 _EVALUATE = limp.evaluate

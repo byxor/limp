@@ -3,7 +3,7 @@ import limp.environment as Environment
 from nose.tools import assert_equal
 from unittest.mock import MagicMock
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 
 
 FUNCTION_NAME = 'my_function'

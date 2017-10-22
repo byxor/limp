@@ -1,6 +1,6 @@
 import tests.helpers as Helpers
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 
 
 def test_integer_comparison():

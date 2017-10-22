@@ -2,7 +2,7 @@ import limp
 import limp.environment as Environment
 from nose.tools import assert_equal
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 
 
 TEMPORARY_MAP_FUNCTION = function(['n'], invoke('+', 'n', integer(1)))

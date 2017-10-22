@@ -5,6 +5,7 @@ import operator
 def symbols():
     return {
         'concatenate': _concatenate,
+        'length':      _length,
     }
 
 
@@ -30,3 +31,6 @@ def _list_concatenate(count, first, second, all_but_first):
         for arg in all_but_first:
             concatenated.append(arg)
     return concatenated
+
+
+def _length(x): return len(x)

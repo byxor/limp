@@ -3,7 +3,7 @@ import limp.errors as Errors
 import limp.types as Types
 import tests.helpers as Helpers
 from tests.syntax import *
-from tests.standard_library import *
+from limp.standard_library import *
 from copy import copy
 from nose.tools import *
 
