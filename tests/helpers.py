@@ -24,8 +24,8 @@ def sample_environment():
         'y': 20,
         'z': 30,
         'foo': 100,
-    }   
-    environment.define_batch_of(extras)
+    }
+    environment.define_batch_of(extras.items())
     return environment
 
 

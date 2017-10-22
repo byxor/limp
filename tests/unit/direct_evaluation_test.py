@@ -4,6 +4,7 @@ import limp.types as Types
 import tests.helpers as Helpers
 from tests.syntax import *
 from limp.standard_library import *
+from limp.standard_library.math import *
 from copy import copy
 from nose.tools import *
 

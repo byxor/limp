@@ -1,9 +1,15 @@
+STRING =  "string"
+INTEGER = "integer"
+FLOAT =   "float"
+BOOLEAN = "boolean"
+
+
 def symbols():
     return {
-        'integer': int,
-        'string':  str,
-        'float':   float,
-        'boolean': _boolean,
+        INTEGER: int,
+        STRING:  str,
+        FLOAT:   float,
+        BOOLEAN: _boolean,
     }
 
 

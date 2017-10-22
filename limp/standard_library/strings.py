@@ -1,12 +1,30 @@
+import limp.standard_library.shared as Shared
+
+
+STRIP =       "strip"
+REPEAT =      "repeat"
+LOWERCASE =   "lowercase"
+UPPERCASE =   "uppercase"
+SPLIT =       "split"
+JOIN =        "join-string"
+
+EMPTY =       "empty?"
+REVERSE =     "reverse"
+
+CONCATENATE = Shared.CONCATENATE
+CONTAINS =    Shared.CONTAINS
+LENGTH =      Shared.LENGTH
+
+
 def symbols():
     return {
-        'strip':       lambda s: s.strip(),
-        'empty?':      lambda s: len(s) == 0, 
-        'contains?':   lambda a, b: b in a,
-        'repeat':      lambda s, amount: s * amount,
-        'reverse':     lambda s: s[::-1],
-        'lowercase':   lambda s: s.lower(),
-        'uppercase':   lambda s: s.upper(),
-        'split':       lambda delimiter, string: string.split(delimiter),
-        'join-string': lambda separator, list_: separator.join(list_),
+        STRIP:     lambda s: s.strip(),
+        LOWERCASE: lambda s: s.lower(),
+        UPPERCASE: lambda s: s.upper(),
+        REPEAT:    lambda s, amount: s * amount,
+        SPLIT:     lambda delimiter, string: string.split(delimiter),
+        JOIN:      lambda separator, list_: separator.join(list_),
+        
+        EMPTY:     lambda s: len(s) == 0,
+        REVERSE:   lambda s: s[::-1],
     }

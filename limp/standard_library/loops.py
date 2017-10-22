@@ -1,7 +1,11 @@
+TIMES   = "times"
+ITERATE = "iterate"
+
+
 def symbols():
     return {
-        'times': _times,
-        'iterate': _iterate,
+        TIMES:   _times,
+        ITERATE: _iterate,
     }
 
 

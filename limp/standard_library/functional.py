@@ -1,7 +1,11 @@
+PARTIAL = "partial"
+CHAIN =   "chain"
+
+
 def symbols():
     return {
-        'chain': _chain,
-        'curry': _curry,
+        PARTIAL: _partial,
+        CHAIN:   _chain,
     }
 
 
@@ -12,6 +16,6 @@ def _chain(input_, *functions):
     return output
 
 
-def _curry(function, *early_arguments):
+def _partial(function, *early_arguments):
     return lambda *late_arguments: function(*early_arguments, *late_arguments)
 

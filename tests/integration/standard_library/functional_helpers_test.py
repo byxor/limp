@@ -1,6 +1,10 @@
 import tests.helpers as Helpers
 from tests.syntax import *
 from limp.standard_library import *
+from limp.standard_library.lists import *
+from limp.standard_library.math import *
+from limp.standard_library.functional import *
+from limp.standard_library.comparisons import *
 
 
 TEMPORARY_NUMBERS = list_of(integer(1), integer(2), integer(3), integer(4))
@@ -20,7 +24,7 @@ def test():
         (invoke(
             invoke(
                 PARTIAL,
-                LIST_MAP,
+                MAP,
                 IS_EVEN),
             TEMPORARY_NUMBERS),
          [False, True, False, True]),
@@ -38,7 +42,7 @@ def test():
         (invoke(
             invoke(
                 PARTIAL,
-                LIST_MAP,
+                MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -51,7 +55,7 @@ def test():
         (invoke(
             invoke(
                 PARTIAL,
-                LIST_FILTER,
+                FILTER,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -83,7 +87,7 @@ def test():
             TEMPORARY_NUMBERS,
             invoke(
                 PARTIAL,
-                LIST_MAP,
+                MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -92,7 +96,7 @@ def test():
                         integer(2)))),
             invoke(
                 PARTIAL,
-                LIST_MAP,
+                MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -101,7 +105,7 @@ def test():
                         integer(1)))),
             invoke(
                 PARTIAL,
-                LIST_MAP,
+                MAP,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -110,7 +114,7 @@ def test():
                         integer(1)))),
             invoke(
                 PARTIAL,
-                LIST_FILTER,
+                FILTER,
                 function(
                     [TEMPORARY_NUMBER],
                     invoke(
@@ -122,7 +126,7 @@ def test():
                         integer(0)))),
             invoke(
                 PARTIAL,
-                LIST_REDUCE,
+                REDUCE,
                 ADD)),
          12)
 

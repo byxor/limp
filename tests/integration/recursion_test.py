@@ -2,6 +2,8 @@ import limp
 import limp.environment as Environment
 from tests.syntax import *
 from limp.standard_library import *
+from limp.standard_library.math import *
+from limp.standard_library.comparisons import *
 from unittest import TestCase
 
 
