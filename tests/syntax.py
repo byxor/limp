@@ -7,6 +7,12 @@ def list_of(*contents):
     return form(KEYWORD, *contents)
 
 
+def shorthand_list_of(*contents):
+    OPEN = Types.List.OPEN_DELIMITER
+    CLOSE = Types.List.CLOSE_DELIMITER
+    return f"{OPEN}{_space_separated(contents)}{CLOSE}"
+
+
 def string(contents):
     DELIMITER = Types.String.DELIMITER
     return f'{DELIMITER}{contents}{DELIMITER}'

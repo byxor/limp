@@ -48,6 +48,8 @@ class String:
 class List:
 
     KEYWORD = 'list'
+    OPEN_DELIMITER = '['
+    CLOSE_DELIMITER = ']'
     
     def __init__(self, contents, environment):
         self.__contents = contents
