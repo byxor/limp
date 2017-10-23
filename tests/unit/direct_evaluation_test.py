@@ -282,6 +282,8 @@ def test_complex_conditional_statements():
 
 def test_functions_with_no_arguments():
     data = [
+        ([Types.Function.KEYWORD, integer(1)],                 1),
+        ([Types.Function.KEYWORD, string("foo")],              "foo"),
         ([Types.Function.KEYWORD, [], integer(10)],            10),
         ([Types.Function.KEYWORD, [], integer(20)],            20),
         ([Types.Function.KEYWORD, [], float_(0.1)],           0.1),

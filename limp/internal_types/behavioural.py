@@ -16,8 +16,13 @@ class Function:
 
     def evaluate(self):
         from limp.types import Form
-        argument_names = self.__contents[1]
-        body_contents = self.__contents[2]
+
+        if len(self.__contents) > 2:
+            argument_names = self.__contents[1]
+            body_contents = self.__contents[2]
+        else:
+            argument_names = []
+            body_contents = self.__contents[1]
         
         def __internal_function(*called_with):
             execution_environment = self.__child_environment.new_child()
