@@ -5,16 +5,18 @@ from functional import seq
 MAP =             "map"
 FILTER =          "filter"
 REDUCE =          "reduce"
-GET_ELEMENT =     "element"
 APPEND_ELEMENT =  "append"
 PREPEND_ELEMENT = "prepend"
-CONCATENATE =     "concatenate"
-FIRST_ELEMENT =   "first"
-LAST_ELEMENT =    "last"
-ALL_BUT_FIRST =   "all-but-first"
-ALL_BUT_LAST =    "all-but-last"
+GET_ELEMENT =     Shared.GET_ELEMENT
+CONCATENATE =     Shared.CONCATENATE
+ALL_BUT_FIRST =   Shared.ALL_BUT_FIRST
+ALL_BUT_LAST =    Shared.ALL_BUT_LAST
 LENGTH =          Shared.LENGTH
 CONTAINS =        Shared.CONTAINS
+FIRST_ELEMENT =   Shared.FIRST_ELEMENT
+LAST_ELEMENT =    Shared.LAST_ELEMENT
+REVERSE =         Shared.REVERSE
+EMPTY =           Shared.EMPTY
 
 
 def symbols():
@@ -25,10 +27,6 @@ def symbols():
         GET_ELEMENT:     lambda elements, index: elements[index],
         APPEND_ELEMENT:  _append,
         PREPEND_ELEMENT: _prepend,
-        FIRST_ELEMENT:   lambda elements: elements[0],
-        LAST_ELEMENT:    lambda elements: elements[-1],
-        ALL_BUT_FIRST:   lambda elements: elements[1:],
-        ALL_BUT_LAST:    lambda elements: elements[:-1],
     }
 
 

@@ -69,4 +69,26 @@ def test():
         (invoke(JOIN, string("_::_"), list_of(string("tayne"), string("brain"))),
          "tayne_::_brain"),
 
+        (invoke(FIRST_ELEMENT, string("ruby da cherry")),  "r"),
+        (invoke(FIRST_ELEMENT, string("love my parents")), "l"),
+        (invoke(FIRST_ELEMENT, string("2017 is alright")), "2"),
+
+        (invoke(LAST_ELEMENT, string("hot chocolate")),     "e"),
+        (invoke(LAST_ELEMENT, string("soothes a sunday")),  "y"),
+        (invoke(LAST_ELEMENT, string("from monday blues")), "s"),
+
+        (invoke(ALL_BUT_FIRST, string("You will")),     "ou will"),
+        (invoke(ALL_BUT_FIRST, string("improve with")), "mprove with"),
+        (invoke(ALL_BUT_FIRST, string("the passage")),  "he passage"),
+        (invoke(ALL_BUT_FIRST, string("of time.")),     "f time."),
+
+        (invoke(ALL_BUT_LAST, string("Remember to")),       "Remember t"),
+        (invoke(ALL_BUT_LAST, string("surround yourself")), "surround yoursel"),
+        (invoke(ALL_BUT_LAST, string("with everything")),   "with everythin"),
+        (invoke(ALL_BUT_LAST, string("that brings")),       "that bring"),
+        (invoke(ALL_BUT_LAST, string("you happiness,")),    "you happiness"),
+
+        (invoke(GET_ELEMENT, string("especially family"), integer(0)), "e"),
+        (invoke(GET_ELEMENT, string("before the chance"), integer(2)), "f"),
+        (invoke(GET_ELEMENT, string("is lost."),          integer(3)), "l"),
     ])

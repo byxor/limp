@@ -8,12 +8,16 @@ UPPERCASE =   "uppercase"
 SPLIT =       "split"
 JOIN =        "join-string"
 
-EMPTY =       "empty?"
-REVERSE =     "reverse"
-
-CONCATENATE = Shared.CONCATENATE
-CONTAINS =    Shared.CONTAINS
-LENGTH =      Shared.LENGTH
+EMPTY =         Shared.EMPTY
+REVERSE =       Shared.REVERSE
+CONCATENATE =   Shared.CONCATENATE
+CONTAINS =      Shared.CONTAINS
+LENGTH =        Shared.LENGTH
+FIRST_ELEMENT = Shared.FIRST_ELEMENT
+LAST_ELEMENT =  Shared.LAST_ELEMENT
+ALL_BUT_FIRST = Shared.ALL_BUT_FIRST
+ALL_BUT_LAST =  Shared.ALL_BUT_LAST
+GET_ELEMENT =   Shared.GET_ELEMENT
 
 
 def symbols():
@@ -24,7 +28,4 @@ def symbols():
         REPEAT:    lambda s, amount: s * amount,
         SPLIT:     lambda delimiter, string: string.split(delimiter),
         JOIN:      lambda separator, list_: separator.join(list_),
-        
-        EMPTY:     lambda s: len(s) == 0,
-        REVERSE:   lambda s: s[::-1],
     }

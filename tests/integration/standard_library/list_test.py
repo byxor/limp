@@ -6,10 +6,10 @@ from limp.standard_library.math import *
 from limp.standard_library.comparisons import *
 
 
-VARIABLE = "variable"
-NUMBERS =  list_of(integer(1), integer(2), integer(3), integer(4))
-STRINGS =  list_of(string("foo"), string("bar"), string("baz"))
-EMPTY =    list_of()
+VARIABLE =   "variable"
+NUMBERS =    list_of(integer(1), integer(2), integer(3), integer(4))
+STRINGS =    list_of(string("foo"), string("bar"), string("baz"))
+EMPTY_LIST = list_of()
 
 
 def test():
@@ -44,13 +44,13 @@ def test():
         (invoke(GET_ELEMENT, STRINGS, integer(1)), "bar"),
         (invoke(GET_ELEMENT, STRINGS, integer(2)), "baz"),
 
-        (invoke(APPEND_ELEMENT, EMPTY, integer(1)),      [1]),
+        (invoke(APPEND_ELEMENT, EMPTY_LIST, integer(1)), [1]),
         (invoke(APPEND_ELEMENT, STRINGS, string("qux")), ["foo", "bar", "baz", "qux"]),
         (invoke(APPEND_ELEMENT, NUMBERS, integer(5)),    [1, 2, 3, 4, 5]),
 
-        (invoke(PREPEND_ELEMENT, EMPTY, integer(1)),     [1]),
-        (invoke(PREPEND_ELEMENT, STRINGS, string("hi")), ["hi", "foo", "bar", "baz"]),
-        (invoke(PREPEND_ELEMENT, NUMBERS, integer(0)),   [0, 1, 2, 3, 4]),
+        (invoke(PREPEND_ELEMENT, EMPTY_LIST, integer(1)), [1]),
+        (invoke(PREPEND_ELEMENT, STRINGS, string("hi")),  ["hi", "foo", "bar", "baz"]),
+        (invoke(PREPEND_ELEMENT, NUMBERS, integer(0)),    [0, 1, 2, 3, 4]),
 
         (invoke(CONCATENATE, NUMBERS, NUMBERS),                            [1, 2, 3, 4, 1, 2, 3, 4]),
         (invoke(CONCATENATE, NUMBERS, integer(0), integer(0), integer(1)), [1, 2, 3, 4, 0, 0, 1]),
@@ -67,13 +67,21 @@ def test():
         (invoke(ALL_BUT_LAST, NUMBERS), [1, 2, 3]),
         (invoke(ALL_BUT_LAST, STRINGS), ["foo", "bar"]),
 
-        (invoke(LENGTH, NUMBERS), 4),
-        (invoke(LENGTH, STRINGS), 3),
+        (invoke(LENGTH, EMPTY_LIST), 0),
+        (invoke(LENGTH, NUMBERS),    4),
+        (invoke(LENGTH, STRINGS),    3),
 
         (invoke(CONTAINS, NUMBERS, integer(1)),  True),
         (invoke(CONTAINS, NUMBERS, integer(2)),  True),
         (invoke(CONTAINS, NUMBERS, integer(3)),  True),
         (invoke(CONTAINS, NUMBERS, integer(4)),  True),
         (invoke(CONTAINS, NUMBERS, integer(5)),  False),
+
+        (invoke(REVERSE, NUMBERS), [4, 3, 2, 1]),
+        (invoke(REVERSE, STRINGS), ["baz", "bar", "foo"]),
+
+        (invoke(EMPTY, NUMBERS),    False),
+        (invoke(EMPTY, STRINGS),    False),
+        (invoke(EMPTY, EMPTY_LIST), True),
     ])
 

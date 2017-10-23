@@ -2,16 +2,29 @@ from functional import seq
 import operator
 
 
-CONCATENATE = "concatenate"
-LENGTH =      "length"
-CONTAINS =    "contains"
+CONCATENATE =   "concatenate"
+LENGTH =        "length"
+CONTAINS =      "contains?"
+GET_ELEMENT =   "element"
+FIRST_ELEMENT = "first"
+LAST_ELEMENT =  "last"
+ALL_BUT_FIRST = "all-but-first"
+ALL_BUT_LAST =  "all-but-last"
+REVERSE =       "reverse"
+EMPTY =         "empty?"
 
 
 def symbols():
     return {
-        CONCATENATE: _concatenate,
-        LENGTH:      _length,
-        CONTAINS:    lambda a, b: b in a,
+        CONCATENATE:   _concatenate,
+        LENGTH:        _length,
+        CONTAINS:      lambda a, b: b in a,
+        FIRST_ELEMENT: lambda x: x[0],
+        LAST_ELEMENT:  lambda x: x[-1],
+        ALL_BUT_FIRST: lambda x: x[1:],
+        ALL_BUT_LAST:  lambda x: x[:-1],
+        REVERSE:       lambda x: x[::-1],
+        EMPTY:         lambda x: len(x) == 0,
     }
 
 
