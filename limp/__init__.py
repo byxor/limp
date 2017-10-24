@@ -27,7 +27,12 @@ class Repl:
     PROMPT = "> "
     WELCOME_MESSAGE = f"Welcome to LIMP! You're in a REPL, have fun!\n"
 
-    def __init__(self, input_=sys.stdin.readline, output=sys.stdout.write):
+    def __init__(self, input_=None, output=None):
+        if input_ == None:
+            input_ = _default_input
+        if output == None:
+            output = _default_output
+            
         self._input = input_
         self._output = output
         self.__displayed_welcome = False
@@ -64,6 +69,15 @@ class Repl:
     def __display_result(self, result):
         self._output(f"{result}\n")
 
+
+def _default_input():
+    return sys.stdin.readline()
+
+    
+def _default_output(text):
+    sys.stdout.write(text)
+    sys.stdout.flush()
+        
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
