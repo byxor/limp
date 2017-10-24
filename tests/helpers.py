@@ -39,6 +39,11 @@ def run_evaluation_test_on(data):
         assert_equal(expected_result, limp.evaluate(source_code))
 
 
+def run_evaluation_test_with_sample_environment(data):
+    for source_code, expected_result in data:
+        assert_equal(expected_result, limp.evaluate(source_code, sample_environment()))
+
+
 def test_chain(*functions):
     EMPTY_STATE = dict()
     return _chain(EMPTY_STATE, *functions)

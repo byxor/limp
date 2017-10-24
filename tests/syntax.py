@@ -2,6 +2,15 @@ import limp.parentheses as Parentheses
 import limp.types as Types
 
 
+positive = lambda number_string: f'{Types.AbstractInteger.POSITIVE}{number_string}'
+negative = lambda number_string: f'{Types.AbstractInteger.NEGATIVE}{number_string}'
+integer = str
+float_ = str
+hexadecimal = hex
+binary = bin
+symbol = str
+
+
 def list_of(*contents):
     KEYWORD = Types.List.KEYWORD
     return form(KEYWORD, *contents)
@@ -18,15 +27,6 @@ def string(contents):
     return f'{DELIMITER}{contents}{DELIMITER}'
 
 
-positive = lambda number_string: f'+{number_string}'
-negative = lambda number_string: f'-{number_string}'
-integer = str
-float_ = str
-hexadecimal = hex
-binary = bin
-symbol = str
-
-
 def boolean(value):
     TYPE = Types.Boolean
     return TYPE.TRUE_KEYWORD if value else TYPE.FALSE_KEYWORD
@@ -34,6 +34,14 @@ def boolean(value):
 
 def if_statement(condition, main_body, else_body=""):
     return form(Types.SimpleConditional.KEYWORD, condition, main_body, else_body)
+
+
+def conditional(*condition_value_pairs):
+    KEYWORD = Types.ComplexConditional.KEYWORD
+    contents = [KEYWORD]
+    for pair in condition_value_pairs:
+        contents.append(form(*pair))
+    return form(*contents)
 
 
 def invoke(function, *args):
@@ -47,6 +55,15 @@ def define(name, value):
 def function(parameter_names, body):
     PARAMETERS = parameters(parameter_names)
     return form(Types.Function.KEYWORD, PARAMETERS, body)
+
+
+def shorthand_function(body):
+    return form(Types.Function.KEYWORD, body)
+
+
+def sequence(*args):
+    KEYWORD = Types.SequentialEvaluator.KEYWORD
+    return form(KEYWORD, *args)
 
 
 def parameters(parameters):

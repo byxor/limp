@@ -1,7 +1,10 @@
 from limp.utils import evaluates_safely
 
 
-class _AbstractInteger:
+class AbstractInteger:
+
+    POSITIVE = '+'
+    NEGATIVE = '-'
 
     def __init__(self, contents, prefix, base):
         self.__contents = contents
@@ -12,21 +15,32 @@ class _AbstractInteger:
         return int(self.__contents, self.__base)
 
     def is_valid(self):
-        has_correct_prefix = self.__contents.startswith(self.__prefix)
-        return has_correct_prefix and evaluates_safely(self)
+        return self.__has_correct_prefix() and evaluates_safely(self)
+
+    def __has_correct_prefix(self):
+        correct_prefixes = [
+            self.__prefix,
+            f"{AbstractInteger.POSITIVE}{self.__prefix}",
+            f"{AbstractInteger.NEGATIVE}{self.__prefix}",
+        ]
+        for correct_prefix in correct_prefixes:
+            if self.__contents.startswith(correct_prefix):
+                return True
+        return False
+                
 
     
-class Integer(_AbstractInteger):
+class Integer(AbstractInteger):
     def __init__(self, contents, environment):
         super().__init__(contents, '', 10)
 
         
-class Hexadecimal(_AbstractInteger):
+class Hexadecimal(AbstractInteger):
     def __init__(self, contents, environment):
         super().__init__(contents, '0x', 16)
 
         
-class Binary(_AbstractInteger):
+class Binary(AbstractInteger):
     def __init__(self, contents, environment):
         super().__init__(contents, '0b', 2)
 

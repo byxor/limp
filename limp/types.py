@@ -26,6 +26,12 @@ Boolean             = limp.internal_types.logical.Boolean
 
 
 """
+These types are never used directly, only inherited from."
+"""
+AbstractInteger     = limp.internal_types.numeric.AbstractInteger
+
+
+"""
 The order of types here is important!
 
 When performing type inference, the provided data will
