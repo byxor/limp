@@ -38,6 +38,31 @@ class Function:
             execution_environment.define(name, value)
 
 
+class ShorthandFunction:
+
+    KEYWORD = '->'
+
+    def __init__(self, contents, environment):
+        self.__contents = contents
+        self.__environment = environment
+
+    def is_valid(self):
+        if len(self.__contents) < 3:
+            return False
+        return self.__contents[1] == ShorthandFunction.KEYWORD
+
+    def evaluate(self):
+        return self.__internal_form().evaluate()
+
+    def __internal_form(self):
+        contents = [
+            Function.KEYWORD,
+            self.__contents[0],
+            self.__contents[2]
+        ]
+        return Function(contents, self.__environment)
+
+
 class Invocation:
 
     def __init__(self, contents, environment):

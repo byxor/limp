@@ -57,8 +57,14 @@ def function(parameter_names, body):
     return form(Types.Function.KEYWORD, PARAMETERS, body)
 
 
-def shorthand_function(body):
+def shortened_function(body):
     return form(Types.Function.KEYWORD, body)
+
+
+def shorthand_function(parameter_names, body):
+    PARAMETERS = parameters(parameter_names)
+    KEYWORD = Types.ShorthandFunction.KEYWORD
+    return form(PARAMETERS, KEYWORD, body)
 
 
 def sequence(*args):

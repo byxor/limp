@@ -9,6 +9,7 @@ from abc import ABCMeta, abstractmethod
 """
 Types exposed here to ease testing.
 """
+ShorthandFunction   = limp.internal_types.behavioural.ShorthandFunction
 Function            = limp.internal_types.behavioural.Function
 ComplexConditional  = limp.internal_types.behavioural.ComplexConditional
 SimpleConditional   = limp.internal_types.behavioural.SimpleConditional
@@ -42,6 +43,7 @@ appear in the list.
 """
 ALL_TYPES = [
     List,
+    ShorthandFunction,
     Function,
     SimpleConditional,
     ComplexConditional,
