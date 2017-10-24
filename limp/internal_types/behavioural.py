@@ -47,18 +47,21 @@ class ShorthandFunction:
         self.__environment = environment
 
     def is_valid(self):
-        if len(self.__contents) < 3:
+        if len(self.__contents) < 2:
             return False
-        return self.__contents[1] == ShorthandFunction.KEYWORD
+        keyword_index = -2
+        return self.__contents[keyword_index] == ShorthandFunction.KEYWORD
 
     def evaluate(self):
         return self.__internal_form().evaluate()
 
     def __internal_form(self):
+        parameter_names = self.__contents[:-2]
+        body = self.__contents[-1]
         contents = [
             Function.KEYWORD,
-            self.__contents[0],
-            self.__contents[2]
+            parameter_names,
+            body,
         ]
         return Function(contents, self.__environment)
 

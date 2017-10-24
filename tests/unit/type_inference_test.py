@@ -60,8 +60,10 @@ def test_type_inference():
         ([Types.Function.KEYWORD, [], integer(1)],              Types.Function),
         ([Types.Function.KEYWORD, ['x', 'y'], ['+', 'x', 'y']], Types.Function),
 
-        ([[], Types.ShorthandFunction.KEYWORD, integer(0)], Types.ShorthandFunction),
-        ([['x'], Types.ShorthandFunction.KEYWORD, 'x'],     Types.ShorthandFunction),
+        ([Types.ShorthandFunction.KEYWORD, integer(0)],         Types.ShorthandFunction),
+        (['x', Types.ShorthandFunction.KEYWORD, integer(0)],    Types.ShorthandFunction),
+        (['x', 'y', Types.ShorthandFunction.KEYWORD, 'x'],      Types.ShorthandFunction),
+        (['x', 'y', 'z', Types.ShorthandFunction.KEYWORD, 'x'], Types.ShorthandFunction),
 
         ([Types.List.KEYWORD, 'x', 'y', 'z'],              Types.List),
         ([Types.List.KEYWORD, integer(100), integer(200)], Types.List),

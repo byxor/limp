@@ -5,7 +5,9 @@ from tests.syntax import *
 
 RETURN_INPUT = function(['n'], 'n')
 CUSTOM_ADD = function(['a', 'b'], invoke(ADD, 'a', 'b'))
-CUSTOM_SHORTHAND_FUNCTION = shorthand_function(['n'], invoke(SQUARE_ROOT, 'n'))
+
+SHORTHAND_SQUARE_ROOT = shorthand_function(['n'], invoke(SQUARE_ROOT, 'n'))
+SHORTHAND_SUBTRACT = shorthand_function(['a', 'b'], invoke(SUBTRACT, 'a', 'b'))
 
 
 def test_invoking_anonymous_functions():
@@ -28,8 +30,9 @@ def test_invoking_shortened_zero_argument_functions():
 
 def test_invoking_shorthand_functions():
     Helpers.run_evaluation_test_on([
-        (invoke(shorthand_function([], integer(10))),    10),
-        (invoke(shorthand_function([], integer(20))),    20),
-        (invoke(CUSTOM_SHORTHAND_FUNCTION, integer(16)), 4),
-        (invoke(CUSTOM_SHORTHAND_FUNCTION, integer(9)),  3),
+        (invoke(shorthand_function([], integer(10))),        10),
+        (invoke(shorthand_function([], integer(20))),        20),
+        (invoke(SHORTHAND_SQUARE_ROOT, integer(16)),         4),
+        (invoke(SHORTHAND_SQUARE_ROOT, integer(9)),          3),
+        (invoke(SHORTHAND_SUBTRACT, integer(5), integer(3)), 2),
     ])
