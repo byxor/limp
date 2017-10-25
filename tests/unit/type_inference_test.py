@@ -67,7 +67,10 @@ def test_type_inference():
 
         ([Types.List.KEYWORD, 'x', 'y', 'z'],              Types.List),
         ([Types.List.KEYWORD, integer(100), integer(200)], Types.List),
+
+        ([Types.Object.KEYWORD], Types.Object),
     ]
     for contents, expected_type in data:
         form = Types.Form.infer_from(contents, Helpers.sample_environment())
         yield assert_equals, expected_type, type(form)
+

@@ -1,5 +1,6 @@
 import limp.errors as Errors
 import limp.internal_types.helpers as Helpers
+import limp.environment as Environment
 from functional import seq
 
 
@@ -61,3 +62,25 @@ class List:
     def evaluate(self):
         nodes = self.__contents[1:]
         return Helpers.evaluate_list_of(nodes, self.__environment)
+
+
+class Object:
+
+    KEYWORD = 'object'
+
+    def __init__(self, contents, environment):
+        self.__contents = contents
+        self.__environment = environment
+
+    def is_valid(self):
+        return self.__contents[0] == Object.KEYWORD
+
+    def evaluate(self):
+        object_ = Environment.create_empty()
+        attributes = self.__contents[1:]
+        for name, value_node in attributes:
+            value = Helpers.evaluate(value_node, self.__environment)
+            object_.define(name, value)
+        return object_
+            
+        

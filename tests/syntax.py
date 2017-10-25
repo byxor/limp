@@ -11,6 +11,14 @@ binary = bin
 symbol = str
 
 
+def object_(*attributes):
+    KEYWORD = Types.Object.KEYWORD
+    contents = [KEYWORD]
+    for attribute in attributes:
+        contents.append(form(*attribute))
+    return form(*contents)
+
+
 def list_of(*contents):
     KEYWORD = Types.List.KEYWORD
     return form(KEYWORD, *contents)

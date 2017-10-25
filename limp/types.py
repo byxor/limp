@@ -19,6 +19,7 @@ Invocation          = limp.internal_types.behavioural.Invocation
 Symbol              = limp.internal_types.standard.Symbol
 String              = limp.internal_types.standard.String
 List                = limp.internal_types.standard.List
+Object              = limp.internal_types.standard.Object
 Integer             = limp.internal_types.numeric.Integer
 Hexadecimal         = limp.internal_types.numeric.Hexadecimal
 Binary              = limp.internal_types.numeric.Binary
@@ -42,6 +43,7 @@ The types will be checked in the order they
 appear in the list.
 """
 ALL_TYPES = [
+    Object,
     List,
     ShorthandFunction,
     Function,

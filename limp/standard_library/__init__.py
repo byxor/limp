@@ -2,6 +2,7 @@ from importlib import import_module
 
 
 PYTHON_MODULE_NAMES = [
+    "objects",
     "math",
     "comparisons",
     "conversions",
