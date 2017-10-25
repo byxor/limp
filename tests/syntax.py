@@ -68,6 +68,10 @@ def shorthand_function(parameter_names, body):
     return code
 
 
+def self_reference():
+    return Types.Function.SELF_REFERENCE
+
+
 def sequence(*args):
     KEYWORD = Types.SequentialEvaluator.KEYWORD
     return form(KEYWORD, *args)

@@ -1,11 +1,13 @@
 import limp.errors as Errors
 import limp.internal_types.helpers as Helpers
+import inspect
 from functional import seq
 
 
 class Function:
 
     KEYWORD = 'function'
+    SELF_REFERENCE = 'this'
     
     def __init__(self, contents, environment):
         self.__contents = contents
@@ -27,6 +29,8 @@ class Function:
         def __internal_function(*called_with):
             execution_environment = self.__child_environment.new_child()
             self.__bind_parameters(execution_environment, argument_names, called_with)
+            execution_environment.define(Function.SELF_REFERENCE, __internal_function)
+            
             executable_form = Form.infer_from(body_contents, execution_environment)
             function_output = executable_form.evaluate()
             return function_output

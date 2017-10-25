@@ -1,5 +1,6 @@
 import tests.helpers as Helpers
 from limp.standard_library.math import *
+from limp.standard_library.comparisons import *
 from tests.syntax import *
 
 
@@ -35,4 +36,36 @@ def test_invoking_shorthand_functions():
         (invoke(SHORTHAND_SQUARE_ROOT, integer(16)),         4),
         (invoke(SHORTHAND_SQUARE_ROOT, integer(9)),          3),
         (invoke(SHORTHAND_SUBTRACT, integer(5), integer(3)), 2),
+    ])
+
+
+def test_self_referencing_functions():
+    function_ = shorthand_function(
+        ['n'],
+        if_statement(
+            invoke(
+                GREATER_THAN,
+                'n',
+                integer(0)
+            ),
+            invoke(
+                ADD,
+                integer(1),
+                invoke(
+                    self_reference(),
+                    invoke(
+                        SUBTRACT,
+                        'n',
+                        integer(1)
+                    )
+                )
+            ),
+            integer(0)
+        )
+    )
+    
+    Helpers.run_evaluation_test_on([
+        (invoke(function_, integer(0)), 0),
+        (invoke(function_, integer(1)), 1),
+        (invoke(function_, integer(2)), 2),
     ])
