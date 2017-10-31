@@ -31,7 +31,7 @@ def test():
         ("car",                "rac"),
         ("Reverse!",           "!esreveR"),
         ("racecar",            "racecar"),
-        ("hello there fellas", "sallef rerht olleh"),
+        ("hello there fellas", "sallef ereht olleh"),
     ]
     for input_, expected_output in data:
         actual_output = reverse(input_)
