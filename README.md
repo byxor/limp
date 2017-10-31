@@ -8,12 +8,14 @@ A general purpose programming language, built with the aim to materialise the fo
 4. Granularity - Functions should remain small.
 5. Reusability - Packages can be easily shared and installed.
 
-## Installation
+## For users:
+
+### Installation
 
 Install globally: `pip install limp`  
 Install for user: `pip install limp --user`
 
-## Try it out (REPL)
+### Try it out (REPL)
 
 ```python
 $ python
@@ -30,3 +32,39 @@ None
 > (if (= bits-in-byte (** 2 8)) "You know it.")
 You know it.
 ```
+
+## For developers:
+
+Dependencies:
+* python3.6
+* pip
+* virtualenv
+
+### Setup
+
+1. Clone the repository.
+
+2. Create a virtual environment.
+ ```bash
+ # From the root directory of the repository...
+ virtualenv venv -p /path/to/python3.6
+ ```
+ 
+3. Activate the virtual environment.
+ ```bash
+ source venv/bin/activate
+ ```
+ 
+4. Update pip dependencies.
+ ```bash
+ # Requires that you've activated the virtual environment.
+ pip install -r requirements.txt --upgrade
+ ```
+ 
+### Running the tests
+```bash
+# From the root directory of the repository...
+nosetests
+```
+
+If you haven't activated the virtual environment using the setup instructions, you will get plenty of import errors when running tests. This is because the virtualenvironment will modify the PYTHONPATH environment variable.
