@@ -31,9 +31,6 @@ def test_lists_are_immutable():
         invoke(PREPEND_ELEMENT, LIST, string("foo")),
     ]
     for invocation in invocations:
-        print('\nAbout to run...')
-        print(invocation)
-        print(environment.resolve(LIST))
         limp.evaluate(invocation, environment)
 
     yield assert_equal, LIST_VALUE, environment.resolve(LIST)
