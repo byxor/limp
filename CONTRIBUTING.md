@@ -18,6 +18,8 @@ This is often frustrating for some developers, but I can't stress enough how cru
 
 **How can I test my feature?**
 
+Imagine we wanted to test a feature involving reversing a string. We could write...
+
 _tests/unit/string_reversal_test.py_
 ```python
 from limp.utils import reverse
@@ -51,6 +53,8 @@ def reverse(string):
 * Make sure the file ends in `test.py` so the test runner picks it up. The functions usually also need to have `test` in them.
 
 * If the test's file name succintly describes the feature, call your test function `test` to reduce repetition.
+
+* Run the tests with the `nosetests` command. Make sure the repo is set up correctly with virtualenv (see README.md for instructions)
 
 ---
 
@@ -87,7 +91,7 @@ Currently there isn't a definitive style guide being followed. This will hopeful
 
 If your code is [PEP8](https://www.python.org/dev/peps/pep-0008/) Compliant, it will be A-okay. :ok_hand:
 
-## 3. Your code does not impose restrictions on structure/architecture/implementation.
+## 3. Your code must not impose restrictions on structure/architecture/implementation.
 
 This is extremely hard to measure, but try to leave the code as malleable as possible for future developers. The easiest way to do this is through automated tests.
 
