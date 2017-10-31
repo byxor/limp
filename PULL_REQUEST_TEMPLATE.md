@@ -2,8 +2,8 @@
 
 ```// Add simple bulletpoints summarising the PR contents:```
 
-* Fix padding issue for parentheses inside string literals.
-* Also cleaned up foo.py
+* Fix unwanted padding issue for parentheses inside string literals.
+* Also cleaned up `foo.py`
 * Closes #1234567
 
 ## Coverage:
