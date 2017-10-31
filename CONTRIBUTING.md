@@ -5,7 +5,7 @@ Hi there, I'm thrilled that you want to contribute to this project!
 Here are some requirements that must be met before your feature is eligible for merging:
 
 
-## 1. Your code must be tested.
+## 1. Your code must be tested (via fully-automated tests).
 
 This is often frustrating for some developers, but I can't stress enough how crucial it is.
 
