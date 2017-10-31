@@ -23,6 +23,7 @@ _tests/unit/string_reversal_test.py_
 from limp.utils import reverse
 from nose.tools import assert_equal
 
+
 def test():
     data = [
         ("",                   ""),
@@ -43,7 +44,7 @@ def reverse(string):
     return string[::-1]
 ```
 
-* A common pattern in our tests involves constructing tuples of inputs and expected outputs. This helps to reduce the complexity of tests and reduce duplicated function calls.
+* A common pattern in our tests involves constructing tuples of inputs and expected outputs. This helps to reduce the complexity of tests and reduce duplicated function calls. It also encourages purer functions.
 
 * It often works well to name your test file like a _feature_. By doing this, you're implicitly breaking structural coupling between the tests and the feature under test.
 
