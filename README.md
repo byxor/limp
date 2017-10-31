@@ -36,9 +36,11 @@ You know it.
 ## For developers:
 
 Dependencies:
-* python3.6
-* pip
-* virtualenv
+```
+* python3.6  (to run the code)
+* pip        (to download and install other python modules)
+* virtualenv (makes development easier, helps with importing modules)
+```
 
 ### Setup
 
