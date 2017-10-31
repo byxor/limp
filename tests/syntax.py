@@ -8,6 +8,7 @@ integer = str
 float_ = str
 hexadecimal = hex
 binary = bin
+octal = oct
 symbol = str
 
 

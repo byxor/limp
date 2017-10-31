@@ -17,12 +17,19 @@ def test_numeric_types():
         (negative(hexadecimal(0xBEEF)),  -0xBEEF),
         (positive(hexadecimal(0xB00B5)), +0xB00B5),
 
-        (binary(0b0),             0b0),
-        (binary(0b1),             0b1),
-        (binary(0b101),           0b101),
-        (negative(binary(0b1)),   -0b1),
-        (negative(binary(0b111)), -0b111),
-        (positive(binary(0b10)),  +0b10),
+        (binary(0b0),              0b0),
+        (binary(0b1),              0b1),
+        (binary(0b101),            0b101),
+        (negative(binary(0b1)),    -0b1),
+        (negative(binary(0b111)),  -0b111),
+        (positive(binary(0b10)),   +0b10),
+
+        (octal(0o0),              0o0),
+        (octal(0o1),              0o1),
+        (octal(0o4234),           0o4234),
+        (negative(octal(0o1)),    -0o1),
+        (negative(octal(0o4536)), -0o4536),
+        (positive(octal(0o42)),   +0o42),
 
         (float_(0),               0.0),
         (float_(0.5),             0.5),
@@ -40,7 +47,7 @@ def test_booleans():
         (boolean(False), False),
     ])
 
-        
+
 def test_strings():
     Helpers.run_evaluation_test_on([
         (string("Hey"),          "Hey"),

@@ -27,24 +27,29 @@ class AbstractInteger:
             if self.__contents.startswith(correct_prefix):
                 return True
         return False
-                
 
-    
+
+
 class Integer(AbstractInteger):
     def __init__(self, contents, environment):
         super().__init__(contents, '', 10)
 
-        
+
 class Hexadecimal(AbstractInteger):
     def __init__(self, contents, environment):
         super().__init__(contents, '0x', 16)
 
-        
+
 class Binary(AbstractInteger):
     def __init__(self, contents, environment):
         super().__init__(contents, '0b', 2)
 
-        
+
+class Octal(AbstractInteger):
+    def __init__(self, contents, environment):
+        super().__init__(contents, '0o', 8)
+
+
 class Float:
 
     def __init__(self, contents, environment):

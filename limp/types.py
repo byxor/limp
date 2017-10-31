@@ -23,6 +23,7 @@ Object              = limp.internal_types.standard.Object
 Integer             = limp.internal_types.numeric.Integer
 Hexadecimal         = limp.internal_types.numeric.Hexadecimal
 Binary              = limp.internal_types.numeric.Binary
+Octal               = limp.internal_types.numeric.Octal
 Float               = limp.internal_types.numeric.Float
 Boolean             = limp.internal_types.logical.Boolean
 
@@ -55,6 +56,7 @@ ALL_TYPES = [
     Integer,
     Hexadecimal,
     Binary,
+    Octal,
     Float,
     Boolean,
     String,
