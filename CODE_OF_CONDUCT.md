@@ -2,9 +2,9 @@
 
 Here at LIMP, our guidelines are loose.
 
-**LIMP is about creating a cool programming language, not about enforcing policies.**
+**We're here to create a programming language, not to enforce policies.**
 
-However, your co-operation with (and respect towards) other maintainers/users/developers will help keep everything running smoothly and effectively.
+Your co-operation/respect with/towards other maintainers/users/developers will keep everything running smoothly, but that's _your_ responsibility; not mine.
 
 ---
 
@@ -18,4 +18,4 @@ However, your co-operation with (and respect towards) other maintainers/users/de
 
 ---
 
-Your co-operation with these guidelines is entirely optional. _We're all adults here_.
+Remember, these guidelines are optional; _we're all adults here_.
