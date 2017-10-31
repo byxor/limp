@@ -2,7 +2,7 @@
 
 Hi there, I'm thrilled that you want to contribute to this project!
 
-Here are some guidelines that must be met before your feature is eligible for merging:
+Here are some requirements that must be met before your feature is eligible for merging:
 
 
 ## 1. Your code must be tested.
@@ -52,10 +52,12 @@ If your code is [PEP8](https://www.python.org/dev/peps/pep-0008/) Compliant, it 
 
 This is extremely hard to measure, but try to leave the code as malleable as possible for future developers. The easiest way to do this is through automated tests.
 
-If you have a function to perform some kind of task, try not to expose what's going on internally. This allows other people to change the implementation without affecting behaviour from the outside. For example, call a function `define_symbol` instead of `add_symbol_to_dictionary`.
+If you have a function to perform some kind of task, try not to expose what's going on internally. This allows other people to change the implementation without affecting behaviour from the outside. For example, call a function `define_symbol` instead of `add_symbol_to_dictionary`, and don't add getters/setters to classes if they perform behaviour.
 
 #### An example of code that encourages flexibility:
 
 Notice how none of the integration tests explicitly have any LIMP code in them. This choice was made so that the language syntax could be freely changed. If the tests were full of statically-written LIMP code, the tests would restrict change.
 
+If we weren't doing this, and we wanted to change addition from `+` to `add`, all the tests that expected the `+` symbol to exist would break.
 
+The integration tests allow us to be flexible because they are [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
