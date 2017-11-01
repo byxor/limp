@@ -27,9 +27,9 @@ Welcome to LIMP! You're now in a REPL, have fun.
 5
 > (+ 1 2)
 3
-> (define bits-in-byte 256)
+> (define values-in-byte 256)
 None
-> (if (= bits-in-byte (** 2 8)) "You know it.")
+> (if (= values-in-byte (** 2 8)) "You know it.")
 You know it.
 ```
 
