@@ -1,5 +1,7 @@
 # limp
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=badger)
+
 A general purpose programming language, built with the aim to materialise the following ideas:
 
 1. Simplicity - There is very little syntax.
