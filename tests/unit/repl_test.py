@@ -60,6 +60,13 @@ def test_repl_maintains_an_environment_across_ticks():
         _output_was_written("321\n"))
 
 
+def test_repl_uses_standard_input_and_output_by_default():
+    Helpers.test_chain(
+        _given_a_real_repl,
+        _default_input_is_used,
+        _default_output_is_used)
+
+
 ### Helpers
 
 
@@ -68,6 +75,21 @@ def _given_a_repl_with_mocked_streams(state):
     state[INPUT] = CREATE_MOCK_STREAM()
     state[OUTPUT] = CREATE_MOCK_STREAM()
     state[REPL] = limp.Repl(state[INPUT], state[OUTPUT])
+    return state
+
+
+def _given_a_real_repl(state):
+    state[REPL] = limp.Repl()
+    return state
+
+
+def _default_input_is_used(state):
+    assert_equal(state[REPL]._input, limp.default_input)
+    return state
+
+
+def _default_output_is_used(state):
+    assert_equal(state[REPL]._output, limp.default_output)
     return state
 
 

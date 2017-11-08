@@ -29,9 +29,9 @@ class Repl:
 
     def __init__(self, input_=None, output=None):
         if input_ == None:
-            input_ = _default_input
+            input_ = default_input
         if output == None:
-            output = _default_output
+            output = default_output
 
         self._input = input_
         self._output = output
@@ -62,25 +62,16 @@ class Repl:
             return evaluate(code, self.__environment)
         except Errors.EmptyCode:
             pass
-        except Exception as e:
-            print(e.args[0], file=sys.stderr)
         return ""
 
     def __display_result(self, result):
         self._output(f"{result}\n")
 
 
-def _default_input():
+def default_input():
     return sys.stdin.readline()
 
 
-def _default_output(text):
+def default_output(text):
     sys.stdout.write(text)
     sys.stdout.flush()
-
-
-if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        print(evaluate(open(sys.argv[1], "r").read()))
-    else:
-        Repl().start()
