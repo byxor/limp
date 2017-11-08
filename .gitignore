@@ -8,3 +8,4 @@
 .venv
 TODO.md
 /cover
+coverage.xml
