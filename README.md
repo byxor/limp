@@ -2,7 +2,7 @@
 
 [![BCH compliance](https://bettercodehub.com/edge/badge/byxor/limp?branch=master)](https://bettercodehub.com/) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=badger) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=Badge_Coverage)
 
-[LIMP on Codacy](https://www.codacy.com/app/byxor/limp/dashboard)
+[(View Codacy Stats)](https://www.codacy.com/app/byxor/limp/dashboard)
 
 
 A general purpose programming language, built with the aim to materialise the following ideas:
