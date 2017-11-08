@@ -1,43 +1,46 @@
 import limp.errors as Errors
 import limp.internal_types.helpers as Helpers
-from limp.internal_types.form import Form
+import limp.internal_types.form as Form
 
 
-class Function(Form):
+class Function(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'function'
     SELF_REFERENCE = 'this'
 
-    def is_valid(self):
-        return self._contents[0] == Function.KEYWORD
-
     def evaluate(self):
+        parameter_names = self.__get_parameter_names()
+        body_contents = self._contents[-1]
 
-        child_environment = self._environment
+        def internal_function(*parameter_values):
+            execution_environment = self._environment.new_child()
+            parameters = zip(parameter_names, parameter_values)
 
-        if len(self._contents) > 2:
-            argument_names = self._contents[1]
-            body_contents = self._contents[2]
-        else:
-            argument_names = []
-            body_contents = self._contents[1]
+            _bind(parameters, execution_environment)
+            _apply_self_reference(internal_function, execution_environment)
 
-        def __internal_function(*called_with):
-            execution_environment = child_environment.new_child()
-            _bind_parameters(execution_environment, argument_names, called_with)
-            execution_environment.define(Function.SELF_REFERENCE, __internal_function)
             output = Helpers.evaluate(body_contents, execution_environment)
             return output
 
-        return __internal_function
+        return internal_function
+
+    def __get_parameter_names(self):
+        return self._contents[1] if self.__has_arguments() else []
+
+    def __has_arguments(self):
+        return len(self._contents) > 2
 
 
-def _bind_parameters(execution_environment, names, values):
-    for name, value in zip(names, values):
+def _bind(parameters, execution_environment):
+    for name, value in parameters:
         execution_environment.define(name, value)
 
 
-class ShorthandFunction(Form):
+def _apply_self_reference(function, execution_environment):
+    execution_environment.define(Function.SELF_REFERENCE, function)
+
+
+class ShorthandFunction(Form.Constructor):
 
     KEYWORD = '->'
 
@@ -61,23 +64,20 @@ class ShorthandFunction(Form):
         return Function(contents, self._environment)
 
 
-class Invocation(Form):
+class Invocation(Form.Constructor):
 
     def is_valid(self):
         return isinstance(self._contents, list)
 
     def evaluate(self):
         function = Helpers.evaluate(self._contents[0], self._environment)
-        arguments = Helpers.evaluate_list_of(self._contents[1:], self._environment)
-        return function(*arguments)
+        parameters = Helpers.evaluate_list_of(self._contents[1:], self._environment)
+        return function(*parameters)
 
 
-class SimpleConditional(Form):
+class SimpleConditional(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'if'
-
-    def is_valid(self):
-        return self._contents[0] == SimpleConditional.KEYWORD
 
     def evaluate(self):
         outcome = Helpers.evaluate(self._contents[1], self._environment)
@@ -95,12 +95,9 @@ class SimpleConditional(Form):
         return len(self._contents) >= MINIMUM_NUMBER_OF_CONTENTS
 
 
-class ComplexConditional(Form):
+class ComplexConditional(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'condition'
-
-    def is_valid(self):
-        return self._contents[0] == ComplexConditional.KEYWORD
 
     def evaluate(self):
         pairs = self._contents[1:]
@@ -110,12 +107,9 @@ class ComplexConditional(Form):
                 return Helpers.evaluate(pair[1], self._environment)
 
 
-class SequentialEvaluator(Form):
+class SequentialEvaluator(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'do'
-
-    def is_valid(self):
-        return self._contents[0] == SequentialEvaluator.KEYWORD
 
     def evaluate(self):
         nodes = self._contents[1:]
@@ -126,12 +120,9 @@ class SequentialEvaluator(Form):
         return result
 
 
-class Definition(Form):
+class Definition(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'define'
-
-    def is_valid(self):
-        return self._contents[0] == Definition.KEYWORD
 
     def evaluate(self):
         name = self._contents[1]

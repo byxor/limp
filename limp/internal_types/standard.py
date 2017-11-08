@@ -1,9 +1,9 @@
 import limp.internal_types.helpers as Helpers
 import limp.environment as Environment
-from limp.internal_types.form import Form
+import limp.internal_types.form as Form
 
 
-class Symbol(Form):
+class Symbol(Form.Constructor):
 
     def is_valid(self):
         return isinstance(self._contents, str)
@@ -13,7 +13,7 @@ class Symbol(Form):
         return self._environment.resolve(name)
 
 
-class String(Form):
+class String(Form.Constructor):
 
     DELIMITER = '"'
 
@@ -34,26 +34,20 @@ class String(Form):
         return start and end
 
 
-class List(Form):
+class List(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'list'
     OPEN_DELIMITER = '['
     CLOSE_DELIMITER = ']'
-
-    def is_valid(self):
-        return self._contents[0] == List.KEYWORD
 
     def evaluate(self):
         nodes = self._contents[1:]
         return Helpers.evaluate_list_of(nodes, self._environment)
 
 
-class Object(Form):
+class Object(Form.Constructor, Form.KeywordValidityChecker):
 
     KEYWORD = 'object'
-
-    def is_valid(self):
-         return self._contents[0] == Object.KEYWORD
 
     def evaluate(self):
         object_ = Environment.create_empty()

@@ -1,7 +1,7 @@
-from limp.internal_types.form import Form
+import limp.internal_types.form as Form
 
 
-class Boolean(Form):
+class Boolean(Form.Constructor):
 
     TRUE_KEYWORD = 'true'
     FALSE_KEYWORD = 'false'

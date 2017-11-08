@@ -1,5 +1,5 @@
+import limp.internal_types.form as Form
 from limp.utils import evaluates_safely
-from limp.internal_types.form import Form
 
 
 class AbstractInteger:
@@ -50,10 +50,10 @@ class Octal(AbstractInteger):
         super().__init__(contents, '0o', 8)
 
 
-class Float(Form):
-
-    def evaluate(self):
-        return float(self._contents)
+class Float(Form.Constructor):
 
     def is_valid(self):
         return evaluates_safely(self)
+
+    def evaluate(self):
+        return float(self._contents)
