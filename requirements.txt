@@ -2,3 +2,5 @@ nose
 pep8
 autopep8
 PyFunctional
+coverage
+codacy-coverage
