@@ -18,7 +18,7 @@ class RedefinedSymbol(LimpError):
         message += "It may seem annoying, but immutability has benefits."
         super().__init__(message)
 
-        
+
 class EmptyCode(LimpError):
     def __init__(self):
         super().__init__("There is no code here to run.")
@@ -29,7 +29,7 @@ class UnnecessarySequentialEvaluator(LimpError):
         message = "You have a SequentialEvaluator (do expression) with only 1 form in it.\n"
         message += "It is not needed."
         super().__init__(message)
-        
+
 
 class ExtraClosingParenthesis(LimpError):
     def __init__(self, amount):
