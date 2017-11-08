@@ -8,7 +8,7 @@ def test():
 
         (invoke(CONCATENATE, string("foo"), string("bar")),
          "foobar"),
-        
+
         (invoke(CONCATENATE, string("hello"), string(" "), string("there")),
          "hello there"),
 
@@ -62,10 +62,10 @@ def test():
 
         (invoke(JOIN, string(" "), list_of(string("1"), string("2"), string("3"))),
          "1 2 3"),
-        
+
         (invoke(JOIN, string(" "), list_of(string("4"), string("5"), string("6"))),
          "4 5 6"),
-        
+
         (invoke(JOIN, string("_::_"), list_of(string("tayne"), string("brain"))),
          "tayne_::_brain"),
 

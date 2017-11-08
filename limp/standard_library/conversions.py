@@ -14,9 +14,8 @@ def symbols():
 
 
 def _boolean(x):
-    if type(x) == str:
+    if isinstance(x, str):
         import limp.types as Types
         return x == Types.Boolean.TRUE_KEYWORD
     else:
         return bool(x)
-

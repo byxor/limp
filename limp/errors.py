@@ -19,7 +19,6 @@ class RedefinedSymbol(LimpError):
         super().__init__(message)
 
         
-        
 class EmptyCode(LimpError):
     def __init__(self):
         super().__init__("There is no code here to run.")

@@ -20,7 +20,7 @@ def test():
                 integer(10)),
             integer(20)),
          30),
-        
+
         (invoke(
             invoke(
                 PARTIAL,

@@ -2,13 +2,9 @@ import limp.internal_types.behavioural
 import limp.internal_types.logical
 import limp.internal_types.numeric
 import limp.internal_types.standard
-import limp.environment as Environment
-from abc import ABCMeta, abstractmethod
 
 
-"""
-Types exposed here to ease testing.
-"""
+# Types exposed here to ease testing.
 ShorthandFunction   = limp.internal_types.behavioural.ShorthandFunction
 Function            = limp.internal_types.behavioural.Function
 ComplexConditional  = limp.internal_types.behavioural.ComplexConditional
@@ -28,21 +24,17 @@ Float               = limp.internal_types.numeric.Float
 Boolean             = limp.internal_types.logical.Boolean
 
 
-"""
-These types are never used directly, only inherited from."
-"""
+# These types are never used directly, only inherited from."
 AbstractInteger     = limp.internal_types.numeric.AbstractInteger
 
 
-"""
-The order of types here is important!
+# The order of types here is important!
 
-When performing type inference, the provided data will
-be checked against each type to find a valid match.
+# When performing type inference, the provided data will
+# be checked against each type to find a valid match.
 
-The types will be checked in the order they
-appear in the list.
-"""
+# The types will be checked in the order they
+# appear in the list.
 ALL_TYPES = [
     Object,
     List,

@@ -20,13 +20,12 @@ def test_creating_child_environments():
     name = 'x'
     parent_value = "parent"
     child_value = "child"
-    
+
     parent = Environment.create_empty()
     parent.define(name, parent_value)
-    
+
     child = parent.new_child()
     yield assert_equal, parent_value, child.resolve(name)
     child.define(name, child_value)
     yield assert_equal, child_value, child.resolve(name)
     yield assert_equal, parent_value, parent.resolve(name)
-    

@@ -3,23 +3,22 @@ from nose.tools import assert_equal
 from tests.syntax import *
 
 
-"""
-It's easy for string literals to be
-unintentionally modified when
-interpreting source code.
+# It's easy for string literals to be
+# unintentionally modified when
+# interpreting source code.
 
-These tests will reduce that.
-"""
+# These tests will reduce that.
+
 
 def test_ascii_literals_remain_unmodified():
     LOWEST_ORDINAL = 32
     HIGHEST_ORDINAL = 126
     ORDINALS = lambda: range(LOWEST_ORDINAL, HIGHEST_ORDINAL + 1)
-    
+
     EXCLUSIONS = [
         Types.String.DELIMITER
     ]
-    
+
     for ordinal in ORDINALS():
         character = chr(ordinal)
         if not character in EXCLUSIONS:

@@ -27,7 +27,7 @@ def test_invoking_shortened_zero_argument_functions():
         (invoke(shortened_function(integer(1))), 1),
         (invoke(shortened_function(integer(2))), 2),
     ])
-        
+
 
 def test_invoking_shorthand_functions():
     Helpers.run_evaluation_test_on([
@@ -63,7 +63,7 @@ def test_self_referencing_functions():
             integer(0)
         )
     )
-    
+
     Helpers.run_evaluation_test_on([
         (invoke(function_, integer(0)), 0),
         (invoke(function_, integer(1)), 1),

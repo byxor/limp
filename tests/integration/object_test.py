@@ -37,7 +37,7 @@ def test_getting_attributes_from_objects():
     Helpers.run_evaluation_test_on([
         (invoke(GET_ATTRIBUTE, BOB, string(_NAME)), "bob"),
         (invoke(GET_ATTRIBUTE, BOB, string(_AGE)),  20),
-        
+
         (invoke(GET_ATTRIBUTE, JANE, string(_NAME)), "jane"),
         (invoke(GET_ATTRIBUTE, JANE, string(_AGE)),  56),
 

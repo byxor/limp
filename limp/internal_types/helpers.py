@@ -16,6 +16,6 @@ def _to_form(node, environment):
     from limp.types import Form
     return Form.infer_from(node, environment)
 
-    
+
 def _evaluated(form):
     return form.evaluate()

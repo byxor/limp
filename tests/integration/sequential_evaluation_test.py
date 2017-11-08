@@ -16,7 +16,7 @@ def test_sequential_evaluators():
     )
 
     limp.evaluate(source_code, environment)
-    
+
     data = [
         ('one',   1),
         ('two',   2),
@@ -45,4 +45,3 @@ def test_sequential_evaluators_return_value_of_last_form():
         (sequence(integer(4), integer(5), integer(6)), 6),
         (sequence(integer(7), string("tayne")),        "tayne"),
     ])
-

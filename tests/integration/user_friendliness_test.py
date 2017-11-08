@@ -1,7 +1,6 @@
 import functools
 import limp
 import limp.environment as Environment
-import tests.helpers as Helpers
 from nose.tools import assert_equals, assert_raises
 from tests.syntax import *
 from limp.standard_library import *
@@ -28,7 +27,7 @@ def test_that_clean_environment_is_created_automatically():
     access_undefined_symbol = functools.partial(_EVALUATE, VARIABLE)
     yield assert_raises, Exception, access_undefined_symbol
 
-        
+
 def test_that_environment_can_be_provided():
     data = [
         (define(symbol('x'), integer(10)), symbol('x'), 10),

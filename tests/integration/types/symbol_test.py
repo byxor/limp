@@ -15,7 +15,7 @@ def test_accessing_symbols():
         ('foo', 100),
     ])
 
-        
+
 def test_exception_raised_when_accessing_non_existent_symbols():
     data = [
         'year',

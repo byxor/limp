@@ -13,17 +13,17 @@ EMPTY_LIST = list_of()
 
 
 def test():
-    Helpers.run_evaluation_test_on([ 
+    Helpers.run_evaluation_test_on([
 
         (invoke(MAP, function([VARIABLE], invoke(MULTIPLY, VARIABLE, integer(2))), NUMBERS),
          [2, 4, 6, 8]),
 
         (invoke(MAP, function([VARIABLE], invoke(ADD, VARIABLE, integer(1))), NUMBERS),
          [2, 3, 4, 5]),
-        
+
         (invoke(MAP, function([VARIABLE], invoke(DIVIDE, VARIABLE, integer(2))), list_of(integer(10), integer(20))),
          [5, 10]),
-        
+
         (invoke(FILTER, function([VARIABLE], invoke(ARE_EQUAL, invoke(MODULO, VARIABLE, integer(2)), integer(0))), NUMBERS),
          [2, 4]),
 
@@ -54,7 +54,7 @@ def test():
 
         (invoke(CONCATENATE, NUMBERS, NUMBERS),                            [1, 2, 3, 4, 1, 2, 3, 4]),
         (invoke(CONCATENATE, NUMBERS, integer(0), integer(0), integer(1)), [1, 2, 3, 4, 0, 0, 1]),
-        
+
         (invoke(FIRST_ELEMENT, NUMBERS), 1),
         (invoke(FIRST_ELEMENT, STRINGS), "foo"),
 
@@ -84,4 +84,3 @@ def test():
         (invoke(EMPTY, STRINGS),    False),
         (invoke(EMPTY, EMPTY_LIST), True),
     ])
-

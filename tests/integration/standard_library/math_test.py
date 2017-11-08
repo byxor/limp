@@ -8,7 +8,7 @@ def test():
         (invoke(ADD, integer(1), integer(1)),             2),
         (invoke(ADD, integer(2), integer(3)),             5),
         (invoke(ADD, integer(1), integer(2), integer(3)), 6),
-        
+
         (invoke(SUBTRACT, integer(1), integer(1)),             0),
         (invoke(SUBTRACT, integer(4), integer(2)),             2),
         (invoke(SUBTRACT, integer(9), integer(8), integer(7)), -6),

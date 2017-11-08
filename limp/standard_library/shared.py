@@ -44,13 +44,10 @@ def _concatenate(*args):
                 concatenated.append(arg)
         return concatenated
 
-    if type(first) == list:
+    if isinstance(first, list):
         return _list_concatenate()
     else:
         return seq(args).map(str).reduce(operator.add)
-
-
-
 
 
 def _length(x): return len(x)

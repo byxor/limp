@@ -11,7 +11,7 @@ class TailCallRecursion(TestCase):
 
     FUNCTION_NAME = "factorial"
     ARGUMENT_NAME = "n"
-    
+
     IMPLEMENTATION = function(
         [ARGUMENT_NAME],
         if_statement(
@@ -27,7 +27,7 @@ class TailCallRecursion(TestCase):
             integer(1)
         )
     )
-    
+
     def setUp(self):
         self.environment = Environment.create_standard()
         self.evaluate = lambda code: limp.evaluate(code, self.environment)
@@ -50,4 +50,3 @@ class TailCallRecursion(TestCase):
         for parameter, expected_output in data:
             output = self.evaluate(invoke(TailCallRecursion.FUNCTION_NAME, str(parameter)))
             self.assertEqual(expected_output, output)
-

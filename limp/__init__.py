@@ -32,7 +32,7 @@ class Repl:
             input_ = _default_input
         if output == None:
             output = _default_output
-            
+
         self._input = input_
         self._output = output
         self.__displayed_welcome = False
@@ -41,7 +41,7 @@ class Repl:
     def start(self):
         while True:
             self._tick()
-        
+
     def _tick(self):
         self.__display_welcome_if_necessary()
         self.__display_prompt()
@@ -73,11 +73,11 @@ class Repl:
 def _default_input():
     return sys.stdin.readline()
 
-    
+
 def _default_output(text):
     sys.stdout.write(text)
     sys.stdout.flush()
-        
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:

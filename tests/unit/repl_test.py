@@ -1,5 +1,4 @@
 import limp
-import sys
 import tests.helpers as Helpers
 from unittest.mock import MagicMock, call
 from nose.tools import *
@@ -31,7 +30,7 @@ def test_repl_displays_prompt_on_every_tick():
         _prompt_is_printed_on_each_tick,
         _output_used_at_least_the_number_of_ticks)
 
-    
+
 def test_repl_prompts_for_input_on_every_tick():
     Helpers.test_chain(
         _given_a_repl_with_mocked_streams,
@@ -62,7 +61,7 @@ def test_repl_maintains_an_environment_across_ticks():
 
 
 ### Helpers
-    
+
 
 def _given_a_repl_with_mocked_streams(state):
     CREATE_MOCK_STREAM = lambda: MagicMock(return_value="")

@@ -1,14 +1,12 @@
 import limp.errors as Errors
 import limp.internal_types.helpers as Helpers
-import inspect
-from functional import seq
 
 
 class Function:
 
     KEYWORD = 'function'
     SELF_REFERENCE = 'this'
-    
+
     def __init__(self, contents, environment):
         self.__contents = contents
         self.__child_environment = environment.new_child()
@@ -25,21 +23,22 @@ class Function:
         else:
             argument_names = []
             body_contents = self.__contents[1]
-        
+
         def __internal_function(*called_with):
             execution_environment = self.__child_environment.new_child()
-            self.__bind_parameters(execution_environment, argument_names, called_with)
+            _bind_parameters(execution_environment, argument_names, called_with)
             execution_environment.define(Function.SELF_REFERENCE, __internal_function)
-            
+
             executable_form = Form.infer_from(body_contents, execution_environment)
             function_output = executable_form.evaluate()
             return function_output
-        
+
         return __internal_function
 
-    def __bind_parameters(self, execution_environment, names, values):
-        for name, value in zip(names, values):
-            execution_environment.define(name, value)
+
+def _bind_parameters(execution_environment, names, values):
+    for name, value in zip(names, values):
+        execution_environment.define(name, value)
 
 
 class ShorthandFunction:
@@ -77,8 +76,8 @@ class Invocation:
         self.__environment = environment
 
     def is_valid(self):
-        return type(self.__contents) == list
-        
+        return isinstance(self.__contents, list)
+
     def evaluate(self):
         function = Helpers.evaluate(self.__contents[0], self.__environment)
         arguments = Helpers.evaluate_list_of(self.__contents[1:], self.__environment)
@@ -106,7 +105,7 @@ class SimpleConditional:
         elif outcome == False:
             if self.__else_form_supplied():
                 return Helpers.evaluate(self.__contents[3], self.__environment)
-    
+
     def __else_form_supplied(self):
         MINIMUM_NUMBER_OF_CONTENTS = 4
         return len(self.__contents) >= MINIMUM_NUMBER_OF_CONTENTS
@@ -115,7 +114,7 @@ class SimpleConditional:
 class ComplexConditional:
 
     KEYWORD = 'condition'
-    
+
     def __init__(self, contents, environment):
         self.__contents = contents
         self.__environment = environment
@@ -141,7 +140,7 @@ class SequentialEvaluator:
 
     def is_valid(self):
         return self.__contents[0] == SequentialEvaluator.KEYWORD
-        
+
     def evaluate(self):
         nodes = self.__contents[1:]
         if len(nodes) <= 1:
@@ -161,10 +160,8 @@ class Definition:
 
     def is_valid(self):
         return self.__contents[0] == Definition.KEYWORD
-        
+
     def evaluate(self):
-        from limp.types import Form
         name = self.__contents[1]
         value = Helpers.evaluate(self.__contents[2], self.__environment)
         self.__environment.define(name, value)
-        

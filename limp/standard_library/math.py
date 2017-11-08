@@ -42,4 +42,3 @@ def _even(number): return _divisor(2, number)
 
 
 def _odd(number): return not _even(number)
-    
