@@ -12,7 +12,6 @@ class Function(Form):
         return self._contents[0] == Function.KEYWORD
 
     def evaluate(self):
-        from limp.types import Form
 
         child_environment = self._environment
 
@@ -27,10 +26,8 @@ class Function(Form):
             execution_environment = child_environment.new_child()
             _bind_parameters(execution_environment, argument_names, called_with)
             execution_environment.define(Function.SELF_REFERENCE, __internal_function)
-
-            executable_form = Form.infer_from(body_contents, execution_environment)
-            function_output = executable_form.evaluate()
-            return function_output
+            output = Helpers.evaluate(body_contents, execution_environment)
+            return output
 
         return __internal_function
 
