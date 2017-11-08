@@ -30,24 +30,17 @@ class AbstractInteger:
         return False
 
 
-class Integer(AbstractInteger):
-    def __init__(self, contents, environment):
-        super().__init__(contents, '', 10)
+def _create_abstract_integer(prefix, base):
+    class Type(AbstractInteger):
+        def __init__(self, contents, environment):
+            super().__init__(contents, prefix, base)
+    return Type
 
 
-class Hexadecimal(AbstractInteger):
-    def __init__(self, contents, environment):
-        super().__init__(contents, '0x', 16)
-
-
-class Binary(AbstractInteger):
-    def __init__(self, contents, environment):
-        super().__init__(contents, '0b', 2)
-
-
-class Octal(AbstractInteger):
-    def __init__(self, contents, environment):
-        super().__init__(contents, '0o', 8)
+Integer =     _create_abstract_integer('', 10)
+Hexadecimal = _create_abstract_integer('0x', 16)
+Binary =      _create_abstract_integer('0b', 2)
+Octal =       _create_abstract_integer('0o', 8)
 
 
 class Float(Form.Constructor):
