@@ -16,18 +16,20 @@ class AbstractInteger:
         return int(self.__contents, self.__base)
 
     def is_valid(self):
-        return self.__has_correct_prefix() and evaluates_safely(self)
+        return self.__has_valid_prefix() and evaluates_safely(self)
 
-    def __has_correct_prefix(self):
-        correct_prefixes = [
-            self.__prefix,
-            f"{AbstractInteger.POSITIVE}{self.__prefix}",
-            f"{AbstractInteger.NEGATIVE}{self.__prefix}",
-        ]
-        for correct_prefix in correct_prefixes:
-            if self.__contents.startswith(correct_prefix):
+    def __has_valid_prefix(self):
+        for prefix in self.__valid_prefices():
+            if self.__contents.startswith(prefix):
                 return True
         return False
+
+    def __valid_prefices(self):
+        return set([
+            f"{self.__prefix}",
+            f"{self.__class__.POSITIVE}{self.__prefix}",
+            f"{self.__class__.NEGATIVE}{self.__prefix}"
+        ])
 
 
 def _create_abstract_integer(prefix, base):
@@ -43,10 +45,8 @@ Binary =      _create_abstract_integer('0b', 2)
 Octal =       _create_abstract_integer('0o', 8)
 
 
-class Float(Form.Constructor):
-
-    def is_valid(self):
-        return evaluates_safely(self)
+class Float(Form.Constructor,
+            Form.EvaluatesSafelyValidityChecker):
 
     def evaluate(self):
         return float(self._contents)

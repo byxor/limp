@@ -3,7 +3,8 @@ import limp.internal_types.helpers as Helpers
 import limp.internal_types.form as Form
 
 
-class Function(Form.Constructor, Form.KeywordValidityChecker):
+class Function(Form.Constructor,
+               Form.create_keyword_validity_checker()):
 
     KEYWORD = 'function'
     SELF_REFERENCE = 'this'
@@ -40,28 +41,22 @@ def _apply_self_reference(function, execution_environment):
     execution_environment.define(Function.SELF_REFERENCE, function)
 
 
-class ShorthandFunction(Form.Constructor):
+class ShorthandFunction(Form.Constructor,
+                        Form.create_keyword_validity_checker(-2)):
 
     KEYWORD = '->'
 
-    def is_valid(self):
-        if len(self._contents) < 2:
-            return False
-        keyword_index = -2
-        return self._contents[keyword_index] == ShorthandFunction.KEYWORD
-
     def evaluate(self):
-        return self.__internal_form().evaluate()
+        return self.__to_function_form().evaluate()
 
-    def __internal_form(self):
+    def __to_function_form(self):
         parameter_names = self._contents[:-2]
-        body = self._contents[-1]
-        contents = [
+        function_body = self._contents[-1]
+        return Function([
             Function.KEYWORD,
             parameter_names,
-            body,
-        ]
-        return Function(contents, self._environment)
+            function_body,
+        ], self._environment)
 
 
 class Invocation(Form.Constructor):
@@ -75,7 +70,8 @@ class Invocation(Form.Constructor):
         return function(*parameters)
 
 
-class SimpleConditional(Form.Constructor, Form.KeywordValidityChecker):
+class SimpleConditional(Form.Constructor,
+                        Form.create_keyword_validity_checker()):
 
     KEYWORD = 'if'
 
@@ -87,15 +83,16 @@ class SimpleConditional(Form.Constructor, Form.KeywordValidityChecker):
         if outcome == True:
             return Helpers.evaluate(self._contents[2], self._environment)
         elif outcome == False:
-            if self.__else_form_supplied():
+            if self.__else_body_supplied():
                 return Helpers.evaluate(self._contents[3], self._environment)
 
-    def __else_form_supplied(self):
+    def __else_body_supplied(self):
         MINIMUM_NUMBER_OF_CONTENTS = 4
         return len(self._contents) >= MINIMUM_NUMBER_OF_CONTENTS
 
 
-class ComplexConditional(Form.Constructor, Form.KeywordValidityChecker):
+class ComplexConditional(Form.Constructor,
+                         Form.create_keyword_validity_checker()):
 
     KEYWORD = 'condition'
 
@@ -107,7 +104,8 @@ class ComplexConditional(Form.Constructor, Form.KeywordValidityChecker):
                 return Helpers.evaluate(pair[1], self._environment)
 
 
-class SequentialEvaluator(Form.Constructor, Form.KeywordValidityChecker):
+class SequentialEvaluator(Form.Constructor,
+                          Form.create_keyword_validity_checker()):
 
     KEYWORD = 'do'
 
@@ -120,7 +118,7 @@ class SequentialEvaluator(Form.Constructor, Form.KeywordValidityChecker):
         return result
 
 
-class Definition(Form.Constructor, Form.KeywordValidityChecker):
+class Definition(Form.Constructor, Form.create_keyword_validity_checker()):
 
     KEYWORD = 'define'
 

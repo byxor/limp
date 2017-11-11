@@ -22,8 +22,7 @@ class String(Form.Constructor):
         self.__is_surrounded_by_delimiters()
 
     def evaluate(self):
-        string = self._contents[1:-1]
-        return string
+        return self.__discard_delimiters()
 
     def __is_long_enough(self):
         return len(self._contents) >= 2
@@ -33,19 +32,24 @@ class String(Form.Constructor):
         end = self._contents[-1] == String.DELIMITER
         return start and end
 
+    def __discard_delimiters(self):
+        return self._contents[1:-1]
 
-class List(Form.Constructor, Form.KeywordValidityChecker):
+
+class List(Form.Constructor,
+           Form.create_keyword_validity_checker()):
 
     KEYWORD = 'list'
     OPEN_DELIMITER = '['
     CLOSE_DELIMITER = ']'
 
     def evaluate(self):
-        nodes = self._contents[1:]
-        return Helpers.evaluate_list_of(nodes, self._environment)
+        element_nodes = self._contents[1:]
+        return Helpers.evaluate_list_of(element_nodes, self._environment)
 
 
-class Object(Form.Constructor, Form.KeywordValidityChecker):
+class Object(Form.Constructor,
+             Form.create_keyword_validity_checker()):
 
     KEYWORD = 'object'
 
