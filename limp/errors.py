@@ -41,7 +41,6 @@ class MissingClosingParenthesis(LimpError):
         super().__init__(_parentheses_message(amount, "few"))
 
 
-
 def _parentheses_message(amount, quantifier):
     message = "There {} {} too {} closing parentheses."
     if amount == 1:
@@ -49,3 +48,9 @@ def _parentheses_message(amount, quantifier):
     else:
         message = message.format("are", amount, quantifier)
     return message
+
+
+class UnclosedString(LimpError):
+    def __init__(self):
+        message = "You forgot to close a string literal."
+        super().__init__(message)

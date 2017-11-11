@@ -36,3 +36,12 @@ def test_exception_raised_if_too_few_closing_parentheses():
     for source_code in data:
         yield (assert_raises, Errors.MissingClosingParenthesis,
                Tokens.create_from, source_code)
+
+def test_exception_raised_if_string_is_unclosed():
+    data = [
+        '(concatenate "test)',
+        '"foo bar baz',
+    ]
+    for source_code in data:
+        yield (assert_raises, Errors.UnclosedString,
+               Tokens.create_from, source_code)

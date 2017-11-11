@@ -9,6 +9,7 @@ def test_all_exceptions_inherit_from_custom_parent():
         EmptyCode,
         ExtraClosingParenthesis,
         MissingClosingParenthesis,
+        UnclosedString,
     ]
     for exception in data:
         yield assert_true, issubclass(exception, expected_parent)

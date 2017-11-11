@@ -18,6 +18,7 @@ def create_from(source_code):
         algorithm_step = _append_token_if_ready(algorithm_step, tokens)
     algorithm_step = _AlgorithmStep(algorithm_step.token, True, algorithm_step.next_mode)
     _append_token_if_ready(algorithm_step, tokens)
+    _assert_no_unclosed_strings(algorithm_step.next_mode)
     _assert_structure_is_valid(tokens)
     return tokens
 
@@ -79,6 +80,11 @@ def _append_token_if_ready(algorithm_step, tokens):
             tokens.append(algorithm_step.token)
             return _AlgorithmStep('', False, algorithm_step.next_mode)
     return algorithm_step
+
+
+def _assert_no_unclosed_strings(scan_mode):
+    if scan_mode == _ScanMode.STRING:
+        raise Errors.UnclosedString()
 
 
 def _assert_structure_is_valid(tokens):
