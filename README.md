@@ -1,5 +1,7 @@
 # limp
 
+[![PyPI](https://img.shields.io/pypi/v/limp.svg)](https://pypi.python.org/pypi/limp) [![GitHub issues](https://img.shields.io/github/issues/byxor/limp.svg)](https://github.com/byxor/limp/issues) [![GitHub forks](https://img.shields.io/github/forks/byxor/limp.svg)](https://github.com/byxor/limp/network) [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/byxor/limp/master/LICENSE)
+
 [![BCH compliance](https://bettercodehub.com/edge/badge/byxor/limp?branch=master)](https://bettercodehub.com/) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=badger) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=Badge_Coverage)
 
 [(View Codacy Stats)](https://www.codacy.com/app/byxor/limp/dashboard)
