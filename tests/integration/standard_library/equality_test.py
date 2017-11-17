@@ -1,22 +1,35 @@
 import tests.helpers as Helpers
+import limp
 from tests.syntax import *
 from limp.standard_library.comparisons import *
+from nose.tools import assert_equal
 
 
-def test():
-    Helpers.run_evaluation_test_on([
-        (invoke(ARE_EQUAL, integer(9), integer(9)), True),
-        (invoke(ARE_EQUAL, integer(1), integer(5)), False),
-        (invoke(ARE_EQUAL, integer(1), integer(1)), True),
+DATA = [
+    (integer(9), integer(9), True),
+    (integer(1), integer(1), True),
+    (integer(1), integer(5), False),
 
-        (invoke(ARE_EQUAL, string(""), string("")),          True),
-        (invoke(ARE_EQUAL, string("a"), string("a")),        True),
-        (invoke(ARE_EQUAL, string("ab"), string("ab")),      True),
-        (invoke(ARE_EQUAL, string("car"), string("avan")),   False),
-        (invoke(ARE_EQUAL, string("tayne"), string("mayne")), False),
+    (string(""), string(""),           True),
+    (string("a"), string("a"),         True),
+    (string("ab"), string("ab"),       True),
+    (string("car"), string("avan"),    False),
+    (string("tayne"), string("mayne"), False),
 
-        (invoke(ARE_EQUAL, boolean(True), boolean(True)),   True),
-        (invoke(ARE_EQUAL, boolean(False), boolean(False)), True),
-        (invoke(ARE_EQUAL, boolean(True), boolean(False)),  False),
-        (invoke(ARE_EQUAL, boolean(False), boolean(True)),  False),
-    ])
+    (boolean(True), boolean(True),   True),
+    (boolean(False), boolean(False), True),
+    (boolean(True), boolean(False),  False),
+    (boolean(False), boolean(True),  False),
+]
+
+
+def test_equality():
+    for a, b, expected_equality in DATA:
+        source_code = invoke(ARE_EQUAL, a, b)
+        yield assert_equal, limp.evaluate(source_code), expected_equality
+
+
+def test_inequality():
+    for a, b, expected_equality in DATA:
+        source_code = invoke(ARE_NOT_EQUAL, a, b)
+        yield assert_equal, limp.evaluate(source_code), not expected_equality
