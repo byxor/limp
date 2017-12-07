@@ -15,6 +15,8 @@ A general purpose programming language, built with the aim to materialise the fo
 4. Granularity - Functions should remain small.
 5. Reusability - Packages can be easily shared and installed.
 
+_Disclaimer: Not all of these ideas have been fully realised yet._
+
 ## For users:
 
 ### Installation
