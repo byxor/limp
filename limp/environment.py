@@ -19,10 +19,13 @@ class _Environment:
         self.__symbols = {}
 
     def define(self, name, value):
-        if name in self.__symbols:
+        if self.__already_exists(name):
             raise Errors.RedefinedSymbol(name)
-        else:
-            self.__symbols[name] = value
+
+        if self.__is_invalid(name):
+            raise Errors.InvalidSymbolName(name)
+
+        self.__symbols[name] = value
 
     def resolve(self, name):
         if name in self.__symbols:
@@ -39,6 +42,23 @@ class _Environment:
 
     def new_child(self):
         return _Environment(self)
+
+    def __already_exists(self, name):
+        return name in self.__symbols
+
+    def __is_invalid(self, name):
+        import limp.types as Types
+
+        reserved_names = [
+            Types.Function.KEYWORD,
+            Types.List.KEYWORD,
+            Types.ShorthandFunction.KEYWORD,
+        ]
+
+        if name in reserved_names:
+            return True
+
+        return False
 
     def __eq__(self, other):
         return self.__symbols == other

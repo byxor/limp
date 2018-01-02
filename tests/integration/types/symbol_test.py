@@ -51,3 +51,15 @@ def test_redefining_symbols_raises_an_exception():
         define_symbol = partial(limp.evaluate, source_code, environment)
         define_symbol()
         yield assert_raises, Errors.RedefinedSymbol, define_symbol
+
+
+def test_invalid_symbol_names_raise_an_exception():
+    data = [
+        Types.Function.KEYWORD,
+        Types.List.KEYWORD,
+        Types.ShorthandFunction.KEYWORD,
+    ]
+    for invalid_symbol_name in data:
+        source_code = define(invalid_symbol_name, string("whatever"))
+        yield (assert_raises, Errors.InvalidSymbolName,
+               limp.evaluate, source_code)

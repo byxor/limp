@@ -54,3 +54,10 @@ class UnclosedString(LimpError):
     def __init__(self):
         message = "You forgot to close a string literal."
         super().__init__(message)
+
+
+class InvalidSymbolName(LimpError):
+    def __init__(self, name):
+        message = f"'{name}' is an invalid name for a symbol.\n"
+        message += "* Is it a reserved keyword?"
+        super().__init__(message)
