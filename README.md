@@ -1,5 +1,7 @@
 # limp
 
+[![PyPI](https://img.shields.io/pypi/v/limp.svg)](https://pypi.python.org/pypi/limp) [![GitHub issues](https://img.shields.io/github/issues/byxor/limp.svg)](https://github.com/byxor/limp/issues) [![GitHub forks](https://img.shields.io/github/forks/byxor/limp.svg)](https://github.com/byxor/limp/network) [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/byxor/limp/master/LICENSE)
+
 [![BCH compliance](https://bettercodehub.com/edge/badge/byxor/limp?branch=master)](https://bettercodehub.com/) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=badger) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d62bf84d8b6f45348847f791eae01690)](https://www.codacy.com/app/byxor/limp?utm_source=github.com&utm_medium=referral&utm_content=byxor/limp&utm_campaign=Badge_Coverage)
 
 [(View Codacy Stats)](https://www.codacy.com/app/byxor/limp/dashboard)
@@ -12,6 +14,8 @@ A general purpose programming language, built with the aim to materialise the fo
 3. Less Misdirection - Comments cannot be abused; the code should be self-documenting.
 4. Granularity - Functions should remain small.
 5. Reusability - Packages can be easily shared and installed.
+
+_Disclaimer: Not all of these ideas have been fully realised yet._
 
 ## For users:
 
@@ -36,6 +40,8 @@ Welcome to LIMP! You're now in a REPL, have fun.
 None
 > (if (= values-in-byte (** 2 8)) "You know it.")
 You know it.
+> (map (n -> (+ n 1)) [1 2 3 4])
+[2 3 4 5]
 ```
 
 ## For developers:
