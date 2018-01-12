@@ -34,6 +34,7 @@ class AbstractInteger:
 
 def _create_abstract_integer(prefix, base):
     class Type(AbstractInteger):
+        PREFIX = prefix
         def __init__(self, contents, environment):
             super().__init__(contents, prefix, base)
     return Type

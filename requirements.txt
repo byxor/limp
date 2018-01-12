@@ -5,3 +5,4 @@ PyFunctional
 coverage
 codacy-coverage
 codecov
+rply
