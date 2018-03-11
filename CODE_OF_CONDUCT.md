@@ -10,7 +10,7 @@ Your co-operation/respect with/towards other maintainers/users/developers will k
 
 ### Here are a few guidelines you might consider following:
 
-* Try to be respectful, regardless of how wrong something may seem to you.
+* Try to be polite, regardless of how wrong something may seem to you.
 
 * If you have a suggestion (e.g. in code review), explain the benefits of your approach.
 
