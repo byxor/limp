@@ -4,7 +4,7 @@ Here at LIMP, our guidelines are loose.
 
 **We're here to create a programming language, not to enforce policies.**
 
-Your co-operation/respect with/towards other maintainers/users/developers will keep everything running smoothly, but that's _your_ responsibility; not mine.
+Your co-operation/politeness with/towards other maintainers/users/developers will keep everything running smoothly, but that's _your_ responsibility; not mine.
 
 ---
 
