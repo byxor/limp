@@ -4,13 +4,13 @@ import limp.internal_types.form as Form
 
 
 class Function(Form.Constructor,
-               Form.create_keyword_validity_checker()):
+               Form.create_keyword_validity_checker(-2)):
 
-    KEYWORD = 'function'
+    KEYWORD = '->'
     SELF_REFERENCE = 'this'
 
     def evaluate(self):
-        parameter_names = self.__get_parameter_names()
+        parameter_names = self._contents[:-2]
         body_contents = self._contents[-1]
 
         def internal_function(*parameter_values):
@@ -41,22 +41,6 @@ def _apply_self_reference(function, execution_environment):
     execution_environment.define(Function.SELF_REFERENCE, function)
 
 
-class ShorthandFunction(Form.Constructor,
-                        Form.create_keyword_validity_checker(-2)):
-
-    KEYWORD = '->'
-
-    def evaluate(self):
-        return self.__to_function_form().evaluate()
-
-    def __to_function_form(self):
-        parameter_names = self._contents[:-2]
-        function_body = self._contents[-1]
-        return Function([
-            Function.KEYWORD,
-            parameter_names,
-            function_body,
-        ], self._environment)
 
 
 class Invocation(Form.Constructor):

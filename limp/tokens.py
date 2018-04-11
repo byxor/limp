@@ -69,7 +69,7 @@ def _simple_delimiters_and_tokens():
     return [
         re.escape(Parentheses.OPEN),
         re.escape(Parentheses.CLOSE),
-        re.escape(ShorthandFunction.KEYWORD),
+        re.escape(Function.KEYWORD),
     ]
 
 

@@ -5,7 +5,6 @@ import limp.internal_types.standard
 
 
 # Types exposed here to ease testing.
-ShorthandFunction   = limp.internal_types.behavioural.ShorthandFunction
 Function            = limp.internal_types.behavioural.Function
 ComplexConditional  = limp.internal_types.behavioural.ComplexConditional
 SimpleConditional   = limp.internal_types.behavioural.SimpleConditional
@@ -38,7 +37,6 @@ AbstractInteger     = limp.internal_types.numeric.AbstractInteger
 ALL_TYPES = [
     Object,
     List,
-    ShorthandFunction,
     Function,
     SimpleConditional,
     ComplexConditional,

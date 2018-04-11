@@ -61,18 +61,13 @@ def define(name, value):
     return form(Types.Definition.KEYWORD, name, value)
 
 
-def function(parameter_names, body):
-    PARAMETERS = parameters(parameter_names)
-    return form(Types.Function.KEYWORD, PARAMETERS, body)
-
-
 def shortened_function(body):
     return form(Types.Function.KEYWORD, body)
 
 
-def shorthand_function(parameter_names, body):
+def function(parameter_names, body):
     PARAMETERS = _space_separated(parameter_names)
-    KEYWORD = Types.ShorthandFunction.KEYWORD
+    KEYWORD = Types.Function.KEYWORD
     code = form(PARAMETERS, KEYWORD, body)
     return code
 
