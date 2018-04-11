@@ -24,7 +24,13 @@ _Disclaimer: Not all of these ideas have been fully realised yet._
 Install globally: `sudo pip install limp`  
 Install for user: `pip install limp --user`
 
-### Try it out (REPL)
+### Try it out
+
+#### In your browser
+
+You can try the language out online! http://byxor.xyz/try-limp
+
+#### Or run it locally
 
 ```python
 $ python
