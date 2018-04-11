@@ -29,11 +29,6 @@ def sample_environment():
     return environment
 
 
-def assert_form_evaluates_to(expected_value, contents, _type):
-    value = _type(contents, sample_environment()).evaluate()
-    return assert_equal, expected_value, value
-
-
 def run_evaluation_test_on(data):
     for source_code, expected_result in data:
         assert_equal(expected_result, limp.evaluate(source_code))
