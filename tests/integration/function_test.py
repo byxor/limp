@@ -1,7 +1,10 @@
 import tests.helpers as Helpers
+import limp.errors as Errors
+import limp
 from limp.standard_library.math import *
 from limp.standard_library.comparisons import *
 from tests.syntax import *
+from nose.tools import assert_raises
 
 
 SQUARE_ROOT = function(['n'], invoke(SQUARE_ROOT, 'n'))
@@ -16,6 +19,11 @@ def test_invoking_anonymous_functions():
         (invoke(SQUARE_ROOT, integer(9)),          3),
         (invoke(SUBTRACT, integer(5), integer(3)), 2),
     ])
+
+
+def test_exception_raised_when_invoking_nothing():
+    code = invoke("")
+    yield assert_raises, Errors.EmptyInvocation, limp.evaluate, code
 
 
 def test_self_referencing_functions():

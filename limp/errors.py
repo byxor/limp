@@ -41,6 +41,14 @@ class MissingClosingParenthesis(LimpError):
         super().__init__(_parentheses_message(amount, "few"))
 
 
+class EmptyInvocation(LimpError):
+    def __init__(self):
+        message = "You cannot invoke nothing.\n\n"
+        message += "* Wrapping a function in parentheses will invoke it.\n"
+        message += "* Did you write '()' by mistake?"
+        super().__init__(message)
+
+
 def _parentheses_message(amount, quantifier):
     message = "There {} {} too {} closing parentheses."
     if amount == 1:

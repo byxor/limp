@@ -49,9 +49,12 @@ class Invocation(Form.Constructor):
         return isinstance(self._contents, list)
 
     def evaluate(self):
-        function = Helpers.evaluate(self._contents[0], self._environment)
-        parameters = Helpers.evaluate_list_of(self._contents[1:], self._environment)
-        return function(*parameters)
+        try:
+            function = Helpers.evaluate(self._contents[0], self._environment)
+            parameters = Helpers.evaluate_list_of(self._contents[1:], self._environment)
+            return function(*parameters)
+        except IndexError:
+            raise Errors.EmptyInvocation()
 
 
 class SimpleConditional(Form.Constructor,
