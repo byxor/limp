@@ -1,3 +1,4 @@
+import meta
 from setuptools import setup, find_packages
 
 
@@ -5,7 +6,7 @@ setup(
     name="limp",
     packages=find_packages(exclude=['contrib', 'docs', 'test*']),
     license="GPLv3",
-    version="0.8.1",
+    version=meta.VERSION,
     description="A general purpose programming language",
     author="Brandon Ibbotson",
     author_email="brandon.ibbotson2@mail.dcu.ie",

@@ -4,6 +4,7 @@ import limp.pre_processor as PreProcessor
 import limp.tokens as Tokens
 import limp.token_tree as TokenTree
 import limp.types as Types
+import meta
 import sys
 
 
@@ -25,7 +26,7 @@ def evaluate(source_code, environment=None):
 class Repl:
 
     PROMPT = "> "
-    WELCOME_MESSAGE = f"Welcome to LIMP! You're in a REPL, have fun!\n"
+    WELCOME_MESSAGE = f"Welcome to LIMP! You're in a REPL, have fun!\nVersion {meta.VERSION}\n"
 
     def __init__(self, input_=None, output=None):
         if input_ == None:
