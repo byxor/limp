@@ -9,7 +9,6 @@ setup(
     version=meta.VERSION,
     description="A general purpose programming language",
     author="Brandon Ibbotson",
-    author_email="brandon.ibbotson2@mail.dcu.ie",
     url="https://www.github.com/byxor/limp",
     install_requires=['PyFunctional', 'rply'],
 )
