@@ -41,8 +41,6 @@ def _apply_self_reference(function, execution_environment):
     execution_environment.define(Function.SELF_REFERENCE, function)
 
 
-
-
 class Invocation(Form.Constructor):
 
     def is_valid(self):
