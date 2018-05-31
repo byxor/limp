@@ -86,4 +86,4 @@ Dependencies:
 nosetests
 ```
 
-If you haven't activated the virtual environment using the setup instructions, you will get plenty of import errors when running tests. This is because the virtualenvironment will modify the PYTHONPATH environment variable.
+If you haven't activated the virtual environment using the setup instructions, you will get plenty of import errors when running tests. This is because the virtualenvironment modifies the PYTHONPATH environment variable, which determines how imports behave.
