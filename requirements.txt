@@ -1,8 +1,8 @@
 nose
 pep8
 autopep8
+rply
 PyFunctional
 coverage
 codacy-coverage
 codecov
-rply
