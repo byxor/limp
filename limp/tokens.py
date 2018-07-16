@@ -7,63 +7,23 @@ from enum import Enum, auto, unique
 from rply import LexerGenerator
 
 
-@unique
-class Types(Enum):
-    Integer           = auto()
-    Float             = auto()
-    Binary            = auto()
-    Octal             = auto()
-    Hexadecimal       = auto()
-    String            = auto()
-    Symbol            = auto()
-    OpenParenthesis   = auto()
-    CloseParenthesis  = auto()
-    FunctionDelimiter = auto()
-
-
 def create_from(source_code):
-    # _SanityChecks.not_empty(source_code)
-    # _SanityChecks.no_unclosed_strings(source_code)
-    # tokens = [token.value for token in _lexer().lex(source_code)]
-    # _SanityChecks.parentheses_are_matched(tokens)
-    return [(token.gettokentype(), token.value) for token in _lexer().lex(source_code)]
+    return [(token.gettokentype(), token.value) for token in _lex(source_code)]
 
 
-class _SanityChecks:
-
-    @staticmethod
-    def not_empty(source_code):
-        if is_empty(source_code.strip()):
-            raise Errors.EmptyCode()
-
-    @staticmethod
-    def no_unclosed_strings(source_code):
-        string_delimiters = source_code.count(String.DELIMITER)
-        if string_delimiters % 2 != 0:
-            raise Errors.UnclosedString()
-
-    @staticmethod
-    def parentheses_are_matched(tokens):
-        opening = tokens.count(Parentheses.OPEN)
-        closing = tokens.count(Parentheses.CLOSE)
-
-        def _raise_parenthesis_exception(greater, lesser, exception):
-            difference = greater - lesser
-            raise exception(difference)
-
-        if closing > opening:
-            _raise_parenthesis_exception(
-                closing, opening, Errors.ExtraClosingParenthesis)
-        elif opening > closing:
-            _raise_parenthesis_exception(
-                opening, closing, Errors.MissingClosingParenthesis)
-
-
-def _lexer():
+def _lex(source_code):
     generator = LexerGenerator()
-    generator.ignore(_whitespace())
+    generator.ignore("\s+")
 
-    token_regexes = [
+    for matcher in _matchers():
+        generator.add(*matcher)
+
+    lexer = generator.build()
+    return lexer.lex(source_code)
+
+
+def _matchers():
+    return [
         (Types.OpenParenthesis, re.escape(Parentheses.OPEN)),
         (Types.CloseParenthesis, re.escape(Parentheses.CLOSE)),
         (Types.FunctionDelimiter, re.escape(Function.KEYWORD)),
@@ -76,14 +36,19 @@ def _lexer():
         (Types.String, _string_regex()),
     ]
 
-    for type_, regex in token_regexes:
-        generator.add(type_, regex)
 
-    return generator.build()
-
-
-def _whitespace():
-    return "\s+"
+@unique
+class Types(Enum):
+    Integer           = auto()
+    Float             = auto()
+    Binary            = auto()
+    Octal             = auto()
+    Hexadecimal       = auto()
+    String            = auto()
+    Symbol            = auto()
+    OpenParenthesis   = auto()
+    CloseParenthesis  = auto()
+    FunctionDelimiter = auto()
 
 
 def _symbol_regex():
