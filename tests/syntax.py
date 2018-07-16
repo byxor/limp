@@ -66,9 +66,16 @@ def shortened_function(body):
 
 
 def function(parameter_names, body):
+    return _function(Types.Function.KEYWORD, parameter_names, body)
+
+
+def tail_call_function(parameter_names, body):
+    return _function(Types.TailCallFunction.KEYWORD, parameter_names, body)
+
+    
+def _function(keyword, parameter_names, body):
     PARAMETERS = _space_separated(parameter_names)
-    KEYWORD = Types.Function.KEYWORD
-    code = form(PARAMETERS, KEYWORD, body)
+    code = form(PARAMETERS, keyword, body)
     return code
 
 
