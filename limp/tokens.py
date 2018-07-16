@@ -3,15 +3,30 @@ import limp.parentheses as Parentheses
 import re
 from limp.types import *
 from limp.utils import is_empty
+from enum import Enum, auto, unique
 from rply import LexerGenerator
 
 
+@unique
+class Types(Enum):
+    Integer           = auto()
+    Float             = auto()
+    Binary            = auto()
+    Octal             = auto()
+    Hexadecimal       = auto()
+    String            = auto()
+    Symbol            = auto()
+    OpenParenthesis   = auto()
+    CloseParenthesis  = auto()
+    FunctionDelimiter = auto()
+
+
 def create_from(source_code):
-    _SanityChecks.not_empty(source_code)
-    _SanityChecks.no_unclosed_strings(source_code)
-    tokens = [token.value for token in _lexer().lex(source_code)]
-    _SanityChecks.parentheses_are_matched(tokens)
-    return tokens
+    # _SanityChecks.not_empty(source_code)
+    # _SanityChecks.no_unclosed_strings(source_code)
+    # tokens = [token.value for token in _lexer().lex(source_code)]
+    # _SanityChecks.parentheses_are_matched(tokens)
+    return [(token.gettokentype(), token.value) for token in _lexer().lex(source_code)]
 
 
 class _SanityChecks:
@@ -49,14 +64,20 @@ def _lexer():
     generator.ignore(_whitespace())
 
     token_regexes = [
-        *_simple_delimiters_and_tokens(),
-        *_numeric_literals(),
-        _symbols(),
-        _strings(),
+        (Types.OpenParenthesis, re.escape(Parentheses.OPEN)),
+        (Types.CloseParenthesis, re.escape(Parentheses.CLOSE)),
+        (Types.FunctionDelimiter, re.escape(Function.KEYWORD)),
+        (Types.Hexadecimal, _maybe_signed(f"{Hexadecimal.PREFIX}[\dA-Fa-f]+")),
+        (Types.Octal, _maybe_signed(f"{Octal.PREFIX}[0-7]+")),
+        (Types.Binary, _maybe_signed(f"{Binary.PREFIX}[01]+")),
+        (Types.Float, _maybe_signed("\d*\.\d+")),
+        (Types.Integer, _maybe_signed("\d+")),
+        (Types.Symbol, _symbol_regex()),
+        (Types.String, _string_regex()),
     ]
 
-    for regex in token_regexes:
-        generator.add("", regex)
+    for type_, regex in token_regexes:
+        generator.add(type_, regex)
 
     return generator.build()
 
@@ -65,35 +86,13 @@ def _whitespace():
     return "\s+"
 
 
-def _simple_delimiters_and_tokens():
-    return [
-        re.escape(Parentheses.OPEN),
-        re.escape(Parentheses.CLOSE),
-        re.escape(Function.KEYWORD),
-    ]
-
-
-def _symbols():
+def _symbol_regex():
     ACCEPTABLE_CHARACTERS = "a-zA-Z_\-\?\!\=<>\+\*\/\%"
     return f"[{ACCEPTABLE_CHARACTERS}][0-9{ACCEPTABLE_CHARACTERS}]*"
 
 
-def _numeric_literals():
-    _maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"
-
-    INTEGERS_OR_FLOATS = _maybe_signed("([\d]+)(\.[\d]+)?")
-    HEXADECIMAL = _maybe_signed(f"{Hexadecimal.PREFIX}[\dA-Fa-f]+")
-    BINARY = _maybe_signed(f"{Binary.PREFIX}[\d]+")
-    OCTAL = _maybe_signed(f"{Octal.PREFIX}[0-7]+")
-
-    return [
-        HEXADECIMAL,
-        BINARY,
-        OCTAL,
-        INTEGERS_OR_FLOATS
-    ]
-
-
-def _strings():
+def _string_regex():
     DELIMITER = re.escape(String.DELIMITER)
     return f"{DELIMITER}[^{DELIMITER}]*{DELIMITER}"
+
+_maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"
