@@ -1,8 +1,6 @@
 import limp.errors as Errors
 import limp.internal_types.helpers as Helpers
 import limp.internal_types.form as Form
-import limp.internal_types.tail_call_recursion as TailCallRecursion
-
 
 class Function(Form.Constructor,
                Form.create_keyword_validity_checker(-2)):
@@ -33,33 +31,17 @@ class Function(Form.Constructor,
         return len(self._contents) > 2
 
 
-class TailCallFunction(Form.Constructor,
-                       Form.create_keyword_validity_checker(-2)):
-    
-    KEYWORD = '-->'
-
-    def evaluate(self):
-        parameter_names = self._contents[:-2]
-        body_contents = self._contents[-1]
-        
-        def internal_function(*parameter_values):
-            execution_environment = self._environment.new_child()
-            parameters = zip(parameter_names, parameter_values)
-
-            _bind(parameters, execution_environment)
-            _apply_self_reference(internal_function, parameter_values)
-
-            output = Helpers.evaluate(body_contents, execution_environment)
-
-        return internal_function
-
-
 def _bind(parameters, execution_environment):
+    # print("binding parameters")
     for name, value in parameters:
         execution_environment.define(name, value)
+    # print(execution_environment)
 
 
 def _apply_self_reference(function, execution_environment):
+    # print("applying self reference")
+    # print(function)
+    # print(execution_environment)
     execution_environment.define(Function.SELF_REFERENCE, function)
 
 

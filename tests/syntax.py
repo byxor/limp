@@ -69,10 +69,6 @@ def function(parameter_names, body):
     return _function(Types.Function.KEYWORD, parameter_names, body)
 
 
-def tail_call_function(parameter_names, body):
-    return _function(Types.TailCallFunction.KEYWORD, parameter_names, body)
-
-    
 def _function(keyword, parameter_names, body):
     PARAMETERS = _space_separated(parameter_names)
     code = form(PARAMETERS, keyword, body)

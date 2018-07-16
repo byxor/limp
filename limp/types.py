@@ -6,7 +6,6 @@ import limp.internal_types.standard
 
 # Types exposed here to ease testing.
 Function            = limp.internal_types.behavioural.Function
-TailCallFunction    = limp.internal_types.behavioural.TailCallFunction
 ComplexConditional  = limp.internal_types.behavioural.ComplexConditional
 SimpleConditional   = limp.internal_types.behavioural.SimpleConditional
 SequentialEvaluator = limp.internal_types.behavioural.SequentialEvaluator
@@ -39,7 +38,6 @@ ALL_TYPES = [
     Object,
     List,
     Function,
-    TailCallFunction,
     SimpleConditional,
     ComplexConditional,
     SequentialEvaluator,

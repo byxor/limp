@@ -67,11 +67,6 @@ def test_type_inference():
         (['x', 'y', Types.Function.KEYWORD, 'x'],      Types.Function),
         (['x', 'y', 'z', Types.Function.KEYWORD, 'x'], Types.Function),
 
-        ([Types.TailCallFunction.KEYWORD, integer(0)],         Types.TailCallFunction),
-        (['x', Types.TailCallFunction.KEYWORD, integer(0)],    Types.TailCallFunction),
-        (['x', 'y', Types.TailCallFunction.KEYWORD, 'x'],      Types.TailCallFunction),
-        (['x', 'y', 'z', Types.TailCallFunction.KEYWORD, 'x'], Types.TailCallFunction),
-
         ([Types.List.KEYWORD, 'x', 'y', 'z'],              Types.List),
         ([Types.List.KEYWORD, integer(100), integer(200)], Types.List),
 
