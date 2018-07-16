@@ -41,6 +41,16 @@ def test_creation_from_source_code():
                                    (Tokens.Types.Octal, '0o721'),
                                    (Tokens.Types.CloseParenthesis, ')')]),
 
+        ('(n -> (+ n 1))',        [(Tokens.Types.OpenParenthesis, '('),
+                                   (Tokens.Types.Symbol, 'n'),
+                                   (Tokens.Types.FunctionDelimiter, '->'),
+                                   (Tokens.Types.OpenParenthesis, '('),
+                                   (Tokens.Types.Symbol, '+'),
+                                   (Tokens.Types.Symbol, 'n'),
+                                   (Tokens.Types.Integer, '1'),
+                                   (Tokens.Types.CloseParenthesis, ')'),
+                                   (Tokens.Types.CloseParenthesis, ')')]),
+
         ('(send "Hello there!")', [(Tokens.Types.OpenParenthesis, '('),
                                    (Tokens.Types.Symbol, 'send'),
                                    (Tokens.Types.String, '"Hello there!"'),
