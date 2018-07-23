@@ -10,6 +10,7 @@ def test_creation_from_tokens():
     data = [
         ([], []),
 
+        # Integers
         ('100', [(TreeTypes.Integer, '100')]),
         ('500', [(TreeTypes.Integer, '500')]),
 
@@ -17,12 +18,19 @@ def test_creation_from_tokens():
         ('+100', [(TreeTypes.UnaryPositive, (TreeTypes.Integer, '100'))]),
         ('-500', [(TreeTypes.UnaryNegative, (TreeTypes.Integer, '500'))]),
 
+        # Floats
         ('0.123',  [(TreeTypes.Float, '0.123')]),
         ('.99',    [(TreeTypes.Float, '.99')]),
         
         # Positive/Negative Floats
         ('-0.123', [(TreeTypes.UnaryNegative, (TreeTypes.Float, '0.123'))]),
         ('+99.8',  [(TreeTypes.UnaryPositive, (TreeTypes.Float, '99.8'))]),
+
+        # Hexadecimals
+        ('0xDeaDa55',    [(TreeTypes.Hexadecimal, '0xDeaDa55')]),
+        ('0xBEEF123aaa', [(TreeTypes.Hexadecimal, '0xBEEF123aaa')]),
+
+        # Positive/Negative Hexadecimals
 
         ('"hi()!"',           [(TreeTypes.String, '"hi()!"')]),
         ('"super string ->"', [(TreeTypes.String, '"super string ->"')]),
