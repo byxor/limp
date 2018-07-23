@@ -15,14 +15,17 @@ def create_from(tokens):
         return [(Types.String, token.contents)]
     elif token.type_ == Tokens.Types.Hexadecimal:
         return numeric_tree(Types.Hexadecimal, token)
-    else:
+    elif token.type_ == Tokens.Types.Octal:
         return numeric_tree(Types.Octal, token)
+    else:
+        return numeric_tree(Types.Binary, token)
 
 
 @unique
 class Types(Enum):
-    Integer = auto()
     Float = auto()
+    Integer = auto()
+    Binary = auto()
     Octal = auto()
     Hexadecimal = auto()
     String = auto()
