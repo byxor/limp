@@ -3,12 +3,16 @@ import limp.parentheses as Parentheses
 import re
 from limp.types import *
 from limp.utils import is_empty
-from enum import Enum, auto, unique
 from rply import LexerGenerator
+from collections import namedtuple
+from enum import Enum, auto, unique
+
+
+Token = namedtuple('Token', 'type_ contents')
 
 
 def create_from(source_code):
-    return [(token.gettokentype(), token.value) for token in _lex(source_code)]
+    return [Token(token.gettokentype(), token.value) for token in _lex(source_code)]
 
 
 def _lex(source_code):
@@ -61,3 +65,4 @@ def _string_regex():
     return f"{DELIMITER}[^{DELIMITER}]*{DELIMITER}"
 
 _maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"
+

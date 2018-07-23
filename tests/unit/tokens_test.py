@@ -1,6 +1,6 @@
 import limp.errors as Errors
 import limp.tokens as Tokens
-from nose.tools import assert_equals, assert_raises
+from nose.tools import assert_equals
 
 
 def test_creation_from_source_code():
