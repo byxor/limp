@@ -51,17 +51,23 @@ def test_creation_from_tokens():
         ('"super string ->"', [(TreeTypes.String, '"super string ->"')]),
 
         # Function calls
-        ("(destroy-evidence)", [(TreeTypes.FunctionCall,
+        ('(destroy-evidence)', [(TreeTypes.FunctionCall,
                                  [(TreeTypes.Symbol, 'destroy-evidence')])]),
 
-        ("(steal-cookies 10)", [(TreeTypes.FunctionCall,
+        ('(steal-cookies 10)', [(TreeTypes.FunctionCall,
                                  [(TreeTypes.Symbol, 'steal-cookies'),
                                   [(TreeTypes.Integer, '10')]])]),
 
-        ("(+ 1 2)",            [(TreeTypes.FunctionCall,
-                                 [(TreeTypes.Symbol, '+'),
-                                  [(TreeTypes.Integer, '1')],
-                                  [(TreeTypes.Integer, '2')]])]),
+        ('(+ 1 2)', [(TreeTypes.FunctionCall,
+                      [(TreeTypes.Symbol, '+'),
+                       [(TreeTypes.Integer, '1')],
+                       [(TreeTypes.Integer, '2')]])]),
+
+        ('(concatenate "foo" "bar" "baz")', [(TreeTypes.FunctionCall,
+                                              [(TreeTypes.Symbol, 'concatenate'),
+                                               [(TreeTypes.String, '"foo"')],
+                                               [(TreeTypes.String, '"bar"')],
+                                               [(TreeTypes.String, '"baz"')]])]),
     ]
 
     for source_code, expected_syntax_tree in data:
