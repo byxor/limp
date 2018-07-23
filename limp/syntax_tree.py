@@ -17,8 +17,22 @@ def create_from(tokens):
         return numeric_tree(Types.Hexadecimal, token)
     elif token.type_ == Tokens.Types.Octal:
         return numeric_tree(Types.Octal, token)
-    else:
+    elif token.type_ == Tokens.Types.Binary:
         return numeric_tree(Types.Binary, token)
+    elif token.type_ == Tokens.Types.OpenParenthesis:
+        contents = [(Types.Symbol, tokens[1].contents)]
+
+        i = 2
+        while True:
+            if tokens[i].type_ == Tokens.Types.CloseParenthesis:
+                break
+            else:
+                contents.append(create_from(tokens[i:]))
+            i += 1
+
+        return [(Types.FunctionCall, contents)]
+    else:
+        return []
 
 
 @unique
@@ -31,6 +45,8 @@ class Types(Enum):
     String = auto()
     UnaryPositive = auto()
     UnaryNegative = auto()
+    FunctionCall = auto()
+    Symbol = auto()
 
 
 def numeric_tree(tree_type, token):
