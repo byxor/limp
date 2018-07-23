@@ -34,6 +34,14 @@ def test_creation_from_tokens():
         ('+0xDeaDa55',    [(TreeTypes.UnaryPositive, (TreeTypes.Hexadecimal, '0xDeaDa55'))]),
         ('-0xBEEF123aaa', [(TreeTypes.UnaryNegative, (TreeTypes.Hexadecimal, '0xBEEF123aaa'))]),
 
+        # Octals
+        ('0o7654321', [(TreeTypes.Octal, '0o7654321')]),
+        ('0o111',     [(TreeTypes.Octal, '0o111')]),
+
+        # Positive/Negative Octals
+        ('+0o7654321', [(TreeTypes.UnaryPositive, (TreeTypes.Octal, '0o7654321'))]),
+        ('-0o111',     [(TreeTypes.UnaryNegative, (TreeTypes.Octal, '0o111'))]),
+
         ('"hi()!"',           [(TreeTypes.String, '"hi()!"')]),
         ('"super string ->"', [(TreeTypes.String, '"super string ->"')]),
     ]
