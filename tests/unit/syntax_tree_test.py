@@ -46,8 +46,12 @@ def test_creation_from_tokens():
         ('0b101010', [(TreeTypes.Binary, '0b101010')]),
         ('0b111110', [(TreeTypes.Binary, '0b111110')]),
 
+        # Strings
         ('"hi()!"',           [(TreeTypes.String, '"hi()!"')]),
         ('"super string ->"', [(TreeTypes.String, '"super string ->"')]),
+
+        # Function calls
+        ("(destroy-evidence)", [(TreeTypes.FunctionCall, ("destroy-evidence"))]),
     ]
 
     for source_code, expected_syntax_tree in data:
