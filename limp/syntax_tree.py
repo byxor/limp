@@ -12,7 +12,7 @@ def create_from(tokens):
     elif token.type_ == Tokens.Types.Float:
         return numeric_tree(Types.Float, token)
     elif token.type_ == Tokens.Types.String:
-        return [(Types.String, token.contents)]
+        return (Types.String, token.contents)
     elif token.type_ == Tokens.Types.Hexadecimal:
         return numeric_tree(Types.Hexadecimal, token)
     elif token.type_ == Tokens.Types.Octal:
@@ -30,7 +30,7 @@ def create_from(tokens):
                 contents.append(create_from(tokens[i:]))
             i += 1
 
-        return [(Types.FunctionCall, contents)]
+        return (Types.FunctionCall, contents)
     else:
         return []
 
@@ -52,8 +52,8 @@ class Types(Enum):
 def numeric_tree(tree_type, token):
     sign = token.contents[0]
     if sign == "+":
-        return [(Types.UnaryPositive, (tree_type, token.contents[1:]))]
+        return (Types.UnaryPositive, (tree_type, token.contents[1:]))
     elif sign == "-":
-        return [(Types.UnaryNegative, (tree_type, token.contents[1:]))]
+        return (Types.UnaryNegative, (tree_type, token.contents[1:]))
     else:
-        return [(tree_type, token.contents)]
+        return (tree_type, token.contents)
