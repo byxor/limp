@@ -42,6 +42,10 @@ def test_creation_from_tokens():
         ('+0o7654321', [(TreeTypes.UnaryPositive, (TreeTypes.Octal, '0o7654321'))]),
         ('-0o111',     [(TreeTypes.UnaryNegative, (TreeTypes.Octal, '0o111'))]),
 
+        # Binaries
+        ('0b101010', [(TreeTypes.Binary, '0b101010')]),
+        ('0b111110', [(TreeTypes.Binary, '0b111110')]),
+
         ('"hi()!"',           [(TreeTypes.String, '"hi()!"')]),
         ('"super string ->"', [(TreeTypes.String, '"super string ->"')]),
     ]
