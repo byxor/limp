@@ -8,31 +8,26 @@ def create_from(tokens):
     
     token = tokens[0]
     if token.type_ == Tokens.Types.Integer:
-        return integer_tree(token)
+        return numeric_tree(Types.Integer, token)
     elif token.type_ == Tokens.Types.Float:
-        return float_tree(token)
+        return numeric_tree(Types.Float, token)
     elif token.type_ == Tokens.Types.String:
         return [(Types.String, token.contents)]
+    else:
+        return numeric_tree(Types.Hexadecimal, token)
 
 
 @unique
 class Types(Enum):
     Integer = auto()
     Float = auto()
+    Hexadecimal = auto()
     String = auto()
     UnaryPositive = auto()
     UnaryNegative = auto()
 
 
-def integer_tree(token):
-    return number_tree(Types.Integer, token)
-
-
-def float_tree(token):
-    return number_tree(Types.Float, token)
-
-
-def number_tree(tree_type, token):
+def numeric_tree(tree_type, token):
     sign = token.contents[0]
     if sign == "+":
         return [(Types.UnaryPositive, (tree_type, token.contents[1:]))]

@@ -23,14 +23,16 @@ def test_creation_from_tokens():
         ('.99',    [(TreeTypes.Float, '.99')]),
         
         # Positive/Negative Floats
-        ('-0.123', [(TreeTypes.UnaryNegative, (TreeTypes.Float, '0.123'))]),
         ('+99.8',  [(TreeTypes.UnaryPositive, (TreeTypes.Float, '99.8'))]),
+        ('-0.123', [(TreeTypes.UnaryNegative, (TreeTypes.Float, '0.123'))]),
 
         # Hexadecimals
         ('0xDeaDa55',    [(TreeTypes.Hexadecimal, '0xDeaDa55')]),
         ('0xBEEF123aaa', [(TreeTypes.Hexadecimal, '0xBEEF123aaa')]),
 
         # Positive/Negative Hexadecimals
+        ('+0xDeaDa55',    [(TreeTypes.UnaryPositive, (TreeTypes.Hexadecimal, '0xDeaDa55'))]),
+        ('-0xBEEF123aaa', [(TreeTypes.UnaryNegative, (TreeTypes.Hexadecimal, '0xBEEF123aaa'))]),
 
         ('"hi()!"',           [(TreeTypes.String, '"hi()!"')]),
         ('"super string ->"', [(TreeTypes.String, '"super string ->"')]),
