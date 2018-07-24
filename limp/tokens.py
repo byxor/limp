@@ -30,6 +30,8 @@ def _matchers():
     return [
         (Types.OpenParenthesis, re.escape(Parentheses.OPEN)),
         (Types.CloseParenthesis, re.escape(Parentheses.CLOSE)),
+        (Types.OpenSquareBracket, re.escape("[")),
+        (Types.CloseSquareBracket, re.escape("]")),
         (Types.FunctionDelimiter, re.escape(Function.KEYWORD)),
         (Types.Hexadecimal, _maybe_signed(f"{Hexadecimal.PREFIX}[\dA-Fa-f]+")),
         (Types.Octal, _maybe_signed(f"{Octal.PREFIX}[0-7]+")),
@@ -43,16 +45,18 @@ def _matchers():
 
 @unique
 class Types(Enum):
-    Integer           = auto()
-    Float             = auto()
-    Binary            = auto()
-    Octal             = auto()
-    Hexadecimal       = auto()
-    String            = auto()
-    Symbol            = auto()
-    OpenParenthesis   = auto()
-    CloseParenthesis  = auto()
-    FunctionDelimiter = auto()
+    Integer            = auto()
+    Float              = auto()
+    Binary             = auto()
+    Octal              = auto()
+    Hexadecimal        = auto()
+    String             = auto()
+    Symbol             = auto()
+    OpenParenthesis    = auto()
+    CloseParenthesis   = auto()
+    FunctionDelimiter  = auto()
+    OpenSquareBracket  = auto()
+    CloseSquareBracket = auto()
 
 
 def _symbol_regex():

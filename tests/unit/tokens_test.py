@@ -65,6 +65,16 @@ def test_creation_from_source_code():
                                    (Tokens.Types.Symbol, 'reverse'),
                                    (Tokens.Types.String, '"(abc)"'),
                                    (Tokens.Types.CloseParenthesis, ')')]),
+
+        ('[]', [(Tokens.Types.OpenSquareBracket, '['),
+                (Tokens.Types.CloseSquareBracket, ']')]),
+
+        ('[1 2 3]', [(Tokens.Types.OpenSquareBracket, '['),
+                     (Tokens.Types.Integer, '1'),
+                     (Tokens.Types.Integer, '2'),
+                     (Tokens.Types.Integer, '3'),
+                     (Tokens.Types.CloseSquareBracket, ']')]),
+
     ]
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)
