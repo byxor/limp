@@ -51,47 +51,42 @@ def test_creation_from_tokens():
         ('"super string ->"', (TreeTypes.String, '"super string ->"')),
 
         # Function calls
-        ('(fibonacci)', (TreeTypes.FunctionCall,
-                         [(TreeTypes.Symbol, 'fibonacci')])),
+        ('(fibonacci)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'fibonacci'), [])),
 
-        ('(destroy-evidence)', (TreeTypes.FunctionCall,
-                                [(TreeTypes.Symbol, 'destroy-evidence')])),
+        ('(destroy-evidence)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'destroy-evidence'), [])),
 
-        ('(steal-cookies 99)', (TreeTypes.FunctionCall,
-                                [(TreeTypes.Symbol, 'steal-cookies'),
-                                 (TreeTypes.Integer, '99')])),
+        ('(steal-cookies 99)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'steal-cookies'),
+                                [(TreeTypes.Integer, '99')])),
 
 
-        ('(steal-biscuits 22)', (TreeTypes.FunctionCall,
-                                 [(TreeTypes.Symbol, 'steal-biscuits'),
-                                  (TreeTypes.Integer, '22')])),
+        ('(steal-biscuits 22)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'steal-biscuits'),
+                                 [(TreeTypes.Integer, '22')])),
 
-        ('(reverse "foo")', (TreeTypes.FunctionCall,
-                             [(TreeTypes.Symbol, 'reverse'),
-                              (TreeTypes.String, '"foo"')])),
+        ('(reverse "foo")', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'reverse'),
+                             [(TreeTypes.String, '"foo"')])),
 
-        ('(+ 1 2)', (TreeTypes.FunctionCall,
-                     [(TreeTypes.Symbol, '+'),
-                      (TreeTypes.Integer, '1'),
+        ('(+ 1 2)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, '+'),
+                     [(TreeTypes.Integer, '1'),
                       (TreeTypes.Integer, '2')])),
 
         ('(concatenate "foo" "bar" "baz")', (TreeTypes.FunctionCall,
-                                             [(TreeTypes.Symbol, 'concatenate'),
-                                              (TreeTypes.String, '"foo"'),
+                                             (TreeTypes.Symbol, 'concatenate'),
+                                             [(TreeTypes.String, '"foo"'),
                                               (TreeTypes.String, '"bar"'),
                                               (TreeTypes.String, '"baz"')])),
 
         ('(f (g))', (TreeTypes.FunctionCall,
-                     [(TreeTypes.Symbol, 'f'),
-                      (TreeTypes.FunctionCall,
-                       [(TreeTypes.Symbol, 'g')])])),
+                     (TreeTypes.Symbol, 'f'),
+                     [(TreeTypes.FunctionCall,
+                       (TreeTypes.Symbol, 'g'),
+                       [])])),
 
         ('(+ 10 (- 100 50))', (TreeTypes.FunctionCall,
-                               [(TreeTypes.Symbol, '+'),
-                                (TreeTypes.Integer, '10'),
+                               (TreeTypes.Symbol, '+'),
+                               [(TreeTypes.Integer, '10'),
                                 (TreeTypes.FunctionCall,
-                                 [(TreeTypes.Symbol, '-'),
-                                  (TreeTypes.Integer, '100'),
+                                 (TreeTypes.Symbol, '-'),
+                                 [(TreeTypes.Integer, '100'),
                                   (TreeTypes.Integer, '50')])])),
     ]
 

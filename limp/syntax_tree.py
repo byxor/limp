@@ -42,15 +42,15 @@ def _get_node_for(chunk):
 
 def _node_from_single_token(token):
     if token.type_ == Tokens.Types.Integer:
-        tree = numeric_tree(Types.Integer, token)
+        tree = _numeric_tree(Types.Integer, token)
     elif token.type_ == Tokens.Types.Float:
-        tree = numeric_tree(Types.Float, token)
+        tree = _numeric_tree(Types.Float, token)
     elif token.type_ == Tokens.Types.Hexadecimal:
-        tree = numeric_tree(Types.Hexadecimal, token)
+        tree = _numeric_tree(Types.Hexadecimal, token)
     elif token.type_ == Tokens.Types.Octal:
-        tree = numeric_tree(Types.Octal, token)
+        tree = _numeric_tree(Types.Octal, token)
     elif token.type_ == Tokens.Types.Binary:
-        tree = numeric_tree(Types.Binary, token)
+        tree = _numeric_tree(Types.Binary, token)
     elif token.type_ == Tokens.Types.String:
         tree = (Types.String, token.contents)
     else:
@@ -63,22 +63,23 @@ def _function_call_node(chunk):
     has_function = chunk[1].type_  == Tokens.Types.Symbol
     closes =       chunk[-1].type_ == Tokens.Types.CloseParenthesis
     if opens and has_function and closes:
-        arguments = [(Types.Symbol, chunk[1].contents)]
-        
+        function = (Types.Symbol, chunk[1].contents)
+
+        arguments = []        
         i = 2
         while i < len(chunk) - 1:
             node = _search_for_node(chunk[i:])
             arguments.append(node.tree)
             i += node.tokens_consumed
 
-        tokens_consumed = len(arguments) + 2
-        return _Node((Types.FunctionCall, arguments), tokens_consumed)
+        tokens_consumed = len(arguments) + 3
+        return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
 
 
-def numeric_tree(tree_type, token):
+def _numeric_tree(tree_type, token):
     sign = token.contents[0]
     if sign == "+":
         return (Types.UnaryPositive, (tree_type, token.contents[1:]))
