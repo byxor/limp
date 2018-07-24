@@ -46,11 +46,16 @@ def _search_for_node(chunk):
 def _get_node_for(chunk):
     if len(chunk) == 1:
         return _node_from_single_token(chunk[0])
-    elif len(chunk) == 2:
-        if chunk[0].type_ == Tokens.Types.OpenSquareBracket:
-            return _Node((Types.List, []), 2)
-    elif len(chunk) >= 3:
-        return _function_call_node(chunk)
+
+    if len(chunk) >= 2:
+        node = _list_node(chunk)
+        if node:
+            return node
+
+    if len(chunk) >= 3:
+        node = _function_call_node(chunk)
+        if node:
+            return node
 
 
 def _node_from_single_token(token):
@@ -79,6 +84,21 @@ def _numeric_tree(tree_type, token):
         return (Types.UnaryNegative, (tree_type, token.contents[1:]))
     else:
         return (tree_type, token.contents)
+
+
+def _list_node(chunk):
+
+
+    if chunk[-1].type_ == Tokens.Types.CloseSquareBracket:
+        contents = []
+    
+        start = 1
+        while start < len(chunk) - 1:
+            node = _search_for_node(chunk[start:len(chunk)])
+            contents.append(node.tree)
+            start += node.tokens_consumed
+
+        return _Node((Types.List, contents), 2 + len(contents))
 
 
 def _function_call_node(chunk):

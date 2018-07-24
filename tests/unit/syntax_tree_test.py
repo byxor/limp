@@ -116,7 +116,31 @@ def test_creation_from_tokens():
              (TreeTypes.Integer, '4')])])),
 
         # Lists
-        ('[]', (TreeTypes.List, [])),
+        ('[]',    (TreeTypes.List, [])),
+        ('[1]',   (TreeTypes.List, [(TreeTypes.Integer, '1')])),
+        ('[1 2]', (TreeTypes.List, [(TreeTypes.Integer, '1'), (TreeTypes.Integer, '2')])),
+
+        ('["uncle" "bob" "rules"]', (TreeTypes.List,
+                                     [(TreeTypes.String, '"uncle"'),
+                                      (TreeTypes.String, '"bob"'),
+                                      (TreeTypes.String, '"rules"')])),
+
+        ('[(+ 1 2)]', (TreeTypes.List,
+                       [(TreeTypes.FunctionCall,
+                         (TreeTypes.Symbol, '+'),
+                         [(TreeTypes.Integer, '1'),
+                          (TreeTypes.Integer, '2')])])),
+
+        ('[(+ 1 2) (- 3 4)]', (TreeTypes.List,
+                               [(TreeTypes.FunctionCall,
+                                 (TreeTypes.Symbol, '+'),
+                                 [(TreeTypes.Integer, '1'),
+                                  (TreeTypes.Integer, '2')]),
+                                (TreeTypes.FunctionCall,
+                                 (TreeTypes.Symbol, '-'),
+                                 [(TreeTypes.Integer, '3'),
+                                  (TreeTypes.Integer, '4')])])),
+                                     
     ]
 
     for source_code, expected_syntax_tree in data:
