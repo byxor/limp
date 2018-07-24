@@ -5,16 +5,17 @@ from collections import namedtuple
 
 @unique
 class Types(Enum):
-    Float = auto()
-    Integer = auto()
-    Binary = auto()
-    Octal = auto()
-    Hexadecimal = auto()
-    String = auto()
+    Float         = auto()
+    Integer       = auto()
+    Binary        = auto()
+    Octal         = auto()
+    Hexadecimal   = auto()
+    String        = auto()
     UnaryPositive = auto()
     UnaryNegative = auto()
-    FunctionCall = auto()
-    Symbol = auto()
+    FunctionCall  = auto()
+    Symbol        = auto()
+    List          = auto()
 
 
 def create_from(tokens):
@@ -45,6 +46,9 @@ def _search_for_node(chunk):
 def _get_node_for(chunk):
     if len(chunk) == 1:
         return _node_from_single_token(chunk[0])
+    elif len(chunk) == 2:
+        if chunk[0].type_ == Tokens.Types.OpenSquareBracket:
+            return _Node((Types.List, []), 2)
     elif len(chunk) >= 3:
         return _function_call_node(chunk)
 

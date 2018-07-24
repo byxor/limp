@@ -17,13 +17,17 @@ def create_from(source_code):
 
 def _lex(source_code):
     generator = LexerGenerator()
-    generator.ignore("\s+")
+    _ignore_whitespace(generator)
 
     for matcher in _matchers():
         generator.add(*matcher)
 
     lexer = generator.build()
     return lexer.lex(source_code)
+
+
+def _ignore_whitespace(generator):
+    generator.ignore("\s+")
 
 
 def _matchers():

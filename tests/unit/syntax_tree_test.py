@@ -114,6 +114,9 @@ def test_creation_from_tokens():
             (TreeTypes.Symbol, '/'),
             [(TreeTypes.Integer, '3'),
              (TreeTypes.Integer, '4')])])),
+
+        # Lists
+        ('[]', (TreeTypes.List, [])),
     ]
 
     for source_code, expected_syntax_tree in data:
