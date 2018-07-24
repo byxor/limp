@@ -3,13 +3,27 @@ from enum import Enum, auto, unique
 from collections import namedtuple
 
 
-_Node = namedtuple('_Node', 'tree tokens_consumed')
+@unique
+class Types(Enum):
+    Float = auto()
+    Integer = auto()
+    Binary = auto()
+    Octal = auto()
+    Hexadecimal = auto()
+    String = auto()
+    UnaryPositive = auto()
+    UnaryNegative = auto()
+    FunctionCall = auto()
+    Symbol = auto()
 
 
 def create_from(tokens):
     node = _search_for_node(tokens)
     if node:
         return node.tree
+
+
+#############################################
 
 
 def _search_for_node(chunk):
@@ -61,19 +75,7 @@ def _function_call_node(chunk):
         return _Node((Types.FunctionCall, arguments), tokens_consumed)
 
 
-@unique
-class Types(Enum):
-    Float = auto()
-    Integer = auto()
-    Binary = auto()
-    Octal = auto()
-    Hexadecimal = auto()
-    String = auto()
-    UnaryPositive = auto()
-    UnaryNegative = auto()
-    FunctionCall = auto()
-    Symbol = auto()
-    Nothing = auto()
+_Node = namedtuple('_Node', 'tree tokens_consumed')
 
 
 def numeric_tree(tree_type, token):
