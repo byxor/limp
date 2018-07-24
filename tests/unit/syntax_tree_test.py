@@ -146,7 +146,7 @@ def test_creation_from_tokens():
                                  [(TreeTypes.Integer, '3'),
                                   (TreeTypes.Integer, '4')])])),
 
-        # ('[[]]', (TreeTypes.List, [(TreeTypes.List, [])])),
+        ('[[]]', (TreeTypes.List, [(TreeTypes.List, [])])),
 
         # ('[[] []]', (TreeTypes.List,
         #              [(TreeTypes.List, []),

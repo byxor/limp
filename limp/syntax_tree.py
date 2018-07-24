@@ -96,6 +96,8 @@ def _list_node(chunk):
     if openings == closings:
         contents = []
     
+        tokens_consumed = 2
+
         start = 1
         while start < len(chunk) - 1:
             end = _get_end_of_list(chunk, start)
@@ -103,8 +105,8 @@ def _list_node(chunk):
             node = _search_for_node(chunk[start:end])
             contents.append(node.tree)
             start += node.tokens_consumed
+            tokens_consumed += node.tokens_consumed
 
-        tokens_consumed = (start - 2) + 2
         return _Node((Types.List, contents), tokens_consumed)
 
 
