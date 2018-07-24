@@ -89,7 +89,7 @@ def _function_call_node(chunk):
         arguments = []        
         start = 2
         while start < len(chunk) - 1:
-            end = _get_closing_location_of_function_call(chunk, start)
+            end = _get_end_of_function_call(chunk, start)
             node = _search_for_node(chunk[start:end])
             arguments.append(node.tree)
             start += node.tokens_consumed
@@ -98,7 +98,7 @@ def _function_call_node(chunk):
         return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
 
 
-def _get_closing_location_of_function_call(chunk, start):
+def _get_end_of_function_call(chunk, start):
     depth = 0
     end = start
     while end < len(chunk):
