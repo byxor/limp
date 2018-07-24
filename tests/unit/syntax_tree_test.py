@@ -70,10 +70,10 @@ def test_creation_from_tokens():
                              [(TreeTypes.Symbol, 'reverse'),
                               (TreeTypes.String, '"foo"')])),
 
-        # ('(+ 1 2)', (TreeTypes.FunctionCall,
-        #              [(TreeTypes.Symbol, '+'),
-        #               (TreeTypes.Integer, '1'),
-        #               (TreeTypes.Integer, '2')])),
+        ('(+ 1 2)', (TreeTypes.FunctionCall,
+                     [(TreeTypes.Symbol, '+'),
+                      (TreeTypes.Integer, '1'),
+                      (TreeTypes.Integer, '2')])),
 
         # ('(concatenate "foo" "bar" "baz")', (TreeTypes.FunctionCall,
         #                                      [(TreeTypes.Symbol, 'concatenate'),
