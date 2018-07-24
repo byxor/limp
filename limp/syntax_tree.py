@@ -87,18 +87,25 @@ def _numeric_tree(tree_type, token):
 
 
 def _list_node(chunk):
+    if chunk[-1].type_ != Tokens.Types.CloseSquareBracket:
+        return
+    
+    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenSquareBracket])
+    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseSquareBracket])
 
-
-    if chunk[-1].type_ == Tokens.Types.CloseSquareBracket:
+    if openings == closings:
         contents = []
     
         start = 1
         while start < len(chunk) - 1:
-            node = _search_for_node(chunk[start:len(chunk)])
+            end = _get_end_of_list(chunk, start)
+            print(start, end)
+            node = _search_for_node(chunk[start:end])
             contents.append(node.tree)
             start += node.tokens_consumed
 
-        return _Node((Types.List, contents), 2 + len(contents))
+        tokens_consumed = (start - 2) + 2
+        return _Node((Types.List, contents), tokens_consumed)
 
 
 def _function_call_node(chunk):
@@ -134,6 +141,14 @@ def _get_end_of_function_call(chunk, start):
             break
         end += 1
     return end + 1
+
+
+def _get_end_of_list(chunk, start):
+    end = start
+    while end < len(chunk):
+        if chunk[end].type_ == Tokens.Types.CloseSquareBracket:
+            return end + 1
+        end += 1
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')

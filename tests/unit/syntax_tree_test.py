@@ -125,21 +125,36 @@ def test_creation_from_tokens():
                                       (TreeTypes.String, '"bob"'),
                                       (TreeTypes.String, '"rules"')])),
 
+        ('[(foo)]', (TreeTypes.List,
+                     [(TreeTypes.FunctionCall,
+                       (TreeTypes.Symbol, 'foo'),
+                       [])])),
+
         ('[(+ 1 2)]', (TreeTypes.List,
                        [(TreeTypes.FunctionCall,
                          (TreeTypes.Symbol, '+'),
                          [(TreeTypes.Integer, '1'),
                           (TreeTypes.Integer, '2')])])),
 
-        ('[(+ 1 2) (- 3 4)]', (TreeTypes.List,
-                               [(TreeTypes.FunctionCall,
-                                 (TreeTypes.Symbol, '+'),
-                                 [(TreeTypes.Integer, '1'),
-                                  (TreeTypes.Integer, '2')]),
-                                (TreeTypes.FunctionCall,
-                                 (TreeTypes.Symbol, '-'),
-                                 [(TreeTypes.Integer, '3'),
-                                  (TreeTypes.Integer, '4')])])),
+        # ('[(+ 1 2) (- 3 4)]', (TreeTypes.List,
+        #                        [(TreeTypes.FunctionCall,
+        #                          (TreeTypes.Symbol, '+'),
+        #                          [(TreeTypes.Integer, '1'),
+        #                           (TreeTypes.Integer, '2')]),
+        #                         (TreeTypes.FunctionCall,
+        #                          (TreeTypes.Symbol, '-'),
+        #                          [(TreeTypes.Integer, '3'),
+        #                           (TreeTypes.Integer, '4')])])),
+
+        # ('[[]]', (TreeTypes.List, [(TreeTypes.List, [])])),
+
+        # ('[[] []]', (TreeTypes.List,
+        #              [(TreeTypes.List, []),
+        #               (TreeTypes.List, [])])),
+
+        # ('[[a] [b]]', (TreeTypes.List,
+        #              [(TreeTypes.List, [(TreeTypes.Symbol, 'a')]),
+        #               (TreeTypes.List, [(TreeTypes.Symbol, 'b')])])),
                                      
     ]
 
