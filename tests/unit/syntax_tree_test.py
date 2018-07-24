@@ -8,7 +8,7 @@ TreeTypes = SyntaxTree.Types
 
 def test_creation_from_tokens():
     data = [
-        ([], []),
+        ([], None),
 
         # Integers
         ('100', (TreeTypes.Integer, '100')),

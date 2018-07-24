@@ -1,59 +1,64 @@
 import limp.tokens as Tokens
 from enum import Enum, auto, unique
-from collections import namedtuple, Iterable
+from collections import namedtuple
+
+
+_Node = namedtuple('_Node', 'tree tokens_consumed')
 
 
 def create_from(tokens):
-    if len(tokens) == 0:
-        return []
-    return _search_for_node(tokens)[0]
+    node = _search_for_node(tokens)
+    if node:
+        return node.tree
 
 
 def _search_for_node(chunk):
-    end = 1
-    while end <= len(chunk):
-        try:
-            return _get_node(chunk[:end])
-        except NodeNotFound:
-            end += 1
-    raise NodeNotFound(chunk)
+    for size in range(1, len(chunk) + 1):
+        node = _get_node_for(chunk[:size])
+        if node:
+            return node
 
 
-def _get_node(chunk):
+def _get_node_for(chunk):
     if len(chunk) == 1:
-        if chunk[0].type_ == Tokens.Types.Integer:
-            return (numeric_tree(Types.Integer, chunk[0]), 1)
-        elif chunk[0].type_ == Tokens.Types.Float:
-            return (numeric_tree(Types.Float, chunk[0]), 1)
-        elif chunk[0].type_ == Tokens.Types.Hexadecimal:
-            return (numeric_tree(Types.Hexadecimal, chunk[0]), 1)
-        elif chunk[0].type_ == Tokens.Types.Octal:
-            return (numeric_tree(Types.Octal, chunk[0]), 1)
-        elif chunk[0].type_ == Tokens.Types.Binary:
-            return (numeric_tree(Types.Binary, chunk[0]), 1)
-        elif chunk[0].type_ == Tokens.Types.String:
-            return ((Types.String, chunk[0].contents), 1)
+        return _node_from_single_token(chunk[0])
     elif len(chunk) >= 3:
-        opens = chunk[0].type_ == Tokens.Types.OpenParenthesis
-        has_function = chunk[1].type_ == Tokens.Types.Symbol
-        closes = chunk[-1].type_ == Tokens.Types.CloseParenthesis
-        if opens and has_function and closes:
-            arguments = [(Types.Symbol, chunk[1].contents)]
-
-            i = 2
-            while i < len(chunk) - 1:
-                node, tokens_consumed = _search_for_node(chunk[i:])
-                arguments.append(node)
-                i += tokens_consumed
-
-            return ((Types.FunctionCall, arguments), len(arguments) + 2)
-
-    raise NodeNotFound(chunk)
+        return _function_call_node(chunk)
 
 
-class NodeNotFound(Exception):
-    def __init__(self, chunk):
-        super().__init__(f"Node not found in {chunk}")
+def _node_from_single_token(token):
+    if token.type_ == Tokens.Types.Integer:
+        tree = numeric_tree(Types.Integer, token)
+    elif token.type_ == Tokens.Types.Float:
+        tree = numeric_tree(Types.Float, token)
+    elif token.type_ == Tokens.Types.Hexadecimal:
+        tree = numeric_tree(Types.Hexadecimal, token)
+    elif token.type_ == Tokens.Types.Octal:
+        tree = numeric_tree(Types.Octal, token)
+    elif token.type_ == Tokens.Types.Binary:
+        tree = numeric_tree(Types.Binary, token)
+    elif token.type_ == Tokens.Types.String:
+        tree = (Types.String, token.contents)
+    else:
+        return None
+    return _Node(tree, 1)
+
+
+def _function_call_node(chunk):
+    opens =        chunk[0].type_  == Tokens.Types.OpenParenthesis
+    has_function = chunk[1].type_  == Tokens.Types.Symbol
+    closes =       chunk[-1].type_ == Tokens.Types.CloseParenthesis
+    if opens and has_function and closes:
+        arguments = [(Types.Symbol, chunk[1].contents)]
+        
+        i = 2
+        while i < len(chunk) - 1:
+            node = _search_for_node(chunk[i:])
+            arguments.append(node.tree)
+            i += node.tokens_consumed
+
+        tokens_consumed = len(arguments) + 2
+        return _Node((Types.FunctionCall, arguments), tokens_consumed)
 
 
 @unique
