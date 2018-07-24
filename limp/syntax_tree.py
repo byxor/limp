@@ -71,23 +71,16 @@ def _get_node(chunk):
         has_function = chunk[1].type_ == Tokens.Types.Symbol
         closes = chunk[-1].type_ == Tokens.Types.CloseParenthesis
         if opens and has_function and closes:
-            has_arguments = len(chunk) > 3
-            if has_arguments:
-                contents = [(Types.Symbol, chunk[1].contents)]
+            contents = [(Types.Symbol, chunk[1].contents)]
 
-                i = 2
-                while i < len(chunk) - 1:
-                    try:
-                        node, tokens_consumed = _search_for_node(chunk[i:])
-                        contents.append(node)
-                        i += tokens_consumed
-                    except NodeNotFound:
-                        pass
+            i = 2
+            while i < len(chunk) - 1:
+                node, tokens_consumed = _search_for_node(chunk[i:])
+                contents.append(node)
+                i += tokens_consumed
 
-                return ((Types.FunctionCall, contents), len(contents))
-            else:
-                return ((Types.FunctionCall,
-                         [(Types.Symbol, chunk[1].contents)]), 3)
+            return ((Types.FunctionCall, contents), len(contents) + 2)
+
         
     raise NodeNotFound(chunk)
 
