@@ -51,39 +51,61 @@ def test_creation_from_tokens():
         ('"super string ->"', (TreeTypes.String, '"super string ->"')),
 
         # Function calls
+        ('(fibonacci)', (TreeTypes.FunctionCall,
+                         [(TreeTypes.Symbol, 'fibonacci')])),
+
         ('(destroy-evidence)', (TreeTypes.FunctionCall,
                                 [(TreeTypes.Symbol, 'destroy-evidence')])),
 
-        ('(steal-cookies 10)', (TreeTypes.FunctionCall,
+        ('(steal-cookies 99)', (TreeTypes.FunctionCall,
                                 [(TreeTypes.Symbol, 'steal-cookies'),
-                                 (TreeTypes.Integer, '10')])),
+                                 (TreeTypes.Integer, '99')])),
 
-        ('(+ 1 2)', (TreeTypes.FunctionCall,
-                     [(TreeTypes.Symbol, '+'),
-                      (TreeTypes.Integer, '1'),
-                      (TreeTypes.Integer, '2')])),
 
-        ('(concatenate "foo" "bar" "baz")', (TreeTypes.FunctionCall,
-                                             [(TreeTypes.Symbol, 'concatenate'),
-                                              (TreeTypes.String, '"foo"'),
-                                              (TreeTypes.String, '"bar"'),
-                                              (TreeTypes.String, '"baz"')])),
+        ('(steal-biscuits 22)', (TreeTypes.FunctionCall,
+                                 [(TreeTypes.Symbol, 'steal-biscuits'),
+                                  (TreeTypes.Integer, '22')])),
 
-        ('(+ 10 (- 100 50))', (TreeTypes.FunctionCall,
-                               [(TreeTypes.Symbol, '+'),
-                                (TreeTypes.Integer, '10'),
-                                (TreeTypes.FunctionCall,
-                                 [(TreeTypes.Symbol, '-'),
-                                  (TreeTypes.Integer, '100'),
-                                  (TreeTypes.Integer, '50')])])),
+        ('(reverse "foo")', (TreeTypes.FunctionCall,
+                             [(TreeTypes.Symbol, 'reverse'),
+                              (TreeTypes.String, '"foo"')])),
+
+        # ('(+ 1 2)', (TreeTypes.FunctionCall,
+        #              [(TreeTypes.Symbol, '+'),
+        #               (TreeTypes.Integer, '1'),
+        #               (TreeTypes.Integer, '2')])),
+
+        # ('(concatenate "foo" "bar" "baz")', (TreeTypes.FunctionCall,
+        #                                      [(TreeTypes.Symbol, 'concatenate'),
+        #                                       (TreeTypes.String, '"foo"'),
+        #                                       (TreeTypes.String, '"bar"'),
+        #                                       (TreeTypes.String, '"baz"')])),
+
+        # ('(f (g))', (TreeTypes.FunctionCall,
+        #              [(TreeTypes.Symbol, 'f'),
+        #               (TreeTypes.FunctionCall,
+        #                [(TreeTypes.Symbol, 'g')])])),
+
+        # ('(+ 10 (- 100 50))', (TreeTypes.FunctionCall,
+        #                        [(TreeTypes.Symbol, '+'),
+        #                         (TreeTypes.Integer, '10'),
+        #                         (TreeTypes.FunctionCall,
+        #                          [(TreeTypes.Symbol, '-'),
+        #                           (TreeTypes.Integer, '100'),
+        #                           (TreeTypes.Integer, '50')])])),
     ]
 
     for source_code, expected_syntax_tree in data:
+        print("\n\n------------------")
+
         tokens = Tokens.create_from(source_code)
+
+        print("Tokens:  ", tokens)
+        print("Expected:", expected_syntax_tree)
+
+
         syntax_tree = SyntaxTree.create_from(tokens)
 
-        print("\n\n------------------")
-        print("Expected:", expected_syntax_tree)
-        print("Actual:", syntax_tree)
+        print("Actual:  ", syntax_tree)
 
         yield assert_equals, expected_syntax_tree, syntax_tree
