@@ -87,28 +87,29 @@ def _function_call_node(chunk):
         function = (Types.Symbol, chunk[1].contents)
 
         arguments = []        
-        i = 2
-        while i < len(chunk) - 1:
-
-            depth = 0
-            j = i
-            while j < len(chunk):
-                if chunk[j].type_ == Tokens.Types.OpenParenthesis:
-                    depth += 1
-                elif chunk[j].type_ == Tokens.Types.CloseParenthesis:
-                    depth -= 1
-                if depth == 0:
-                    break
-                j += 1
-
-            print(i, j)
-
-            node = _search_for_node(chunk[i:j+1])
+        start = 2
+        while start < len(chunk) - 1:
+            end = _get_closing_location_of_function_call(chunk, start)
+            node = _search_for_node(chunk[start:end])
             arguments.append(node.tree)
-            i += node.tokens_consumed
+            start += node.tokens_consumed
 
-        tokens_consumed = (i - 2) + 3
+        tokens_consumed = (start - 2) + 3
         return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
+
+
+def _get_closing_location_of_function_call(chunk, start):
+    depth = 0
+    end = start
+    while end < len(chunk):
+        if chunk[end].type_ == Tokens.Types.OpenParenthesis:
+            depth += 1
+        elif chunk[end].type_ == Tokens.Types.CloseParenthesis:
+            depth -= 1
+        if depth == 0:
+            break
+        end += 1
+    return end + 1
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
