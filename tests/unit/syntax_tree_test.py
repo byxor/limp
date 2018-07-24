@@ -86,13 +86,13 @@ def test_creation_from_tokens():
                       (TreeTypes.FunctionCall,
                        [(TreeTypes.Symbol, 'g')])])),
 
-        # ('(+ 10 (- 100 50))', (TreeTypes.FunctionCall,
-        #                        [(TreeTypes.Symbol, '+'),
-        #                         (TreeTypes.Integer, '10'),
-        #                         (TreeTypes.FunctionCall,
-        #                          [(TreeTypes.Symbol, '-'),
-        #                           (TreeTypes.Integer, '100'),
-        #                           (TreeTypes.Integer, '50')])])),
+        ('(+ 10 (- 100 50))', (TreeTypes.FunctionCall,
+                               [(TreeTypes.Symbol, '+'),
+                                (TreeTypes.Integer, '10'),
+                                (TreeTypes.FunctionCall,
+                                 [(TreeTypes.Symbol, '-'),
+                                  (TreeTypes.Integer, '100'),
+                                  (TreeTypes.Integer, '50')])])),
     ]
 
     for source_code, expected_syntax_tree in data:
