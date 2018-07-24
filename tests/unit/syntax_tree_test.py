@@ -152,9 +152,9 @@ def test_creation_from_tokens():
                      [(TreeTypes.List, []),
                       (TreeTypes.List, [])])),
 
-        # ('[[a] [b]]', (TreeTypes.List,
-        #              [(TreeTypes.List, [(TreeTypes.Symbol, 'a')]),
-        #               (TreeTypes.List, [(TreeTypes.Symbol, 'b')])])),
+        ('[[a] [b]]', (TreeTypes.List,
+                     [(TreeTypes.List, [(TreeTypes.Symbol, 'a')]),
+                      (TreeTypes.List, [(TreeTypes.Symbol, 'b')])])),
                                      
     ]
 
