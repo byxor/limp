@@ -10,6 +10,9 @@ import sys
 
 
 def evaluate(source_code, environment=None):
+    if source_code == "":
+        raise Errors.EmptyCode()
+
     if environment is None:
         environment = Environment.create_standard()
 

@@ -49,17 +49,6 @@ def test_repl_evaluates_input_and_displays_it():
         ]))
 
 
-def test_repl_maintains_an_environment_across_ticks():
-    variable = symbol('abc')
-    Helpers.test_chain(
-        _given_a_repl_with_mocked_streams,
-        _next_input_is(define(variable, integer(321))),
-        _tick,
-        _next_input_is(variable),
-        _tick,
-        _output_was_written("321\n"))
-
-
 def test_repl_uses_standard_input_and_output_by_default():
     Helpers.test_chain(
         _given_a_real_repl,
