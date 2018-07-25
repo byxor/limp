@@ -258,13 +258,13 @@ def test_creation_from_tokens():
                            (TreeTypes.Symbol, 'n')),
                           [(TreeTypes.Integer, '5')])),
 
-        # ('((n -> (square-root n)) 16)', (TreeTypes.FunctionCall,
-        #                                  (TreeTypes.Function,
-        #                                   [(TreeTypes.Symbol, 'n')],
-        #                                   (TreeTypes.FunctionCall,
-        #                                    (TreeTypes.Symbol, 'square-root'),
-        #                                    [(TreeTypes.Symbol, 'n')])),
-        #                                  [(TreeTypes.Integer, '16')])),
+        ('((n -> (square-root n)) 16)', (TreeTypes.FunctionCall,
+                                         (TreeTypes.Function,
+                                          [(TreeTypes.Symbol, 'n')],
+                                          (TreeTypes.FunctionCall,
+                                           (TreeTypes.Symbol, 'square-root'),
+                                           [(TreeTypes.Symbol, 'n')])),
+                                         [(TreeTypes.Integer, '16')])),
 
 
     ]
