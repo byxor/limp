@@ -149,18 +149,4 @@ def _function_call_node(chunk):
     return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
 
 
-def _get_end_of_function_call(chunk, start):
-    depth = 0
-    end = start
-    while end < len(chunk):
-        if chunk[end].type_ == Tokens.Types.OpenParenthesis:
-            depth += 1
-        elif chunk[end].type_ == Tokens.Types.CloseParenthesis:
-            depth -= 1
-        if depth == 0:
-            break
-        end += 1
-    return end + 1
-
-
 _Node = namedtuple('_Node', 'tree tokens_consumed')

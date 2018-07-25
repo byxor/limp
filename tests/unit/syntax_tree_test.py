@@ -192,6 +192,14 @@ def test_creation_from_tokens():
                                [(TreeTypes.Integer, '1'),
                                 (TreeTypes.Integer, '2')])])),
 
+        ('(reverse [[a] [b]])', (TreeTypes.FunctionCall,
+                                 (TreeTypes.Symbol, 'reverse'),
+                                 [(TreeTypes.List,
+                                   [(TreeTypes.List,
+                                     [(TreeTypes.Symbol, 'a')]),
+                                    (TreeTypes.List,
+                                     [(TreeTypes.Symbol, 'b')])])])),
+
     ]
 
     for source_code, expected_syntax_tree in data:
