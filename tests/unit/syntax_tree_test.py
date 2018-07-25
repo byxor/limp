@@ -144,11 +144,25 @@ def test_creation_from_tokens():
 
         ('[[]]', (TreeTypes.List, [(TreeTypes.List, [])])),
 
-        # ('[[] []]', (TreeTypes.List,
-        #              [(TreeTypes.List, []),
-        #               (TreeTypes.List, [])])),
+        ('[[] []]', (TreeTypes.List,
+                     [(TreeTypes.List, []),
+                      (TreeTypes.List, [])])),
 
-        # ('[[a]]', (TreeTypes.List, [(TreeTypes.List, [(TreeTypes.Symbol, 'a')])])),
+        ('[[1]]', (TreeTypes.List, [(TreeTypes.List, [(TreeTypes.Integer, '1')])])),
+
+        ('[[1 2]]', (TreeTypes.List,
+                     [(TreeTypes.List,
+                       [(TreeTypes.Integer, '1'),
+                        (TreeTypes.Integer, '2')])])),
+
+        ('[[1] [2]]', (TreeTypes.List,
+                       [(TreeTypes.List, [(TreeTypes.Integer, '1')]),
+                        (TreeTypes.List, [(TreeTypes.Integer, '2')])])),
+
+
+        # ('[[1] [2 3]]', (TreeTypes.List,
+        #                  [(TreeTypes.List, [(TreeTypes.Integer, '1')]),
+        #                   (TreeTypes.List, [(TreeTypes.Integer, '2'), (TreeTypes.Integer, '3')])])),
 
         # ('[[a] [b]]', (TreeTypes.List,
         #              [(TreeTypes.List, [(TreeTypes.Symbol, 'a')]),

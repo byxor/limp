@@ -106,32 +106,9 @@ def _list_node(chunk):
         if node:
             contents.append(node.tree)
             start += node.tokens_consumed
+            tokens_consumed += node.tokens_consumed
         else:
             start += 1
-
-        # start = 1
-        # end = start + 1
-        # while True:
-
-        #     if start >= len(chunk) - 1:
-        #         break
-
-        #     if end >= len(chunk):
-        #         break
-
-        #     node = _search_for_node(chunk[start:end])
-        #     if node:
-        #         contents.append(node.tree)
-        #         start = end
-
-        #     end += 1
-
-        #     # end = start + 1
-        #     # print(start, end)
-        #     # node = _search_for_node(chunk[start:end])
-        #     # contents.append(node.tree)
-        #     # start += node.tokens_consumed
-        #     # tokens_consumed += node.tokens_consumed
 
     return _Node((Types.List, contents), tokens_consumed)
 
