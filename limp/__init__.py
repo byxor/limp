@@ -1,9 +1,10 @@
 import limp.environment as Environment
 import limp.errors as Errors
-import limp.pre_processor as PreProcessor
+
 import limp.tokens as Tokens
-import limp.token_tree as TokenTree
-import limp.types as Types
+import limp.syntax_tree as SyntaxTree
+import limp.evaluation as Evaluation
+
 import meta
 import sys
 
@@ -11,16 +12,12 @@ import sys
 def evaluate(source_code, environment=None):
     if environment is None:
         environment = Environment.create_standard()
-    return Types.Form.infer_from(
-        TokenTree.create_from(
-            Tokens.create_from(
-                PreProcessor.process(
-                    source_code
-                )
-            )
-        ),
-        environment
-    ).evaluate()
+
+    tokens = Tokens.create_from(source_code)
+    syntax_tree = SyntaxTree.create_from(tokens)
+    result = Evaluation.evaluate(syntax_tree)
+
+    return result
 
 
 class Repl:

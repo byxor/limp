@@ -5,6 +5,14 @@ from nose.tools import assert_equals
 
 def test_creation_from_source_code():
     data = [
+        ('false', [(Tokens.Types.Boolean, 'false')]),
+        ('true',  [(Tokens.Types.Boolean, 'true')]),
+
+        ('falses',  [(Tokens.Types.Symbol, 'falses')]),
+        ('trues',   [(Tokens.Types.Symbol, 'trues')]),
+        ('unfalse', [(Tokens.Types.Symbol, 'unfalse')]),
+        ('untrue',  [(Tokens.Types.Symbol, 'untrue')]),
+            
         ('1',                     [(Tokens.Types.Integer, '1')]),
         ('1003499',               [(Tokens.Types.Integer, '1003499')]),
         ('+123',                  [(Tokens.Types.Integer, '+123')]),
@@ -78,5 +86,8 @@ def test_creation_from_source_code():
     ]
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)
+        print("-------------")
+        print(tokens)
+        print(expected_tokens)
         yield assert_equals, expected_tokens, tokens
 

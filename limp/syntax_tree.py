@@ -25,19 +25,15 @@ def create_from(tokens):
 
 
 def _search_for_node(chunk):
-    print(f'SEARCH THRU: {" ".join([str(t.contents) for t in chunk])}')
+    # print(f'SEARCH THRU: {" ".join([str(t.contents) for t in chunk])}')
     for size in range(1, len(chunk) + 1):
-
-        print(f'Get node for: {" ".join([str(t.contents) for t in chunk[:size]])}')
-
+        # print(f'Get node for: {" ".join([str(t.contents) for t in chunk[:size]])}')
         node = _get_node_for(chunk[:size])
         if node:
-
-            print(f"   got one: {node}")
-
+            # print(f"   got one: {node}")
             return node
-        else:
-            print(f"   nuthin")
+        # else:
+            # print(f"   nuthin")
 
 
 def _get_node_for(chunk):

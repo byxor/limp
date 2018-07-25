@@ -203,15 +203,15 @@ def test_creation_from_tokens():
     ]
 
     for source_code, expected_syntax_tree in data:
-        print("\n\n------------------")
+        # print("\n\n------------------")
 
         tokens = Tokens.create_from(source_code)
 
-        print("Tokens:  ", tokens)
-        print("Expected:", expected_syntax_tree)
+        # print("Tokens:  ", tokens)
+        # print("Expected:", expected_syntax_tree)
 
         syntax_tree = SyntaxTree.create_from(tokens)
 
-        print("Actual:  ", syntax_tree)
+        # print("Actual:  ", syntax_tree)
 
         yield assert_equals, expected_syntax_tree, syntax_tree

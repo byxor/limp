@@ -42,6 +42,7 @@ def _matchers():
         (Types.Binary, _maybe_signed(f"{Binary.PREFIX}[01]+")),
         (Types.Float, _maybe_signed("\d*\.\d+")),
         (Types.Integer, _maybe_signed("\d+")),
+        (Types.Boolean, "false\\b|true\\b"),
         (Types.Symbol, _symbol_regex()),
         (Types.String, _string_regex()),
     ]
@@ -49,6 +50,7 @@ def _matchers():
 
 @unique
 class Types(Enum):
+    Boolean            = auto()
     Integer            = auto()
     Float              = auto()
     Binary             = auto()
