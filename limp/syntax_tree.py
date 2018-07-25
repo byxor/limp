@@ -92,22 +92,56 @@ def _list_node(chunk):
     
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenSquareBracket])
     closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseSquareBracket])
-
-    if openings == closings:
-        contents = []
+    if openings != closings:
+        return
     
-        tokens_consumed = 2
+    contents = []
+    
+    tokens_consumed = 2
 
-        start = 1
-        while start < len(chunk) - 1:
-            end = _get_end_of_list(chunk, start)
-            print(start, end)
-            node = _search_for_node(chunk[start:end])
+    start = 1
+
+    while start < len(chunk):
+        node = _search_for_node(chunk[start:-1])
+        if node:
             contents.append(node.tree)
             start += node.tokens_consumed
-            tokens_consumed += node.tokens_consumed
+        else:
+            start += 1
 
-        return _Node((Types.List, contents), tokens_consumed)
+        # start = 1
+        # end = start + 1
+        # while True:
+
+        #     if start >= len(chunk) - 1:
+        #         break
+
+        #     if end >= len(chunk):
+        #         break
+
+        #     node = _search_for_node(chunk[start:end])
+        #     if node:
+        #         contents.append(node.tree)
+        #         start = end
+
+        #     end += 1
+
+        #     # end = start + 1
+        #     # print(start, end)
+        #     # node = _search_for_node(chunk[start:end])
+        #     # contents.append(node.tree)
+        #     # start += node.tokens_consumed
+        #     # tokens_consumed += node.tokens_consumed
+
+    return _Node((Types.List, contents), tokens_consumed)
+
+
+def _get_end_of_list(chunk, start):
+    end = start
+    while end < len(chunk):
+        if chunk[end].type_ == Tokens.Types.CloseSquareBracket:
+            return end
+        end += 1
 
 
 def _function_call_node(chunk):
@@ -143,14 +177,6 @@ def _get_end_of_function_call(chunk, start):
             break
         end += 1
     return end + 1
-
-
-def _get_end_of_list(chunk, start):
-    end = start
-    while end < len(chunk):
-        if chunk[end].type_ == Tokens.Types.CloseSquareBracket:
-            return end + 1
-        end += 1
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')

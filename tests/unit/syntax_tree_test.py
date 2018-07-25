@@ -118,17 +118,13 @@ def test_creation_from_tokens():
         # Lists
         ('[]',    (TreeTypes.List, [])),
         ('[1]',   (TreeTypes.List, [(TreeTypes.Integer, '1')])),
+        ('[(a)]', (TreeTypes.List, [(TreeTypes.FunctionCall, (TreeTypes.Symbol, 'a'), [])])),
         ('[1 2]', (TreeTypes.List, [(TreeTypes.Integer, '1'), (TreeTypes.Integer, '2')])),
 
         ('["uncle" "bob" "rules"]', (TreeTypes.List,
                                      [(TreeTypes.String, '"uncle"'),
                                       (TreeTypes.String, '"bob"'),
                                       (TreeTypes.String, '"rules"')])),
-
-        ('[(foo)]', (TreeTypes.List,
-                     [(TreeTypes.FunctionCall,
-                       (TreeTypes.Symbol, 'foo'),
-                       [])])),
 
         ('[(+ 1 2)]', (TreeTypes.List,
                        [(TreeTypes.FunctionCall,
@@ -148,13 +144,15 @@ def test_creation_from_tokens():
 
         ('[[]]', (TreeTypes.List, [(TreeTypes.List, [])])),
 
-        ('[[] []]', (TreeTypes.List,
-                     [(TreeTypes.List, []),
-                      (TreeTypes.List, [])])),
+        # ('[[] []]', (TreeTypes.List,
+        #              [(TreeTypes.List, []),
+        #               (TreeTypes.List, [])])),
 
-        ('[[a] [b]]', (TreeTypes.List,
-                     [(TreeTypes.List, [(TreeTypes.Symbol, 'a')]),
-                      (TreeTypes.List, [(TreeTypes.Symbol, 'b')])])),
+        # ('[[a]]', (TreeTypes.List, [(TreeTypes.List, [(TreeTypes.Symbol, 'a')])])),
+
+        # ('[[a] [b]]', (TreeTypes.List,
+        #              [(TreeTypes.List, [(TreeTypes.Symbol, 'a')]),
+        #               (TreeTypes.List, [(TreeTypes.Symbol, 'b')])])),
                                      
     ]
 
