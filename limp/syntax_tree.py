@@ -97,7 +97,7 @@ def _list_node(chunk):
     if openings != closings:
         return
     
-    contents, tokens_consumed = _get_multiple_nodes(chunk, 1)
+    contents, tokens_consumed = _get_multiple_trees(chunk[1:])
     tokens_consumed += 2
 
     return _Node((Types.List, contents), tokens_consumed)
@@ -105,9 +105,6 @@ def _list_node(chunk):
 
 def _function_call_node(chunk):
     if chunk[0].type_ != Tokens.Types.OpenParenthesis:
-        return
-
-    if chunk[1].type_ != Tokens.Types.Symbol:
         return
 
     if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
@@ -118,9 +115,11 @@ def _function_call_node(chunk):
     if openings != closings:
         return
 
-    function = (Types.Symbol, chunk[1].contents)
-    arguments, tokens_consumed = _get_multiple_nodes(chunk, 2)
-    tokens_consumed += 3
+    trees, tokens_consumed = _get_multiple_trees(chunk[1:-1])
+
+    function = trees[0]
+    arguments = trees[1:]
+    tokens_consumed += 2
 
     return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
     
@@ -142,12 +141,20 @@ def _function_node(chunk):
         return
 
     argument_chunk = chunk[1:delimiter]
-    argument_nodes, _ = _get_multiple_nodes(argument_chunk, 0)
+    for token in argument_chunk:
+        if token.type_ != Tokens.Types.Symbol:
+            return
+
+    argument_trees, _ = _get_multiple_trees(argument_chunk)
+
+    print("HUH  ", [t.contents for t in chunk])
+    print("AY YO", [t.contents for t in argument_chunk])
+    print("FUCK ", argument_trees)
 
     body_chunk = chunk[delimiter+1:-1]
     body_node = _get_node_for(body_chunk)
 
-    return _Node((Types.Function, argument_nodes, body_node.tree), 4)
+    return _Node((Types.Function, argument_trees, body_node.tree), 4)
 
 
 def _get_function_delimiter_position(chunk):
@@ -156,20 +163,21 @@ def _get_function_delimiter_position(chunk):
             return i
 
 
-def _get_multiple_nodes(chunk, start):
-    collection = []
+def _get_multiple_trees(chunk):
+    trees = []
     tokens_consumed = 0
     
+    start = 0
     while start < len(chunk):
         node = _search_for_node(chunk[start:])
         if node:
-            collection.append(node.tree)
+            trees.append(node.tree)
             start += node.tokens_consumed
             tokens_consumed += node.tokens_consumed
         else:
             start += 1
 
-    return collection, tokens_consumed
+    return trees, tokens_consumed
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
