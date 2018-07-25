@@ -136,8 +136,7 @@ def _list_node(chunk):
     if openings != closings:
         return
     
-    # should be [1:-1]?
-    contents, tokens_consumed = _get_multiple_trees(chunk[1:])
+    contents, tokens_consumed = _get_multiple_trees(chunk[1:-1])
     tokens_consumed += 2
 
     return _Node((Types.List, contents), tokens_consumed)
