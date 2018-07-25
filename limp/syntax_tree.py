@@ -24,9 +24,6 @@ def create_from(tokens):
         return node.tree
 
 
-#############################################
-
-
 def _search_for_node(chunk):
     print(f'SEARCH THRU: {" ".join([str(t.contents) for t in chunk])}')
     for size in range(1, len(chunk) + 1):
@@ -143,7 +140,5 @@ def _get_multiple_nodes(chunk, start):
 
     return collection, tokens_consumed
     
-
-
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
