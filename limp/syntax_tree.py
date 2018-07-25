@@ -27,7 +27,6 @@ def create_from(tokens):
 
 
 def _search_for_node(chunk):
-    _PRETTY_PRINT("SEARCH FOR NODE", chunk)
     for size in range(1, len(chunk) + 1):
         node = _get_node_for(chunk[:size])
         if node:
@@ -116,20 +115,11 @@ def _function_call_node(chunk):
     if openings != closings:
         return
 
-    print(" <call>")
-    _PRETTY_PRINT("  chunk", chunk)
-
     trees, tokens_consumed = _get_multiple_trees(chunk[1:-1])
 
-    print("  tree:", trees)
     function = trees[0]
-    print("  func:", function)
     arguments = trees[1:]
-    print("  args:", arguments)
     tokens_consumed += 2
-
-    print(f"  consumes: {tokens_consumed} tokens")
-    print(" </call>")
 
     return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
     
@@ -158,17 +148,11 @@ def _function_node(chunk):
             return
         tokens_consumed += 1
 
-    print(" <func>")
-    _PRETTY_PRINT("  chunk", chunk)
-
     argument_trees, _ = _get_multiple_trees(argument_chunk)
 
     body_chunk = chunk[delimiter+1:-1]
     body_node = _get_node_for(body_chunk)
     tokens_consumed += body_node.tokens_consumed
-
-    print(f"  consumes: {tokens_consumed} tokens")
-    print(" </func>")
 
     return _Node((Types.Function, argument_trees, body_node.tree), tokens_consumed)
 
@@ -182,8 +166,6 @@ def _get_function_delimiter_position(chunk):
 def _get_multiple_trees(chunk):
     trees = []
     tokens_consumed = 0
-    _PRETTY_PRINT("getMultipleTrees", chunk)
-    
     start = 0
     while start < len(chunk):
         node = _search_for_node(chunk[start:])
@@ -193,13 +175,7 @@ def _get_multiple_trees(chunk):
             tokens_consumed += node.tokens_consumed
         else:
             start += 1
-
     return trees, tokens_consumed
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
-
-
-def _PRETTY_PRINT(description, chunk):
-    print(f"{description}: {[t.contents for t in chunk]}")
-
