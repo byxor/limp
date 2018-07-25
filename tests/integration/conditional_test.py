@@ -26,8 +26,9 @@ t1 = Helpers.evaluation_fixture("test_complex_conditionals", [
 
     (conditional([boolean(True), integer(1)]), 1),
 
-    (conditional([boolean(False), integer(0)],
-                 [boolean(True),  integer(1)]),
+    (conditional(
+        [boolean(False), integer(0)],
+        [boolean(True),  integer(1)]),
      1),
 
     (conditional(

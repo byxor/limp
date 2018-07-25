@@ -16,6 +16,7 @@ class Types(Enum):
     UnaryNegative = auto()
     Function      = auto()
     FunctionCall  = auto()
+    IfStatement   = auto()
     Symbol        = auto()
     List          = auto()
 
@@ -39,6 +40,11 @@ def _get_node_for(chunk):
 
     if len(chunk) >= 2:
         node = _list_node(chunk)
+        if node:
+            return node
+
+    if len(chunk) >= 5:
+        node = _if_statement_node(chunk)
         if node:
             return node
 
@@ -85,6 +91,39 @@ def _numeric_tree(tree_type, token):
         return (tree_type, token.contents)
 
 
+def _if_statement_node(chunk):
+    if chunk[0].type_ != Tokens.Types.OpenParenthesis:
+        return
+
+    if chunk[1].type_ != Tokens.Types.Symbol:
+        return
+
+    if chunk[1].contents != 'if':
+        return
+
+    if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
+        return
+
+    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
+    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseParenthesis])
+    if openings != closings:
+        return
+
+    contents, tokens_consumed = _get_multiple_trees(chunk[2:-1])
+    tokens_consumed += 3
+    
+    condition = contents[0]
+    if_true = contents[1]
+    if_false = None
+
+    try:
+        if_false = contents[2]
+    except IndexError:
+        if_false = None
+
+    return _Node((Types.IfStatement, condition, if_true, if_false), tokens_consumed)
+
+
 def _list_node(chunk):
     if chunk[0].type_ != Tokens.Types.OpenSquareBracket:
         return
@@ -97,6 +136,7 @@ def _list_node(chunk):
     if openings != closings:
         return
     
+    # should be [1:-1]?
     contents, tokens_consumed = _get_multiple_trees(chunk[1:])
     tokens_consumed += 2
 

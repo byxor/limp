@@ -29,11 +29,11 @@ t0 = Helpers.evaluation_fixture("test_invoking_anonymous_functions", [
     (invoke(SUBTRACT, integer(5), integer(3)), 2),
 ])
 
-# t1 = Helpers.evaluation_fixture("test_self_referencing_functions", [
-#     (invoke(SELF_REFERENCING_FUNCTION, integer(0)), 0),
-#     (invoke(SELF_REFERENCING_FUNCTION, integer(1)), 1),
-#     (invoke(SELF_REFERENCING_FUNCTION, integer(2)), 2),
-# ])
+t1 = Helpers.evaluation_fixture("test_self_referencing_functions", [
+    (invoke(SELF_REFERENCING_FUNCTION, integer(0)), 0),
+    (invoke(SELF_REFERENCING_FUNCTION, integer(1)), 1),
+    (invoke(SELF_REFERENCING_FUNCTION, integer(2)), 2),
+])
 
 
 # def test_exception_raised_when_invoking_nothing():

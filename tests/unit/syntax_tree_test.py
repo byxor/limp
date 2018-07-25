@@ -274,11 +274,43 @@ data = [
                                                   [(TT.List,
                                                     [(TT.String, '"foo"'),
                                                      (TT.String, '"bar"')])])),
+
+    # If Statements
+    ('(if true 10)', (TT.IfStatement, (TT.Boolean, 'true'), (TT.Integer, '10'), None)),
+
+    ('(if true 10 20)', (TT.IfStatement,
+                         (TT.Boolean, 'true'),
+                         (TT.Integer, '10'),
+                         (TT.Integer, '20'))),
+
+    ('(if (not true) "foo" "bar")', (TT.IfStatement,
+                                     (TT.FunctionCall,
+                                      (TT.Symbol, 'not'),
+                                      [(TT.Boolean, 'true')]),
+                                     (TT.String, '"foo"'),
+                                     (TT.String, '"bar"'))),
+
+    ('(if (= 0b0 0b1) (+ 1 2) (->30))', (TT.IfStatement,
+                                         (TT.FunctionCall,
+                                          (TT.Symbol, '='),
+                                          [(TT.Binary, '0b0'),
+                                           (TT.Binary, '0b1')]),
+                                         (TT.FunctionCall,
+                                          (TT.Symbol, '+'),
+                                          [(TT.Integer, '1'),
+                                           (TT.Integer, '2')]),
+                                         (TT.Function,
+                                          [],
+                                          (TT.Integer, '30')))),
 ]
 
 
 def test_creation_from_tokens():
     for source_code, expected_syntax_tree in data:
+        print()
+        print("-------------")
         tokens = Tokens.create_from(source_code)
         syntax_tree = SyntaxTree.create_from(tokens)
+        print(syntax_tree)
+        print(expected_syntax_tree)
         yield assert_equals, expected_syntax_tree, syntax_tree

@@ -28,6 +28,8 @@ def _evaluate_function(tree, environment):
         for name, value in parameters:
             execution_environment.define(name, value)
 
+        execution_environment.define('this', internal_function)
+
         output = evaluate(tree[2], execution_environment)
         return output
 
