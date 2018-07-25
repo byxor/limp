@@ -14,6 +14,7 @@ class Types(Enum):
     String        = auto()
     UnaryPositive = auto()
     UnaryNegative = auto()
+    Function      = auto()
     FunctionCall  = auto()
     Symbol        = auto()
     List          = auto()
@@ -26,15 +27,10 @@ def create_from(tokens):
 
 
 def _search_for_node(chunk):
-    # print(f'SEARCH THRU: {" ".join([str(t.contents) for t in chunk])}')
     for size in range(1, len(chunk) + 1):
-        # print(f'Get node for: {" ".join([str(t.contents) for t in chunk[:size]])}')
         node = _get_node_for(chunk[:size])
         if node:
-            # print(f"   got one: {node}")
             return node
-        # else:
-            # print(f"   nuthin")
 
 
 def _get_node_for(chunk):
@@ -43,6 +39,11 @@ def _get_node_for(chunk):
 
     if len(chunk) >= 2:
         node = _list_node(chunk)
+        if node:
+            return node
+
+    if len(chunk) >= 4:
+        node = _function_node(chunk)
         if node:
             return node
 
@@ -122,6 +123,37 @@ def _function_call_node(chunk):
     tokens_consumed += 3
 
     return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
+    
+
+def _function_node(chunk):
+    if chunk[0].type_ != Tokens.Types.OpenParenthesis:
+        return
+
+    if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
+        return
+
+    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
+    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseParenthesis])
+    if openings != closings:
+        return
+
+    delimiter = _get_function_delimiter_position(chunk)
+    if not delimiter:
+        return
+
+    argument_chunk = chunk[1:delimiter]
+    argument_nodes, _ = _get_multiple_nodes(argument_chunk, 0)
+
+    body_chunk = chunk[delimiter+1:-1]
+    body_node = _get_node_for(body_chunk)
+
+    return _Node((Types.Function, argument_nodes, body_node.tree), 4)
+
+
+def _get_function_delimiter_position(chunk):
+    for i in range(1, len(chunk) - 1):
+        if chunk[i].type_ == Tokens.Types.FunctionDelimiter:
+            return i
 
 
 def _get_multiple_nodes(chunk, start):
@@ -129,7 +161,7 @@ def _get_multiple_nodes(chunk, start):
     tokens_consumed = 0
     
     while start < len(chunk):
-        node = _search_for_node(chunk[start:-1])
+        node = _search_for_node(chunk[start:])
         if node:
             collection.append(node.tree)
             start += node.tokens_consumed
@@ -138,6 +170,6 @@ def _get_multiple_nodes(chunk, start):
             start += 1
 
     return collection, tokens_consumed
-    
+
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')

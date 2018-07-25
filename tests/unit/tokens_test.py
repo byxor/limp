@@ -82,7 +82,6 @@ def test_creation_from_source_code():
                      (Tokens.Types.Integer, '2'),
                      (Tokens.Types.Integer, '3'),
                      (Tokens.Types.CloseSquareBracket, ']')]),
-
     ]
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)

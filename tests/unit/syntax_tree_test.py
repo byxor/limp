@@ -62,7 +62,7 @@ def test_creation_from_tokens():
         ('name',       (TreeTypes.Symbol, 'name')),
         ('my-address', (TreeTypes.Symbol, 'my-address')),
 
-        # Function calls
+        # Function Calls
         ('(fibonacci)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'fibonacci'), [])),
 
         ('(destroy-evidence)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'destroy-evidence'), [])),
@@ -189,7 +189,7 @@ def test_creation_from_tokens():
                                  [(TreeTypes.Integer, '2'),
                                   (TreeTypes.Integer, '3')])])),
 
-        # Function calls with lists
+        # Function Calls with Lists
         ('(reverse [1 2])', (TreeTypes.FunctionCall,
                              (TreeTypes.Symbol, 'reverse'),
                              [(TreeTypes.List,
@@ -204,18 +204,36 @@ def test_creation_from_tokens():
                                     (TreeTypes.List,
                                      [(TreeTypes.Symbol, 'b')])])])),
 
+        # Anonymous Functions
+        ('(->10)', (TreeTypes.Function, [], (TreeTypes.Integer, '10'))),
+        ('(->20)', (TreeTypes.Function, [], (TreeTypes.Integer, '20'))),
+
+        ('(->(foo))', (TreeTypes.Function, [],
+                       (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'foo'), []))),
+
+        ('(->(+ 0x9 0x10))', (TreeTypes.Function, [],
+                              (TreeTypes.FunctionCall,
+                               (TreeTypes.Symbol, '+'),
+                               [(TreeTypes.Hexadecimal, '0x9'),
+                                (TreeTypes.Hexadecimal, '0x10')]))),
+
+        ('(n -> n)', (TreeTypes.Function,
+                      [(TreeTypes.Symbol, 'n')],
+                      (TreeTypes.Symbol, 'n'))),
+                        
+
     ]
 
     for source_code, expected_syntax_tree in data:
-        # print("\n\n------------------")
+        print("\n\n------------------")
 
         tokens = Tokens.create_from(source_code)
 
         # print("Tokens:  ", tokens)
-        # print("Expected:", expected_syntax_tree)
+        print("Expected:", expected_syntax_tree)
 
         syntax_tree = SyntaxTree.create_from(tokens)
 
-        # print("Actual:  ", syntax_tree)
+        print("Actual:  ", syntax_tree)
 
         yield assert_equals, expected_syntax_tree, syntax_tree
