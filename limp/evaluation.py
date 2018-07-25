@@ -10,15 +10,21 @@ def evaluate(tree, environment):
 _TreeTypes = SyntaxTree.Types
 
 
+def _evaluate_if_statement(tree, environment):
+    condition = evaluate(tree[1], environment)
+    if condition:
+        return evaluate(tree[2], environment)
+    else:
+        return evaluate(tree[3], environment)
+
+
 def _evaluate_function_call(tree, environment):
-    print("EVALUATE_FUNCTION_CALL")
     function = evaluate(tree[1], environment)
     parameter_values = [evaluate(t, environment) for t in tree[2]]
     return function(*parameter_values)
 
 
 def _evaluate_function(tree, environment):
-    print("EVALUATE_FUNCTION")
     parameter_names = [t[1] for t in tree[1]]
 
     def internal_function(*parameter_values):
@@ -48,6 +54,7 @@ _evaluators = {
     _TreeTypes.String:        lambda tree, environment: tree[1][1:-1],
     _TreeTypes.Symbol:        lambda tree, environment: environment.resolve(tree[1]),
     _TreeTypes.List:          lambda tree, environment: [evaluate(t, environment) for t in tree[1]],
+    _TreeTypes.IfStatement:   _evaluate_if_statement,
     _TreeTypes.FunctionCall:  _evaluate_function_call,
     _TreeTypes.Function:      _evaluate_function,
 }
