@@ -21,21 +21,19 @@ t0 = Helpers.evaluation_fixture("test_simple_conditionals", [
      "You smart."),
 ])
 
+t1 = Helpers.evaluation_fixture("test_complex_conditionals", [
+    (conditional([boolean(True), integer(0)]), 0),
 
-# def test_complex_conditional_statements():
-#     Helpers.run_evaluation_test_on([
-#         (conditional([boolean(True), integer(0)]), 0),
-#         (conditional([boolean(True), integer(1)]), 1),
+    (conditional([boolean(True), integer(1)]), 1),
 
-#         (conditional(
-#             [boolean(False), integer(0)],
-#             [boolean(True), integer(1)]),
-#          1),
+    (conditional([boolean(False), integer(0)],
+                 [boolean(True),  integer(1)]),
+     1),
 
-#         (conditional(
-#             [invoke(ARE_EQUAL, integer(0), integer(1)), string("NotThisOne")],
-#             [invoke(ARE_EQUAL, integer(0), integer(2)), string("NorThisOne")],
-#             [invoke(ARE_EQUAL, integer(0), integer(0)), string("This one!")],
-#             [invoke(ARE_EQUAL, integer(0), integer(3)), string("NorNorThisOne")]),
-#          "This one!")
-#     ])
+    (conditional(
+        [invoke(ARE_EQUAL, integer(0), integer(1)), string("NotThisOne")],
+        [invoke(ARE_EQUAL, integer(0), integer(2)), string("NorThisOne")],
+        [invoke(ARE_EQUAL, integer(0), integer(0)), string("This one!")],
+        [invoke(ARE_EQUAL, integer(0), integer(3)), string("NorNorThisOne")]),
+     "This one!")
+])

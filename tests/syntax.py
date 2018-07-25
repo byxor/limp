@@ -42,10 +42,10 @@ def if_statement(condition, main_body, else_body=""):
 
 def conditional(*condition_value_pairs):
     KEYWORD = Types.ComplexConditional.KEYWORD
-    contents = [KEYWORD]
+    contents = []
     for pair in condition_value_pairs:
-        contents.append(form(*pair))
-    return form(*contents)
+        contents.append(list_of(*pair))
+    return form(KEYWORD, list_of(*contents))
 
 
 def invoke(function, *args):
