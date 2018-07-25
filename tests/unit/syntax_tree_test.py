@@ -217,9 +217,15 @@ def test_creation_from_tokens():
                                [(TreeTypes.Hexadecimal, '0x9'),
                                 (TreeTypes.Hexadecimal, '0x10')]))),
 
-        ('(n -> n)', (TreeTypes.Function,
-                      [(TreeTypes.Symbol, 'n')],
-                      (TreeTypes.Symbol, 'n'))),
+        ('(n -> n)', (TreeTypes.Function, [(TreeTypes.Symbol, 'n')], (TreeTypes.Symbol, 'n'))),
+        
+        ('(a b -> (+ a b))', (TreeTypes.Function,
+                              [(TreeTypes.Symbol, 'a'),
+                               (TreeTypes.Symbol, 'b')],
+                              (TreeTypes.FunctionCall,
+                               (TreeTypes.Symbol, '+'),
+                               [(TreeTypes.Symbol, 'a'),
+                                (TreeTypes.Symbol, 'b')]))),
                         
 
     ]
