@@ -71,6 +71,8 @@ def _node_from_single_token(token):
         tree = _numeric_tree(Types.Binary, token)
     elif token.type_ == Tokens.Types.String:
         tree = (Types.String, token.contents)
+    elif token.type_ == Tokens.Types.Symbol:
+        tree = (Types.Symbol, token.contents)
     else:
         return None
     return _Node(tree, 1)

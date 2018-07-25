@@ -54,6 +54,10 @@ def test_creation_from_tokens():
         ('"hi()!"',           (TreeTypes.String, '"hi()!"')),
         ('"super string ->"', (TreeTypes.String, '"super string ->"')),
 
+        # Symbols
+        ('name',       (TreeTypes.Symbol, 'name')),
+        ('my-address', (TreeTypes.Symbol, 'my-address')),
+
         # Function calls
         ('(fibonacci)', (TreeTypes.FunctionCall, (TreeTypes.Symbol, 'fibonacci'), [])),
 
