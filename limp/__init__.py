@@ -10,6 +10,8 @@ import sys
 
 
 def evaluate(source_code, environment=None):
+    source_code = source_code.strip()
+
     if source_code == "":
         raise Errors.EmptyCode()
 
@@ -63,8 +65,7 @@ class Repl:
         try:
             return evaluate(code, self.__environment)
         except Errors.EmptyCode:
-            pass
-        return ""
+            return ""
 
     def __display_result(self, result):
         self._output(f"{result}\n")

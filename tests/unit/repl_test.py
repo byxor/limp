@@ -43,6 +43,7 @@ def test_repl_evaluates_input_and_displays_it():
         _given_a_repl_with_mocked_streams,
         _input_is_evaluated_and_output_is_displayed([
             ("",                                          ""),
+            ("\n",                                        ""),
             (integer(10),                                 "10"),
             (integer(20),                                 "20"),
             (invoke(symbol("+"), integer(1), integer(2)), "3"),
