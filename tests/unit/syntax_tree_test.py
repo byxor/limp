@@ -10,6 +10,10 @@ def test_creation_from_tokens():
     data = [
         ([], None),
 
+        # Booleans
+        ('true',  (TreeTypes.Boolean, 'true')),
+        ('false', (TreeTypes.Boolean, 'false')),
+
         # Integers
         ('100', (TreeTypes.Integer, '100')),
         ('500', (TreeTypes.Integer, '500')),

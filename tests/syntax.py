@@ -21,11 +21,6 @@ def object_(*attributes):
 
 
 def list_of(*contents):
-    KEYWORD = Types.List.KEYWORD
-    return form(KEYWORD, *contents)
-
-
-def shorthand_list_of(*contents):
     OPEN = Types.List.OPEN_DELIMITER
     CLOSE = Types.List.CLOSE_DELIMITER
     return f"{OPEN}{_space_separated(contents)}{CLOSE}"

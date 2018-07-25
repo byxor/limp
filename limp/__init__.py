@@ -15,7 +15,7 @@ def evaluate(source_code, environment=None):
 
     tokens = Tokens.create_from(source_code)
     syntax_tree = SyntaxTree.create_from(tokens)
-    result = Evaluation.evaluate(syntax_tree)
+    result = Evaluation.evaluate(syntax_tree, environment)
 
     return result
 

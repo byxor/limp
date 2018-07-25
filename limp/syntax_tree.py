@@ -6,6 +6,7 @@ from collections import namedtuple
 @unique
 class Types(Enum):
     Float         = auto()
+    Boolean       = auto()
     Integer       = auto()
     Binary        = auto()
     Octal         = auto()
@@ -52,10 +53,10 @@ def _get_node_for(chunk):
 
 
 def _node_from_single_token(token):
-    if token.type_ == Tokens.Types.Integer:
-        tree = _numeric_tree(Types.Integer, token)
-    elif token.type_ == Tokens.Types.Float:
+    if token.type_ == Tokens.Types.Float:
         tree = _numeric_tree(Types.Float, token)
+    elif token.type_ == Tokens.Types.Integer:
+        tree = _numeric_tree(Types.Integer, token)
     elif token.type_ == Tokens.Types.Hexadecimal:
         tree = _numeric_tree(Types.Hexadecimal, token)
     elif token.type_ == Tokens.Types.Octal:
@@ -64,6 +65,8 @@ def _node_from_single_token(token):
         tree = _numeric_tree(Types.Binary, token)
     elif token.type_ == Tokens.Types.String:
         tree = (Types.String, token.contents)
+    elif token.type_ == Tokens.Types.Boolean:
+        tree = (Types.Boolean, token.contents)
     elif token.type_ == Tokens.Types.Symbol:
         tree = (Types.Symbol, token.contents)
     else:
