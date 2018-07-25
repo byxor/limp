@@ -98,11 +98,9 @@ def _list_node(chunk):
         return
     
     contents = []
-    
     tokens_consumed = 2
 
     start = 1
-
     while start < len(chunk):
         node = _search_for_node(chunk[start:-1])
         if node:
