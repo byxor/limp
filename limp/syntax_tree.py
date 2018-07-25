@@ -100,18 +100,8 @@ def _list_node(chunk):
     if openings != closings:
         return
     
-    contents = []
-    tokens_consumed = 2
-
-    start = 1
-    while start < len(chunk) - 1:
-        node = _search_for_node(chunk[start:-1])
-        if node:
-            contents.append(node.tree)
-            start += node.tokens_consumed
-            tokens_consumed += node.tokens_consumed
-        else:
-            start += 1
+    contents, tokens_consumed = _get_multiple_nodes(chunk, 1)
+    tokens_consumed += 2
 
     return _Node((Types.List, contents), tokens_consumed)
 
@@ -132,21 +122,28 @@ def _function_call_node(chunk):
         return
 
     function = (Types.Symbol, chunk[1].contents)
+    arguments, tokens_consumed = _get_multiple_nodes(chunk, 2)
+    tokens_consumed += 3
 
-    arguments = []
-    tokens_consumed = 3
+    return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
 
-    start = 2
+
+def _get_multiple_nodes(chunk, start):
+    collection = []
+    tokens_consumed = 0
+    
     while start < len(chunk):
         node = _search_for_node(chunk[start:-1])
         if node:
-            arguments.append(node.tree)
+            collection.append(node.tree)
             start += node.tokens_consumed
             tokens_consumed += node.tokens_consumed
         else:
             start += 1
 
-    return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
+    return collection, tokens_consumed
+    
+
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
