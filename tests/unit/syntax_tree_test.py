@@ -235,8 +235,12 @@ def test_creation_from_tokens():
                          [],
                          (TreeTypes.String, '"hi"')),
                         [])),
-                        
 
+        ('((n -> n) 5)', (TreeTypes.FunctionCall,
+                          (TreeTypes.Function,
+                           [(TreeTypes.Symbol, 'n')],
+                           (TreeTypes.Symbol, 'n')),
+                          [(TreeTypes.Integer, '5')])),
     ]
 
     for source_code, expected_syntax_tree in data:
