@@ -147,10 +147,6 @@ def _function_node(chunk):
 
     argument_trees, _ = _get_multiple_trees(argument_chunk)
 
-    print("HUH  ", [t.contents for t in chunk])
-    print("AY YO", [t.contents for t in argument_chunk])
-    print("FUCK ", argument_trees)
-
     body_chunk = chunk[delimiter+1:-1]
     body_node = _get_node_for(body_chunk)
 

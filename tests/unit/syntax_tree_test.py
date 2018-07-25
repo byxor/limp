@@ -228,6 +228,22 @@ def test_creation_from_tokens():
                                 (TreeTypes.Symbol, 'b')]))),
 
         # Nested Anonymous Functions
+        ('(->(->1))', (TreeTypes.Function,
+                       [],
+                       (TreeTypes.Function,
+                        [],
+                        (TreeTypes.Integer, '1')))),
+
+        ('(-> (-> (x -> (+ x 2))))', (TreeTypes.Function,
+                                      [],
+                                      (TreeTypes.Function,
+                                       [],
+                                       (TreeTypes.Function,
+                                        [(TreeTypes.Symbol, 'x')],
+                                        (TreeTypes.FunctionCall,
+                                         (TreeTypes.Symbol, '+'),
+                                         [(TreeTypes.Symbol, 'x'),
+                                          (TreeTypes.Integer, '2')]))))),
 
         # Calling Anonymous Functions
         ('((->"hi"))', (TreeTypes.FunctionCall,
