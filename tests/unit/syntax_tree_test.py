@@ -257,14 +257,22 @@ def test_creation_from_tokens():
                            [(TreeTypes.Symbol, 'n')],
                            (TreeTypes.Symbol, 'n')),
                           [(TreeTypes.Integer, '5')])),
+
+        # ('((n -> (square-root n)) 16)', (TreeTypes.FunctionCall,
+        #                                  (TreeTypes.Function,
+        #                                   [(TreeTypes.Symbol, 'n')],
+        #                                   (TreeTypes.FunctionCall,
+        #                                    (TreeTypes.Symbol, 'square-root'),
+        #                                    [(TreeTypes.Symbol, 'n')])),
+        #                                  [(TreeTypes.Integer, '16')])),
+
+
     ]
 
     for source_code, expected_syntax_tree in data:
         print("\n\n------------------")
-
+        print(source_code)
         tokens = Tokens.create_from(source_code)
-
-        # print("Tokens:  ", tokens)
         print("Expected:", expected_syntax_tree)
 
         syntax_tree = SyntaxTree.create_from(tokens)

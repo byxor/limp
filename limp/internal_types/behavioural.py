@@ -32,16 +32,11 @@ class Function(Form.Constructor,
 
 
 def _bind(parameters, execution_environment):
-    # print("binding parameters")
     for name, value in parameters:
         execution_environment.define(name, value)
-    # print(execution_environment)
 
 
 def _apply_self_reference(function, execution_environment):
-    # print("applying self reference")
-    # print(function)
-    # print(execution_environment)
     execution_environment.define(Function.SELF_REFERENCE, function)
 
 

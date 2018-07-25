@@ -31,6 +31,8 @@ def sample_environment():
 
 def run_evaluation_test_on(data):
     for source_code, expected_result in data:
+        print()
+        print(source_code)
         result = limp.evaluate(source_code)
         assert_equal(expected_result, result)
 

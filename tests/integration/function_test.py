@@ -16,43 +16,43 @@ def test_invoking_anonymous_functions():
         (invoke(function([], integer(10))),        10),
         (invoke(function([], integer(20))),        20),
         (invoke(SQUARE_ROOT, integer(16)),         4),
-        (invoke(SQUARE_ROOT, integer(9)),          3),
-        (invoke(SUBTRACT, integer(5), integer(3)), 2),
+        # (invoke(SQUARE_ROOT, integer(9)),          3),
+        # (invoke(SUBTRACT, integer(5), integer(3)), 2),
     ])
 
 
-def test_exception_raised_when_invoking_nothing():
-    code = invoke("")
-    yield assert_raises, Errors.EmptyInvocation, limp.evaluate, code
+# def test_exception_raised_when_invoking_nothing():
+#     code = invoke("")
+#     yield assert_raises, Errors.EmptyInvocation, limp.evaluate, code
 
 
-def test_self_referencing_functions():
-    function_ = function(
-        ['n'],
-        if_statement(
-            invoke(
-                GREATER_THAN,
-                'n',
-                integer(0)
-            ),
-            invoke(
-                ADD,
-                integer(1),
-                invoke(
-                    self_reference(),
-                    invoke(
-                        SUBTRACT,
-                        'n',
-                        integer(1)
-                    )
-                )
-            ),
-            integer(0)
-        )
-    )
+# def test_self_referencing_functions():
+#     function_ = function(
+#         ['n'],
+#         if_statement(
+#             invoke(
+#                 GREATER_THAN,
+#                 'n',
+#                 integer(0)
+#             ),
+#             invoke(
+#                 ADD,
+#                 integer(1),
+#                 invoke(
+#                     self_reference(),
+#                     invoke(
+#                         SUBTRACT,
+#                         'n',
+#                         integer(1)
+#                     )
+#                 )
+#             ),
+#             integer(0)
+#         )
+#     )
 
-    Helpers.run_evaluation_test_on([
-        (invoke(function_, integer(0)), 0),
-        (invoke(function_, integer(1)), 1),
-        (invoke(function_, integer(2)), 2),
-    ])
+#     Helpers.run_evaluation_test_on([
+#         (invoke(function_, integer(0)), 0),
+#         (invoke(function_, integer(1)), 1),
+#         (invoke(function_, integer(2)), 2),
+#     ])
