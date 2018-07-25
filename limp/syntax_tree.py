@@ -89,6 +89,9 @@ def _numeric_tree(tree_type, token):
 
 
 def _list_node(chunk):
+    if chunk[0].type_ != Tokens.Types.OpenSquareBracket:
+        return
+
     if chunk[-1].type_ != Tokens.Types.CloseSquareBracket:
         return
     
@@ -101,7 +104,7 @@ def _list_node(chunk):
     tokens_consumed = 2
 
     start = 1
-    while start < len(chunk):
+    while start < len(chunk) - 1:
         node = _search_for_node(chunk[start:-1])
         if node:
             contents.append(node.tree)
@@ -113,33 +116,37 @@ def _list_node(chunk):
     return _Node((Types.List, contents), tokens_consumed)
 
 
-def _get_end_of_list(chunk, start):
-    end = start
-    while end < len(chunk):
-        if chunk[end].type_ == Tokens.Types.CloseSquareBracket:
-            return end
-        end += 1
-
-
 def _function_call_node(chunk):
+    if chunk[0].type_ != Tokens.Types.OpenParenthesis:
+        return
+
+    if chunk[1].type_ != Tokens.Types.Symbol:
+        return
+
+    if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
+        return
+
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
     closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseParenthesis])
+    if openings != closings:
+        return
 
-    has_function = chunk[1].type_ == Tokens.Types.Symbol
+    function = (Types.Symbol, chunk[1].contents)
 
-    if (openings == closings) and has_function:
-        function = (Types.Symbol, chunk[1].contents)
+    arguments = []
+    tokens_consumed = 3
 
-        arguments = []        
-        start = 2
-        while start < len(chunk) - 1:
-            end = _get_end_of_function_call(chunk, start)
-            node = _search_for_node(chunk[start:end])
+    start = 2
+    while start < len(chunk):
+        node = _search_for_node(chunk[start:-1])
+        if node:
             arguments.append(node.tree)
             start += node.tokens_consumed
+            tokens_consumed += node.tokens_consumed
+        else:
+            start += 1
 
-        tokens_consumed = (start - 2) + 3
-        return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
+    return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
 
 
 def _get_end_of_function_call(chunk, start):

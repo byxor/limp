@@ -185,6 +185,13 @@ def test_creation_from_tokens():
                                  [(TreeTypes.Integer, '2'),
                                   (TreeTypes.Integer, '3')])])),
 
+        # Function calls with lists
+        ('(reverse [1 2])', (TreeTypes.FunctionCall,
+                             (TreeTypes.Symbol, 'reverse'),
+                             [(TreeTypes.List,
+                               [(TreeTypes.Integer, '1'),
+                                (TreeTypes.Integer, '2')])])),
+
     ]
 
     for source_code, expected_syntax_tree in data:
@@ -194,7 +201,6 @@ def test_creation_from_tokens():
 
         print("Tokens:  ", tokens)
         print("Expected:", expected_syntax_tree)
-
 
         syntax_tree = SyntaxTree.create_from(tokens)
 
