@@ -13,21 +13,15 @@ _TreeTypes = SyntaxTree.Types
 def _evaluate_function_call(tree, environment):
     print("EVALUATE_FUNCTION_CALL")
     function = evaluate(tree[1], environment)
-    parameter_trees = tree[2]
-    print("treX: ", parameter_trees)
-    return function(parameter_trees)
+    parameter_values = [evaluate(t, environment) for t in tree[2]]
+    return function(*parameter_values)
 
 
 def _evaluate_function(tree, environment):
     print("EVALUATE_FUNCTION")
     parameter_names = [t[1] for t in tree[1]]
 
-    def internal_function(parameter_trees):
-        print("<running internal function>")
-        print("names: ", parameter_names)
-        print("trees: ", parameter_trees)
-        parameter_values = [evaluate(t, environment) for t in parameter_trees]
-        print("values:", parameter_values)
+    def internal_function(*parameter_values):
         execution_environment = environment.new_child()
         parameters = zip(parameter_names, parameter_values)
 

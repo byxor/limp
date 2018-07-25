@@ -1,7 +1,7 @@
 import limp
 import limp.environment as Environment
 import operator
-from nose.tools import assert_equal
+from nose.tools import assert_equals
 
 
 ARBITRARY_NAME = "arbitrary"
@@ -29,12 +29,15 @@ def sample_environment():
     return environment
 
 
-def run_evaluation_test_on(data):
-    for source_code, expected_result in data:
-        print()
-        print(source_code)
-        result = limp.evaluate(source_code)
-        assert_equal(expected_result, result)
+def evaluation_fixture(name, data):
+    def the_test():
+        for source_code, expected_result in data:
+            print("--------------------------")
+            print(source_code)
+            result = limp.evaluate(source_code)
+            yield assert_equals, expected_result, result
+    the_test.__name__ = name
+    return the_test
 
 
 def run_evaluation_test_with_sample_environment(data):

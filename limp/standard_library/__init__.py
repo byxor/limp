@@ -7,6 +7,7 @@ PYTHON_MODULE_NAMES = [
     "math",
     "comparisons",
     "conversions",
+    "conditions",
     "booleans",
     "strings",
     "lists",
