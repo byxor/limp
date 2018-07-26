@@ -8,7 +8,6 @@ from unittest import TestCase
 
 
 class TailCallRecursion(TestCase):
-
     FUNCTION_NAME = "factorial"
     ARGUMENT_NAME = "n"
 
@@ -31,12 +30,8 @@ class TailCallRecursion(TestCase):
     def setUp(self):
         self.environment = Environment.create_standard()
         self.evaluate = lambda code: limp.evaluate(code, self.environment)
-        self.evaluate(
-            define(
-                TailCallRecursion.FUNCTION_NAME,
-                TailCallRecursion.IMPLEMENTATION
-            )
-        )
+        self.environment.define(TailCallRecursion.FUNCTION_NAME,
+                                self.evaluate(TailCallRecursion.IMPLEMENTATION))
 
     def test(self):
         data = [
