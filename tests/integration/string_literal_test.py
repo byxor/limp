@@ -1,6 +1,7 @@
 import limp
-from nose.tools import assert_equal
+import limp.syntax as Syntax
 from tests.syntax import *
+from nose.tools import assert_equal
 
 
 # It's easy for string literals to be
@@ -16,7 +17,7 @@ def test_ascii_literals_remain_unmodified():
     ORDINALS = lambda: range(LOWEST_ORDINAL, HIGHEST_ORDINAL + 1)
 
     EXCLUSIONS = [
-        Types.String.DELIMITER
+        Syntax.STRING_DELIMITER
     ]
 
     for ordinal in ORDINALS():

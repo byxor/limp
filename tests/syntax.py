@@ -1,9 +1,8 @@
-import limp.parentheses as Parentheses
-import limp.types as Types
+import limp.syntax as Syntax
 
 
-positive = lambda number_string: f'{Types.AbstractInteger.POSITIVE}{number_string}'
-negative = lambda number_string: f'{Types.AbstractInteger.NEGATIVE}{number_string}'
+positive = lambda number_string: f'{Syntax.POSITIVE}{number_string}'
+negative = lambda number_string: f'{Syntax.NEGATIVE}{number_string}'
 integer = str
 float_ = str
 hexadecimal = hex
@@ -12,56 +11,35 @@ octal = oct
 symbol = str
 
 
-def object_(*attributes):
-    KEYWORD = Types.Object.KEYWORD
-    contents = [KEYWORD]
-    for attribute in attributes:
-        contents.append(form(*attribute))
-    return form(*contents)
-
-
 def list_of(*contents):
-    OPEN = Types.List.OPEN_DELIMITER
-    CLOSE = Types.List.CLOSE_DELIMITER
-    return f"{OPEN}{_space_separated(contents)}{CLOSE}"
+    return f"{Syntax.OPEN_LIST}{_space_separated(contents)}{Syntax.CLOSE_LIST}"
 
 
 def string(contents):
-    DELIMITER = Types.String.DELIMITER
-    return f'{DELIMITER}{contents}{DELIMITER}'
+    return f'{Syntax.STRING_DELIMITER}{contents}{Syntax.STRING_DELIMITER}'
 
 
 def boolean(value):
-    TYPE = Types.Boolean
-    return TYPE.TRUE_KEYWORD if value else TYPE.FALSE_KEYWORD
+    return Syntax.TRUE if value else Syntax.FALSE
 
 
 def if_statement(condition, main_body, else_body=""):
-    return form(Types.SimpleConditional.KEYWORD, condition, main_body, else_body)
+    return form(Syntax.IF, condition, main_body, else_body)
 
 
 def conditional(*condition_value_pairs):
-    KEYWORD = Types.ComplexConditional.KEYWORD
     contents = []
     for pair in condition_value_pairs:
         contents.append(list_of(*pair))
-    return form(KEYWORD, list_of(*contents))
+    return form(Syntax.CONDITION, list_of(*contents))
 
 
 def invoke(function, *args):
     return form(function, *args)
 
 
-def define(name, value):
-    return form(Types.Definition.KEYWORD, name, value)
-
-
-def shortened_function(body):
-    return form(Types.Function.KEYWORD, body)
-
-
 def function(parameter_names, body):
-    return _function(Types.Function.KEYWORD, parameter_names, body)
+    return _function(Syntax.FUNCTION_DELIMITER, parameter_names, body)
 
 
 def _function(keyword, parameter_names, body):
@@ -71,20 +49,11 @@ def _function(keyword, parameter_names, body):
 
 
 def self_reference():
-    return Types.Function.SELF_REFERENCE
-
-
-def sequence(*args):
-    KEYWORD = Types.SequentialEvaluator.KEYWORD
-    return form(KEYWORD, *args)
-
-
-def parameters(parameters):
-    return form(*parameters)
+    return Syntax.SELF_REFERENCE
 
 
 def form(*code):
-    return Parentheses.OPEN + _space_separated(code) + Parentheses.CLOSE
+    return Syntax.OPEN_EXPRESSION + _space_separated(code) + Syntax.CLOSE_EXPRESSION
 
 
 def _space_separated(strings):

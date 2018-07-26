@@ -1,3 +1,6 @@
+import limp.syntax as Syntax
+
+
 STRING =  "string"
 INTEGER = "integer"
 FLOAT =   "float"
@@ -15,7 +18,6 @@ def symbols():
 
 def _boolean(x):
     if isinstance(x, str):
-        import limp.types as Types
-        return x == Types.Boolean.TRUE_KEYWORD
+        return x == Syntax.TRUE
     else:
         return bool(x)

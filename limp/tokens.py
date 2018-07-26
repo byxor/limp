@@ -1,8 +1,6 @@
 import limp.errors as Errors
-import limp.parentheses as Parentheses
+import limp.syntax as Syntax
 import re
-from limp.types import *
-from limp.utils import is_empty
 from rply import LexerGenerator
 from collections import namedtuple
 from enum import Enum, auto, unique
@@ -32,14 +30,14 @@ def _ignore_whitespace(generator):
 
 def _matchers():
     return [
-        (Types.OpenParenthesis, re.escape(Parentheses.OPEN)),
-        (Types.CloseParenthesis, re.escape(Parentheses.CLOSE)),
-        (Types.OpenSquareBracket, re.escape("[")),
-        (Types.CloseSquareBracket, re.escape("]")),
-        (Types.FunctionDelimiter, re.escape(Function.KEYWORD)),
-        (Types.Hexadecimal, _maybe_signed(f"{Hexadecimal.PREFIX}[\dA-Fa-f]+")),
-        (Types.Octal, _maybe_signed(f"{Octal.PREFIX}[0-7]+")),
-        (Types.Binary, _maybe_signed(f"{Binary.PREFIX}[01]+")),
+        (Types.OpenParenthesis, re.escape('(')),
+        (Types.CloseParenthesis, re.escape(')')),
+        (Types.OpenSquareBracket, re.escape('[')),
+        (Types.CloseSquareBracket, re.escape(']')),
+        (Types.FunctionDelimiter, re.escape(Syntax.FUNCTION_DELIMITER)),
+        (Types.Hexadecimal, _maybe_signed(f"{Syntax.HEXADECIMAL_PREFIX}[\dA-Fa-f]+")),
+        (Types.Octal, _maybe_signed(f"{Syntax.OCTAL_PREFIX}[0-7]+")),
+        (Types.Binary, _maybe_signed(f"{Syntax.BINARY_PREFIX}[01]+")),
         (Types.Float, _maybe_signed("\d*\.\d+")),
         (Types.Integer, _maybe_signed("\d+")),
         (Types.Boolean, "false\\b|true\\b"),
@@ -71,7 +69,7 @@ def _symbol_regex():
 
 
 def _string_regex():
-    DELIMITER = re.escape(String.DELIMITER)
+    DELIMITER = re.escape(Syntax.STRING_DELIMITER)
     return f"{DELIMITER}[^{DELIMITER}]*{DELIMITER}"
 
 _maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"
