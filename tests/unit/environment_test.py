@@ -1,4 +1,5 @@
 import limp.environment as Environment
+import limp.errors as Errors
 from nose.tools import *
 from tests.syntax import *
 
@@ -29,6 +30,14 @@ def test_creating_child_environments():
     child.define(name, child_value)
     yield assert_equal, child_value, child.resolve(name)
     yield assert_equal, parent_value, parent.resolve(name)
+
+
+def test_error_thrown_when_defining_existing_symbol():
+    environment = Environment.create_empty()
+    name = "x"
+    environment.define(name, 10)
+    yield assert_raises, Errors.RedefinedSymbol, environment.define, name, 20
+    
 
 
 def test_string_representation():

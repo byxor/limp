@@ -24,4 +24,4 @@ def test_exception_raised_when_accessing_non_existent_symbols():
         'sesh'
     ]
     for source_code in data:
-        yield assert_raises, Errors.LimpError, limp.evaluate, source_code
+        yield assert_raises, Errors.UndefinedSymbol, limp.evaluate, source_code
