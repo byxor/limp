@@ -92,16 +92,15 @@ def _numeric_tree(tree_type, token):
 
 
 def _if_statement_node(chunk):
-    if chunk[0].type_ != Tokens.Types.OpenParenthesis:
+    opener = Tokens.Types.OpenParenthesis
+    closer = Tokens.Types.CloseParenthesis
+    if not _opens_and_closes(chunk, opener, closer):
         return
 
     if chunk[1].type_ != Tokens.Types.Symbol:
         return
 
     if chunk[1].contents != 'if':
-        return
-
-    if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
         return
 
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
@@ -125,10 +124,9 @@ def _if_statement_node(chunk):
 
 
 def _list_node(chunk):
-    if chunk[0].type_ != Tokens.Types.OpenSquareBracket:
-        return
-
-    if chunk[-1].type_ != Tokens.Types.CloseSquareBracket:
+    opener = Tokens.Types.OpenSquareBracket
+    closer = Tokens.Types.CloseSquareBracket
+    if not _opens_and_closes(chunk, opener, closer):
         return
 
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenSquareBracket])
@@ -143,10 +141,9 @@ def _list_node(chunk):
 
 
 def _function_call_node(chunk):
-    if chunk[0].type_ != Tokens.Types.OpenParenthesis:
-        return
-
-    if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
+    opener = Tokens.Types.OpenParenthesis
+    closer = Tokens.Types.CloseParenthesis
+    if not _opens_and_closes(chunk, opener, closer):
         return
 
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
@@ -164,10 +161,9 @@ def _function_call_node(chunk):
 
 
 def _function_node(chunk):
-    if chunk[0].type_ != Tokens.Types.OpenParenthesis:
-        return
-
-    if chunk[-1].type_ != Tokens.Types.CloseParenthesis:
+    opener = Tokens.Types.OpenParenthesis
+    closer = Tokens.Types.CloseParenthesis
+    if not _opens_and_closes(chunk, opener, closer):
         return
 
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
@@ -200,6 +196,12 @@ def _get_function_delimiter_position(chunk):
     for i, token in enumerate(chunk):
         if token.type_ == Tokens.Types.FunctionDelimiter:
             return i
+
+
+def _opens_and_closes(chunk, opener, closer):
+    opens = chunk[0].type_ == opener
+    closes = chunk[-1].type_ == closer
+    return opens and closes
 
 
 def _get_multiple_trees(chunk):
