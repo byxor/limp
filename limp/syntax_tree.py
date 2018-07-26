@@ -94,18 +94,14 @@ def _numeric_tree(tree_type, token):
 def _if_statement_node(chunk):
     opener = Tokens.Types.OpenParenthesis
     closer = Tokens.Types.CloseParenthesis
+
     if not _opens_and_closes(chunk, opener, closer):
         return
 
-    if chunk[1].type_ != Tokens.Types.Symbol:
+    if chunk[1] != (Tokens.Types.Symbol, 'if'):
         return
 
-    if chunk[1].contents != 'if':
-        return
-
-    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
-    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseParenthesis])
-    if openings != closings:
+    if not _balanced(chunk, opener, closer):
         return
 
     contents, tokens_consumed = _get_multiple_trees(chunk[2:-1])
@@ -126,12 +122,11 @@ def _if_statement_node(chunk):
 def _list_node(chunk):
     opener = Tokens.Types.OpenSquareBracket
     closer = Tokens.Types.CloseSquareBracket
+
     if not _opens_and_closes(chunk, opener, closer):
         return
 
-    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenSquareBracket])
-    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseSquareBracket])
-    if openings != closings:
+    if not _balanced(chunk, opener, closer):
         return
 
     contents, tokens_consumed = _get_multiple_trees(chunk[1:-1])
@@ -143,12 +138,11 @@ def _list_node(chunk):
 def _function_call_node(chunk):
     opener = Tokens.Types.OpenParenthesis
     closer = Tokens.Types.CloseParenthesis
+
     if not _opens_and_closes(chunk, opener, closer):
         return
 
-    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
-    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseParenthesis])
-    if openings != closings:
+    if not _balanced(chunk, opener, closer):
         return
 
     trees, tokens_consumed = _get_multiple_trees(chunk[1:-1])
@@ -163,12 +157,11 @@ def _function_call_node(chunk):
 def _function_node(chunk):
     opener = Tokens.Types.OpenParenthesis
     closer = Tokens.Types.CloseParenthesis
+
     if not _opens_and_closes(chunk, opener, closer):
         return
 
-    openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenParenthesis])
-    closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseParenthesis])
-    if openings != closings:
+    if not _balanced(chunk, opener, closer):
         return
 
     delimiter = _get_function_delimiter_position(chunk)
@@ -198,12 +191,6 @@ def _get_function_delimiter_position(chunk):
             return i
 
 
-def _opens_and_closes(chunk, opener, closer):
-    opens = chunk[0].type_ == opener
-    closes = chunk[-1].type_ == closer
-    return opens and closes
-
-
 def _get_multiple_trees(chunk):
     trees = []
     tokens_consumed = 0
@@ -217,6 +204,17 @@ def _get_multiple_trees(chunk):
         else:
             start += 1
     return trees, tokens_consumed
+
+
+def _opens_and_closes(chunk, opener, closer):
+    opens = chunk[0].type_ == opener
+    closes = chunk[-1].type_ == closer
+    return opens and closes
+
+
+def _balanced(chunk, opener, closer):
+    count = lambda token_type: len([t for t in chunk if t.type_ == token_type])
+    return count(opener) == count(closer)
 
 
 _Node = namedtuple('_Node', 'tree tokens_consumed')
