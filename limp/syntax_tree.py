@@ -201,8 +201,6 @@ def _get_multiple_trees(chunk):
             trees.append(node.tree)
             start += node.tokens_consumed
             tokens_consumed += node.tokens_consumed
-        else:
-            start += 1
     return trees, tokens_consumed
 
 
