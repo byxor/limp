@@ -40,7 +40,6 @@ def test_error_thrown_when_defining_existing_symbol():
     yield assert_raises, Errors.RedefinedSymbol, environment.define, ARBITRARY_NAME, 20
     
 
-
 def test_string_representation():
     symbols = [
         ('name_a', 10),

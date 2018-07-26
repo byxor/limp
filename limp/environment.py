@@ -40,9 +40,6 @@ class _Environment:
     def new_child(self):
         return _Environment(self)
 
-    def __eq__(self, other):
-        return self.__symbols == other
-
     def __str__(self):
         s = "Environment:\n"
         for name, value in self.__symbols.items():
