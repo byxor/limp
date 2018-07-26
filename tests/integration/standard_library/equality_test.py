@@ -1,4 +1,3 @@
-import tests.helpers as Helpers
 import limp
 from tests.syntax import *
 from limp.standard_library.comparisons import *
