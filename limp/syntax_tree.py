@@ -111,7 +111,7 @@ def _if_statement_node(chunk):
 
     contents, tokens_consumed = _get_multiple_trees(chunk[2:-1])
     tokens_consumed += 3
-    
+
     condition = contents[0]
     if_true = contents[1]
     if_false = None
@@ -130,12 +130,12 @@ def _list_node(chunk):
 
     if chunk[-1].type_ != Tokens.Types.CloseSquareBracket:
         return
-    
+
     openings = len([t for t in chunk if t.type_ == Tokens.Types.OpenSquareBracket])
     closings = len([t for t in chunk if t.type_ == Tokens.Types.CloseSquareBracket])
     if openings != closings:
         return
-    
+
     contents, tokens_consumed = _get_multiple_trees(chunk[1:-1])
     tokens_consumed += 2
 
@@ -161,7 +161,7 @@ def _function_call_node(chunk):
     tokens_consumed += 2
 
     return _Node((Types.FunctionCall, function, arguments), tokens_consumed)
-    
+
 
 def _function_node(chunk):
     if chunk[0].type_ != Tokens.Types.OpenParenthesis:
@@ -197,8 +197,8 @@ def _function_node(chunk):
 
 
 def _get_function_delimiter_position(chunk):
-    for i in range(len(chunk)):
-        if chunk[i].type_ == Tokens.Types.FunctionDelimiter:
+    for i, token in enumerate(chunk):
+        if token.type_ == Tokens.Types.FunctionDelimiter:
             return i
 
 

@@ -24,7 +24,7 @@ data = [
     # Floats
     ('0.123', (TT.Float, '0.123')),
     ('.99',   (TT.Float, '.99')),
-    
+
     # Positive/Negative Floats
     ('+99.8',  (TT.UnaryPositive, (TT.Float, '99.8'))),
     ('-0.123', (TT.UnaryNegative, (TT.Float, '0.123'))),
@@ -217,7 +217,7 @@ data = [
                             (TT.Hexadecimal, '0x10')]))),
 
     ('(n -> n)', (TT.Function, [(TT.Symbol, 'n')], (TT.Symbol, 'n'))),
-    
+
     ('(a b -> (+ a b))', (TT.Function,
                           [(TT.Symbol, 'a'),
                            (TT.Symbol, 'b')],
@@ -243,20 +243,20 @@ data = [
                                      (TT.Symbol, '+'),
                                      [(TT.Symbol, 'x'),
                                       (TT.Integer, '2')]))))),
-    
+
     # Calling Anonymous Functions
     ('((->"hi"))', (TT.FunctionCall,
                     (TT.Function,
                      [],
                      (TT.String, '"hi"')),
                     [])),
-    
+
     ('((n -> n) 5)', (TT.FunctionCall,
                       (TT.Function,
                        [(TT.Symbol, 'n')],
                        (TT.Symbol, 'n')),
                       [(TT.Integer, '5')])),
-    
+
     ('((n -> (square-root n)) 16)', (TT.FunctionCall,
                                      (TT.Function,
                                       [(TT.Symbol, 'n')],

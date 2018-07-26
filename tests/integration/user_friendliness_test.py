@@ -1,7 +1,6 @@
-import functools
 import limp
 import limp.environment as Environment
-from nose.tools import assert_equals, assert_raises
+from nose.tools import assert_equals
 from tests.syntax import *
 from limp.standard_library import *
 from limp.standard_library.math import *

@@ -19,7 +19,7 @@ t0 = Helpers.evaluation_fixture("test", [
             integer(10)),
         integer(20)),
      30),
-    
+
     (invoke(
         invoke(
             PARTIAL,
@@ -27,7 +27,7 @@ t0 = Helpers.evaluation_fixture("test", [
             IS_EVEN),
         TEMPORARY_NUMBERS),
      [False, True, False, True]),
-    
+
     (invoke(
         invoke(
             PARTIAL,
@@ -37,7 +37,7 @@ t0 = Helpers.evaluation_fixture("test", [
             integer(2)),
         integer(20)),
      33),
-    
+
     (invoke(
         invoke(
             PARTIAL,
@@ -50,7 +50,7 @@ t0 = Helpers.evaluation_fixture("test", [
                     integer(2)))),
         TEMPORARY_NUMBERS),
      [2, 4, 6, 8]),
-    
+
     (invoke(
         invoke(
             PARTIAL,
@@ -63,7 +63,7 @@ t0 = Helpers.evaluation_fixture("test", [
                     integer(1)))),
         TEMPORARY_NUMBERS),
      [1]),
-    
+
     (invoke(
         CHAIN,
         integer(0),
@@ -80,7 +80,7 @@ t0 = Helpers.evaluation_fixture("test", [
                 TEMPORARY_NUMBER,
                 integer(2)))),
      5),
-    
+
     (invoke(
         CHAIN,
         TEMPORARY_NUMBERS,
@@ -129,4 +129,3 @@ t0 = Helpers.evaluation_fixture("test", [
             ADD)),
      12),
 ])
-

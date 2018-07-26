@@ -1,10 +1,8 @@
 import limp
-import limp.environment as Environment
 import limp.errors as Errors
 import tests.helpers as Helpers
-from nose.tools import assert_equal, assert_raises
+from nose.tools import assert_raises
 from tests.syntax import *
-from functools import partial
 
 
 def test_accessing_symbols():

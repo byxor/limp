@@ -1,4 +1,3 @@
-import limp.errors as Errors
 import limp.syntax as Syntax
 import re
 from rply import LexerGenerator

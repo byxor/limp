@@ -1,4 +1,3 @@
-import limp.errors as Errors
 import limp.tokens as Tokens
 from nose.tools import assert_equals
 
@@ -12,7 +11,7 @@ def test_creation_from_source_code():
         ('trues',   [(Tokens.Types.Symbol, 'trues')]),
         ('unfalse', [(Tokens.Types.Symbol, 'unfalse')]),
         ('untrue',  [(Tokens.Types.Symbol, 'untrue')]),
-            
+
         ('1',                     [(Tokens.Types.Integer, '1')]),
         ('1003499',               [(Tokens.Types.Integer, '1003499')]),
         ('+123',                  [(Tokens.Types.Integer, '+123')]),
@@ -89,4 +88,3 @@ def test_creation_from_source_code():
         print(tokens)
         print(expected_tokens)
         yield assert_equals, expected_tokens, tokens
-
