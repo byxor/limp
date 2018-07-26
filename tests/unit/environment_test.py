@@ -4,6 +4,9 @@ from nose.tools import *
 from tests.syntax import *
 
 
+ARBITRARY_NAME = "x"
+
+
 def test_defining_symbols():
     environment = Environment.create_empty()
     data = [
@@ -18,25 +21,23 @@ def test_defining_symbols():
 
 
 def test_creating_child_environments():
-    name = 'x'
     parent_value = "parent"
     child_value = "child"
 
     parent = Environment.create_empty()
-    parent.define(name, parent_value)
+    parent.define(ARBITRARY_NAME, parent_value)
 
     child = parent.new_child()
-    yield assert_equal, parent_value, child.resolve(name)
-    child.define(name, child_value)
-    yield assert_equal, child_value, child.resolve(name)
-    yield assert_equal, parent_value, parent.resolve(name)
+    yield assert_equal, parent_value, child.resolve(ARBITRARY_NAME)
+    child.define(ARBITRARY_NAME, child_value)
+    yield assert_equal, child_value, child.resolve(ARBITRARY_NAME)
+    yield assert_equal, parent_value, parent.resolve(ARBITRARY_NAME)
 
 
 def test_error_thrown_when_defining_existing_symbol():
     environment = Environment.create_empty()
-    name = "x"
-    environment.define(name, 10)
-    yield assert_raises, Errors.RedefinedSymbol, environment.define, name, 20
+    environment.define(ARBITRARY_NAME, 10)
+    yield assert_raises, Errors.RedefinedSymbol, environment.define, ARBITRARY_NAME, 20
     
 
 
