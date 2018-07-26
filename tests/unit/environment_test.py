@@ -38,7 +38,7 @@ def test_error_thrown_when_defining_existing_symbol():
     environment = Environment.create_empty()
     environment.define(ARBITRARY_NAME, 10)
     yield assert_raises, Errors.RedefinedSymbol, environment.define, ARBITRARY_NAME, 20
-    
+
 
 def test_string_representation():
     symbols = [
