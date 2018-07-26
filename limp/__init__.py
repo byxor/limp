@@ -1,10 +1,8 @@
 import limp.environment as Environment
 import limp.errors as Errors
-
 import limp.tokens as Tokens
 import limp.syntax_tree as SyntaxTree
 import limp.evaluation as Evaluation
-
 import meta
 import sys
 
@@ -20,7 +18,6 @@ def evaluate(source_code, environment=None):
 
     tokens = Tokens.create_from(source_code)
     syntax_tree = SyntaxTree.create_from(tokens)
-    print(syntax_tree)
     result = Evaluation.evaluate(syntax_tree, environment)
 
     return result
