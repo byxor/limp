@@ -5,20 +5,20 @@ from collections import namedtuple
 
 @unique
 class Types(Enum):
-    Float         = auto()
-    Boolean       = auto()
-    Integer       = auto()
-    Binary        = auto()
-    Octal         = auto()
-    Hexadecimal   = auto()
-    String        = auto()
+    Float = auto()
+    Boolean = auto()
+    Integer = auto()
+    Binary = auto()
+    Octal = auto()
+    Hexadecimal = auto()
+    String = auto()
     UnaryPositive = auto()
     UnaryNegative = auto()
-    Function      = auto()
-    FunctionCall  = auto()
-    IfStatement   = auto()
-    Symbol        = auto()
-    List          = auto()
+    Function = auto()
+    FunctionCall = auto()
+    IfStatement = auto()
+    Symbol = auto()
+    List = auto()
 
 
 def create_from(tokens):
@@ -116,7 +116,8 @@ def _if_statement_node(chunk):
     except IndexError:
         if_false = None
 
-    return _Node((Types.IfStatement, condition, if_true, if_false), tokens_consumed)
+    return _Node((Types.IfStatement, condition, if_true, if_false),
+                 tokens_consumed)
 
 
 def _list_node(chunk):
@@ -178,11 +179,12 @@ def _function_node(chunk):
 
     argument_trees, _ = _get_multiple_trees(argument_chunk)
 
-    body_chunk = chunk[delimiter+1:-1]
+    body_chunk = chunk[delimiter + 1:-1]
     body_node = _get_node_for(body_chunk)
     tokens_consumed += body_node.tokens_consumed
 
-    return _Node((Types.Function, argument_trees, body_node.tree), tokens_consumed)
+    return _Node((Types.Function, argument_trees, body_node.tree),
+                 tokens_consumed)
 
 
 def _get_function_delimiter_position(chunk):

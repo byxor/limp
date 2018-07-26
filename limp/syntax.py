@@ -1,23 +1,23 @@
 POSITIVE = '+'
 NEGATIVE = '-'
 
-BINARY_PREFIX      = '0b'
-OCTAL_PREFIX       = '0o'
+BINARY_PREFIX = '0b'
+OCTAL_PREFIX = '0o'
 HEXADECIMAL_PREFIX = '0x'
 
-TRUE  = 'true'
+TRUE = 'true'
 FALSE = 'false'
 
 STRING_DELIMITER = '"'
 
 FUNCTION_DELIMITER = '->'
-SELF_REFERENCE     = 'this'
+SELF_REFERENCE = 'this'
 
-IF        = 'if'
+IF = 'if'
 CONDITION = 'condition'
 
-OPEN_LIST  = '['
+OPEN_LIST = '['
 CLOSE_LIST = ']'
 
-OPEN_EXPRESSION  = '('
+OPEN_EXPRESSION = '('
 CLOSE_EXPRESSION = ')'

@@ -1,17 +1,16 @@
 import limp.syntax as Syntax
 
-
-STRING =  "string"
+STRING = "string"
 INTEGER = "integer"
-FLOAT =   "float"
+FLOAT = "float"
 BOOLEAN = "boolean"
 
 
 def symbols():
     return {
         INTEGER: int,
-        STRING:  str,
-        FLOAT:   float,
+        STRING: str,
+        FLOAT: float,
         BOOLEAN: _boolean,
     }
 

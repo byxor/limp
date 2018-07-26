@@ -14,7 +14,7 @@ def create_standard():
 
 class _Environment:
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         self.__parent = parent
         self.__symbols = {}
 

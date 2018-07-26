@@ -3,6 +3,7 @@ class LimpError(Exception):
 
 
 class UndefinedSymbol(LimpError):
+
     def __init__(self, name):
         message = "The symbol..."
         message += f"\n'{name}' cannot be found in the current context.\n"
@@ -13,6 +14,7 @@ class UndefinedSymbol(LimpError):
 
 
 class RedefinedSymbol(LimpError):
+
     def __init__(self, name):
         message = f"The symbol '{name}' already exists, you can't redefine it.\n"
         message += "It may seem annoying, but immutability has benefits."
@@ -20,11 +22,13 @@ class RedefinedSymbol(LimpError):
 
 
 class EmptyCode(LimpError):
+
     def __init__(self):
         super().__init__("There is no code here to run.")
 
 
 class UnnecessarySequentialEvaluator(LimpError):
+
     def __init__(self):
         message = "You have a SequentialEvaluator (do expression) with only 1 form in it.\n"
         message += "It is not needed."
@@ -32,16 +36,19 @@ class UnnecessarySequentialEvaluator(LimpError):
 
 
 class ExtraClosingParenthesis(LimpError):
+
     def __init__(self, amount):
         super().__init__(_parentheses_message(amount, "many"))
 
 
 class MissingClosingParenthesis(LimpError):
+
     def __init__(self, amount):
         super().__init__(_parentheses_message(amount, "few"))
 
 
 class EmptyInvocation(LimpError):
+
     def __init__(self):
         message = "You cannot invoke nothing.\n\n"
         message += "* Wrapping a function in parentheses will invoke it.\n"
@@ -59,6 +66,7 @@ def _parentheses_message(amount, quantifier):
 
 
 class UnclosedString(LimpError):
+
     def __init__(self):
         message = "You forgot to close a string literal."
         super().__init__(message)
