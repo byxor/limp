@@ -30,6 +30,9 @@ def _matchers():
     return [
         (Types.OpenParenthesis, re.escape('(')),
         (Types.CloseParenthesis, re.escape(')')),
+        (Types.OpenCurlyBrace, re.escape('{')),
+        (Types.CloseCurlyBrace, re.escape('}')),
+        (Types.ObjectDelimiter, re.escape(':')),
         (Types.OpenSquareBracket, re.escape('[')),
         (Types.CloseSquareBracket, re.escape(']')),
         (Types.FunctionDelimiter, re.escape(Syntax.FUNCTION_DELIMITER)),
@@ -44,6 +47,19 @@ def _matchers():
     ]
 
 
+def _symbol_regex():
+    ACCEPTABLE_CHARACTERS = "a-zA-Z_\-\?\!\=<>\+\*\/\%"
+    return f"[{ACCEPTABLE_CHARACTERS}][0-9{ACCEPTABLE_CHARACTERS}]*"
+
+
+def _string_regex():
+    DELIMITER = re.escape(Syntax.STRING_DELIMITER)
+    return f"{DELIMITER}[^{DELIMITER}]*{DELIMITER}"
+
+
+_maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"
+
+
 @unique
 class Types(Enum):
     Boolean = auto()
@@ -56,19 +72,9 @@ class Types(Enum):
     Symbol = auto()
     OpenParenthesis = auto()
     CloseParenthesis = auto()
+    OpenCurlyBrace = auto()
+    CloseCurlyBrace = auto()
+    ObjectDelimiter = auto()
     FunctionDelimiter = auto()
     OpenSquareBracket = auto()
     CloseSquareBracket = auto()
-
-
-def _symbol_regex():
-    ACCEPTABLE_CHARACTERS = "a-zA-Z_\-\?\!\=<>\+\*\/\%"
-    return f"[{ACCEPTABLE_CHARACTERS}][0-9{ACCEPTABLE_CHARACTERS}]*"
-
-
-def _string_regex():
-    DELIMITER = re.escape(Syntax.STRING_DELIMITER)
-    return f"{DELIMITER}[^{DELIMITER}]*{DELIMITER}"
-
-
-_maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"

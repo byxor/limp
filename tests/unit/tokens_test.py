@@ -81,6 +81,15 @@ def test_creation_from_source_code():
                      (Tokens.Types.Integer, '2'),
                      (Tokens.Types.Integer, '3'),
                      (Tokens.Types.CloseSquareBracket, ']')]),
+
+        ('{}', [(Tokens.Types.OpenCurlyBrace, '{'),
+                (Tokens.Types.CloseCurlyBrace, '}')]),
+
+        ('{age: 10}', [(Tokens.Types.OpenCurlyBrace, '{'),
+                       (Tokens.Types.Symbol, 'age'),
+                       (Tokens.Types.ObjectDelimiter, ':'),
+                       (Tokens.Types.Integer, '10'),
+                       (Tokens.Types.CloseCurlyBrace, '}')]),
     ]
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)
