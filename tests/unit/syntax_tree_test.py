@@ -312,7 +312,9 @@ data = [
                                  [((TT.Symbol, 'name'), (TT.String, '"brandon"')),
                                   ((TT.Symbol, 'age'), (TT.Integer, '21'))])),
 
-    # Objects
+    # Nested Objects
+    ('{foo:{}}', (TT.Object,
+                  [((TT.Symbol, 'foo'), (TT.Object, []))])),
 ]
 
 

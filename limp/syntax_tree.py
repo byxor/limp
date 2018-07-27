@@ -136,6 +136,9 @@ def _object_node(chunk):
     if not _opens_and_closes(chunk, opener, closer):
         return
 
+    if not _balanced(chunk, opener, closer):
+        return
+
     trees, tokens_consumed = _get_multiple_trees(chunk[1:-1])
 
     pairs = []
