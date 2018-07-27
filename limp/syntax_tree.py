@@ -140,6 +140,7 @@ def _object_node(chunk):
         return
 
     trees, tokens_consumed = _get_multiple_trees(chunk[1:-1])
+    tokens_consumed += 2
 
     pairs = []
     for i in range(0, len(trees), 3):
@@ -147,7 +148,7 @@ def _object_node(chunk):
         value = trees[i+2]
         pairs.append((key, value))
 
-    return _Node((Types.Object, pairs), 2)
+    return _Node((Types.Object, pairs), tokens_consumed)
 
 
 def _list_node(chunk):

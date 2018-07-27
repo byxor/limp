@@ -312,9 +312,40 @@ data = [
                                  [((TT.Symbol, 'name'), (TT.String, '"brandon"')),
                                   ((TT.Symbol, 'age'), (TT.Integer, '21'))])),
 
+    ('{colours: ["red" "green" "blue"]}', (TT.Object,
+                                          [((TT.Symbol, 'colours'),
+                                            (TT.List, [(TT.String, '"red"'),
+                                                       (TT.String, '"green"'),
+                                                       (TT.String, '"blue"')]))])),
+                                          
+
     # Nested Objects
     ('{foo:{}}', (TT.Object,
                   [((TT.Symbol, 'foo'), (TT.Object, []))])),
+
+    ('''
+{
+    name: "Blarg Smith"
+    age: 1337
+    interests: ["food" "limp" "THPS"]
+    address: {
+        house-number: 420
+        street: "earth street"
+    }
+}
+    ''',
+     (TT.Object, [
+         ((TT.Symbol, 'name'), (TT.String, '"Blarg Smith"')),
+         ((TT.Symbol, 'age'), (TT.Integer, '1337')),
+         ((TT.Symbol, 'interests'), (TT.List, [(TT.String, '"food"'),
+                                               (TT.String, '"limp"'),
+                                               (TT.String, '"THPS"')])),
+         ((TT.Symbol, 'address'),
+          (TT.Object,[
+                  ((TT.Symbol, 'house-number'), (TT.Integer, '420')),
+                  ((TT.Symbol, 'street'), (TT.String, '"earth street"'))
+          ]))
+     ])),
 ]
 
 
