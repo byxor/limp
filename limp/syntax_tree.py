@@ -98,7 +98,7 @@ def _if_statement_node(chunk):
     if not _opens_and_closes(chunk, opener, closer):
         return
 
-    if chunk[1] != (Tokens.Types.Symbol, 'if'):
+    if chunk[1] != (Tokens.Types.Symbol, Syntax.IF):
         return
 
     if not _balanced(chunk, opener, closer):
