@@ -11,4 +11,9 @@ setup(
     author="Brandon Ibbotson",
     url="https://www.github.com/byxor/limp",
     install_requires=['PyFunctional', 'rply'],
+    entry_points={
+        'console_scripts': [
+            'limp = limp:new_repl'
+        ]
+    },
 )
