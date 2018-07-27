@@ -1,4 +1,5 @@
 import limp.tokens as Tokens
+import limp.syntax as Syntax
 from enum import Enum, auto, unique
 from collections import namedtuple
 
