@@ -8,9 +8,7 @@ Token = namedtuple('Token', 'type_ contents')
 
 
 def create_from(source_code):
-    return [
-        Token(token.gettokentype(), token.value) for token in _lex(source_code)
-    ]
+    return [Token(token.gettokentype(), token.value) for token in _lex(source_code)]
 
 
 def _lex(source_code):
@@ -35,13 +33,12 @@ def _matchers():
         (Types.OpenSquareBracket, re.escape('[')),
         (Types.CloseSquareBracket, re.escape(']')),
         (Types.FunctionDelimiter, re.escape(Syntax.FUNCTION_DELIMITER)),
-        (Types.Hexadecimal,
-         _maybe_signed(f"{Syntax.HEXADECIMAL_PREFIX}[\dA-Fa-f]+")),
+        (Types.Hexadecimal, _maybe_signed(f"{Syntax.HEXADECIMAL_PREFIX}[\dA-Fa-f]+")),
         (Types.Octal, _maybe_signed(f"{Syntax.OCTAL_PREFIX}[0-7]+")),
         (Types.Binary, _maybe_signed(f"{Syntax.BINARY_PREFIX}[01]+")),
         (Types.Float, _maybe_signed("\d*\.\d+")),
         (Types.Integer, _maybe_signed("\d+")),
-        (Types.Boolean, "false\\b|true\\b"),
+        (Types.Boolean, f"{Syntax.TRUE}\\b|{Syntax.FALSE}\\b"),
         (Types.Symbol, _symbol_regex()),
         (Types.String, _string_regex()),
     ]
