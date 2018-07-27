@@ -90,6 +90,16 @@ def test_creation_from_source_code():
                        (Tokens.Types.ObjectDelimiter, ':'),
                        (Tokens.Types.Integer, '10'),
                        (Tokens.Types.CloseCurlyBrace, '}')]),
+
+        ('person.name', [(Tokens.Types.Symbol, 'person'),
+                         (Tokens.Types.AttributeAccessDelimiter, '.'),
+                         (Tokens.Types.Symbol, 'name')]),
+
+        ('person.address.street', [(Tokens.Types.Symbol, 'person'),
+                                   (Tokens.Types.AttributeAccessDelimiter, '.'),
+                                   (Tokens.Types.Symbol, 'address'),
+                                   (Tokens.Types.AttributeAccessDelimiter, '.'),
+                                   (Tokens.Types.Symbol, 'street')]),
     ]
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)

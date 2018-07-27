@@ -40,6 +40,7 @@ def _matchers():
         (Types.Octal, _maybe_signed(f"{Syntax.OCTAL_PREFIX}[0-7]+")),
         (Types.Binary, _maybe_signed(f"{Syntax.BINARY_PREFIX}[01]+")),
         (Types.Float, _maybe_signed("\d*\.\d+")),
+        (Types.AttributeAccessDelimiter, re.escape(Syntax.ATTRIBUTE_ACCESS_DELIMITER)),
         (Types.Integer, _maybe_signed("\d+")),
         (Types.Boolean, f"{Syntax.TRUE}\\b|{Syntax.FALSE}\\b"),
         (Types.Symbol, _symbol_regex()),
@@ -76,5 +77,6 @@ class Types(Enum):
     CloseCurlyBrace = auto()
     ObjectDelimiter = auto()
     FunctionDelimiter = auto()
+    AttributeAccessDelimiter = auto()
     OpenSquareBracket = auto()
     CloseSquareBracket = auto()
