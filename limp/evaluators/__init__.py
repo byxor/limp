@@ -66,4 +66,3 @@ def if_statement(tree, environment):
         return evaluate(tree[2], environment)
     else:
         return evaluate(tree[3], environment)
-
