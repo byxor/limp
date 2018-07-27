@@ -365,6 +365,12 @@ data = [
                                               (TT.Symbol, 'players')),
                                              (TT.Symbol, 'byxor')),
                                             (TT.Symbol, 'skill-level'))),
+
+    ('{name: "byxor"}.name', (TT.AttributeAccess,
+                              (TT.Object,
+                               [((TT.Symbol, 'name'),
+                                 (TT.String, '"byxor"'))]),
+                              (TT.Symbol, 'name'))),
 ]
 
 
