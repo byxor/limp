@@ -22,6 +22,7 @@ class Types(Enum):
     List = auto()
     Object = auto()
     ObjectDelimiter = auto()
+    AttributeAccess = auto()
 
 
 def create_from(tokens):
@@ -34,6 +35,18 @@ def _search_for_node(chunk):
     for size in range(1, len(chunk) + 1):
         node = _get_node_for(chunk[:size])
         if node:
+            
+            # do special shit to check if it's an attribute access
+            
+            if size < len(chunk):
+                if chunk[size].type_ == Tokens.Types.AttributeAccessDelimiter:
+                    new_chunk = chunk[size+1:]
+                    next_node = _search_for_node(new_chunk)
+
+                    tokens_consumed = node.tokens_consumed + next_node.tokens_consumed + 1
+
+                    return _Node((Types.AttributeAccess, node.tree, next_node.tree), tokens_consumed)
+
             return node
 
 

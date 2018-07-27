@@ -349,6 +349,8 @@ data = [
 
          ((TT.Symbol, 'job'), (TT.String, '"professional door knocker"'))
      ])),
+
+    ('person.name', (TT.AttributeAccess, (TT.Symbol, 'person'), (TT.Symbol, 'name'))),
 ]
 
 
