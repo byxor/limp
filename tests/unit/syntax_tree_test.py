@@ -306,7 +306,13 @@ data = [
     # Objects
     ('{}', (TT.Object, [])),
 
-    ('{age: 10}', (TT.Object, [[(TT.Symbol, 'age'), (TT.Integer, '10')]])),
+    ('{age: 10}', (TT.Object, [((TT.Symbol, 'age'), (TT.Integer, '10'))])),
+
+    ('{name:"brandon" age:21}', (TT.Object,
+                                 [((TT.Symbol, 'name'), (TT.String, '"brandon"')),
+                                  ((TT.Symbol, 'age'), (TT.Integer, '21'))])),
+
+    # Objects
 ]
 
 

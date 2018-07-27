@@ -142,7 +142,7 @@ def _object_node(chunk):
     for i in range(0, len(trees), 3):
         key = trees[i]
         value = trees[i+2]
-        pairs.append([key, value])
+        pairs.append((key, value))
 
     return _Node((Types.Object, pairs), 2)
 
