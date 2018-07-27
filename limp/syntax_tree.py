@@ -36,18 +36,43 @@ def _search_for_node(chunk):
         node = _get_node_for(chunk[:size])
         if node:
             
-            # do special shit to check if it's an attribute access
+            i = size
+            attribute_access_nodes = [node]
             
-            if size < len(chunk):
-                if chunk[size].type_ == Tokens.Types.AttributeAccessDelimiter:
-                    new_chunk = chunk[size+1:]
-                    next_node = _search_for_node(new_chunk)
+            while i < len(chunk):
+                print("le CHONK:", chunk[i])
+                if chunk[i].type_ == Tokens.Types.AttributeAccessDelimiter:
+                    future_chunk = chunk[i+1:]
+                    future_node = _zork(future_chunk)
+                    attribute_access_nodes.append(future_node)
+                    i += future_node.tokens_consumed + 1
+                else:
+                    break
+            
+            print("ATTR_ACCESS_NODES:", attribute_access_nodes)
 
-                    tokens_consumed = node.tokens_consumed + next_node.tokens_consumed + 1
+            tokens_consumed = sum([n.tokens_consumed for n in attribute_access_nodes])
+                    
+            if len(attribute_access_nodes) > 1:
+                print("AY YO")
+                return _Node(_transform(attribute_access_nodes), tokens_consumed)
 
-                    return _Node((Types.AttributeAccess, node.tree, next_node.tree), tokens_consumed)
+            ######################################################
 
             return node
+
+
+def _zork(chunk):
+    for size in range(1, len(chunk) + 1):
+        node = _get_node_for(chunk[:size])
+        if node:
+            return node
+
+
+def _transform(nodes):
+    if len(nodes) == 2:
+        return (Types.AttributeAccess, nodes[0].tree, nodes[1].tree)
+    return (Types.AttributeAccess, _transform(nodes[:-1]), nodes[-1].tree)
 
 
 def _get_node_for(chunk):

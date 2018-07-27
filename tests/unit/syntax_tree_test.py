@@ -351,16 +351,31 @@ data = [
      ])),
 
     ('person.name', (TT.AttributeAccess, (TT.Symbol, 'person'), (TT.Symbol, 'name'))),
+
+    ('person.address.street', (TT.AttributeAccess,
+                               (TT.AttributeAccess,
+                                (TT.Symbol, 'person'),
+                                (TT.Symbol, 'address')),
+                               (TT.Symbol, 'street'))),
+
+    ('thug-pro.players.byxor.skill-level', (TT.AttributeAccess,
+                                            (TT.AttributeAccess,
+                                             (TT.AttributeAccess,
+                                              (TT.Symbol, 'thug-pro'),
+                                              (TT.Symbol, 'players')),
+                                             (TT.Symbol, 'byxor')),
+                                            (TT.Symbol, 'skill-level'))),
 ]
 
 
 def test_creation_from_tokens():
     for source_code, expected_syntax_tree in data:
         print()
-        print("-------------")
+        print("---------------------------------------------")
         print(source_code)
         tokens = Tokens.create_from(source_code)
         syntax_tree = SyntaxTree.create_from(tokens)
-        # print(syntax_tree)
-        # print(expected_syntax_tree)
+        print()
+        print("Actual:  ", syntax_tree)
+        print("Expected:", expected_syntax_tree)
         yield assert_equals, expected_syntax_tree, syntax_tree
