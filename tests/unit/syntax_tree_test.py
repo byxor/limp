@@ -332,6 +332,7 @@ data = [
         house-number: 420
         street: "earth street"
     }
+    job: "professional door knocker"
 }
     ''',
      (TT.Object, [
@@ -344,7 +345,9 @@ data = [
           (TT.Object,[
                   ((TT.Symbol, 'house-number'), (TT.Integer, '420')),
                   ((TT.Symbol, 'street'), (TT.String, '"earth street"'))
-          ]))
+          ])),
+
+         ((TT.Symbol, 'job'), (TT.String, '"professional door knocker"'))
      ])),
 ]
 
