@@ -302,6 +302,11 @@ data = [
                                          (TT.Function,
                                           [],
                                           (TT.Integer, '30')))),
+
+    # Objects
+    ('{}', (TT.Object, [])),
+
+    ('{age: 10}', (TT.Object, [[(TT.Symbol, 'age'), (TT.Integer, '10')]])),
 ]
 
 
@@ -309,8 +314,9 @@ def test_creation_from_tokens():
     for source_code, expected_syntax_tree in data:
         print()
         print("-------------")
+        print(source_code)
         tokens = Tokens.create_from(source_code)
         syntax_tree = SyntaxTree.create_from(tokens)
-        print(syntax_tree)
-        print(expected_syntax_tree)
+        # print(syntax_tree)
+        # print(expected_syntax_tree)
         yield assert_equals, expected_syntax_tree, syntax_tree

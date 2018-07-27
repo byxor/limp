@@ -20,6 +20,8 @@ class Types(Enum):
     IfStatement = auto()
     Symbol = auto()
     List = auto()
+    Object = auto()
+    ObjectDelimiter = auto()
 
 
 def create_from(tokens):
@@ -41,6 +43,10 @@ def _get_node_for(chunk):
 
     if len(chunk) >= 2:
         node = _list_node(chunk)
+        if node:
+            return node
+
+        node = _object_node(chunk)
         if node:
             return node
 
@@ -77,6 +83,8 @@ def _node_from_single_token(token):
         tree = (Types.Boolean, token.contents)
     elif token.type_ == Tokens.Types.Symbol:
         tree = (Types.Symbol, token.contents)
+    elif token.type_ == Tokens.Types.ObjectDelimiter:
+        tree = (Types.ObjectDelimiter, token.contents)
     else:
         return None
     return _Node(tree, 1)
@@ -119,6 +127,24 @@ def _if_statement_node(chunk):
 
     return _Node((Types.IfStatement, condition, if_true, if_false),
                  tokens_consumed)
+
+
+def _object_node(chunk):
+    opener = Tokens.Types.OpenCurlyBrace
+    closer = Tokens.Types.CloseCurlyBrace
+
+    if not _opens_and_closes(chunk, opener, closer):
+        return
+
+    trees, tokens_consumed = _get_multiple_trees(chunk[1:-1])
+
+    pairs = []
+    for i in range(0, len(trees), 3):
+        key = trees[i]
+        value = trees[i+2]
+        pairs.append([key, value])
+
+    return _Node((Types.Object, pairs), 2)
 
 
 def _list_node(chunk):
