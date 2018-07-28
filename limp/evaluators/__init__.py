@@ -31,6 +31,21 @@ def list_(tree, environment):
     return [evaluate(element, environment) for element in tree[1]]
 
 
+def object_(tree, environment):
+    from limp.evaluation import evaluate
+    the_object = dict()
+
+    pairs = tree[1]
+    for key_tree, value_tree in pairs:
+        key = key_tree[1]
+        value = evaluate(value_tree, environment)
+        the_object[key] = value
+        
+    return the_object
+    
+    
+
+
 # Behavioural ------------------------------------------
 
 def function_call(tree, environment):

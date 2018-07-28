@@ -23,6 +23,7 @@ _evaluators = {
     _TreeTypes.String:  Evaluators.string,
     _TreeTypes.Boolean: Evaluators.boolean,
     _TreeTypes.List:    Evaluators.list_,
+    _TreeTypes.Object:  Evaluators.object_,
 
     _TreeTypes.UnaryNegative: Evaluators.unary_negative,
     _TreeTypes.UnaryPositive: Evaluators.unary_positive,
