@@ -24,7 +24,7 @@ def unary_negative(tree, environment):
     return -evaluate(tree[1], environment)
 
 
-# Collections ------------------------------------------
+# Objecty Things ------------------------------------------
 
 def list_(tree, environment):
     from limp.evaluation import evaluate
@@ -42,8 +42,13 @@ def object_(tree, environment):
         the_object[key] = value
         
     return the_object
-    
-    
+
+
+def attribute_access(tree, environment):
+    from limp.evaluation import evaluate
+    parent = evaluate(tree[1], environment)
+    attribute = tree[2][1]
+    return parent[attribute]
 
 
 # Behavioural ------------------------------------------
