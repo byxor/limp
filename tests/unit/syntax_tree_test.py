@@ -371,6 +371,17 @@ data = [
                                [((TT.Symbol, 'name'),
                                  (TT.String, '"byxor"'))]),
                               (TT.Symbol, 'name'))),
+
+    # Function Calls with Attribute Access
+    ('(= [] {xyz:[]}.xyz)', (TT.FunctionCall,
+                             (TT.Symbol, '='),
+                             [(TT.List, []),
+                              (TT.AttributeAccess,
+                               (TT.Object,
+                                [((TT.Symbol, 'xyz'),
+                                  (TT.List, []))]),
+                               (TT.Symbol, 'xyz'))])),
+
 ]
 
 

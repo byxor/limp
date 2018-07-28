@@ -57,8 +57,12 @@ def _search_for_node(chunk):
                     break
             
             tokens_consumed = sum([n.tokens_consumed for n in attribute_access_nodes])
-                    
+            tokens_consumed += len(attribute_access_nodes) - 1
+            
             if len(attribute_access_nodes) > 1:
+
+                print("NoDeZ:    ", attribute_access_nodes)
+                print("CONSUMED: ", tokens_consumed)
                 return _Node(_transform(attribute_access_nodes), tokens_consumed)
 
             ##############################################################
