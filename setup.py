@@ -13,7 +13,7 @@ setup(
     install_requires=['PyFunctional', 'rply'],
     entry_points={
         'console_scripts': [
-            'limp = limp:new_repl'
+            'limp = limp:main'
         ]
     },
 )

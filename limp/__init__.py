@@ -77,5 +77,10 @@ def default_output(text):
     sys.stdout.flush()
 
 
-if __name__ == "__main__":
+def main():
     Repl().start()
+
+
+if __name__ == "__main__":
+    main()
+    
