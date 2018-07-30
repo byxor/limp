@@ -33,18 +33,13 @@ You can try the language out online! http://byxor.xyz/try-limp
 #### Or run it locally
 
 ```python
-$ python
->>> import limp
->>> repl = limp.Repl()
->>> repl.start()
+$ limp
 Welcome to LIMP! You're now in a REPL, have fun.
 > 5
 5
 > (+ 1 2)
 3
-> (define values-in-byte 256)
-None
-> (if (= values-in-byte (** 2 8)) "You know it.")
+> (if (= 256 (** 2 8)) "You know it.")
 You know it.
 > (map (n -> (+ n 1)) [1 2 3 4])
 [2 3 4 5]
@@ -55,7 +50,7 @@ You know it.
 Dependencies:
 ```
 * python3.6  (to run the code)
-* pip        (to download and install other python modules)
+* pip        (to download and install other python packages)
 * virtualenv (makes development easier, helps with importing modules)
 ```
 
