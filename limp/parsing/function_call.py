@@ -2,17 +2,17 @@ import limp.tokens as Tokens
 from limp.parsing.utils import *
 
 
-def node(chunk):
+def node(tokens):
     opener = Tokens.Types.OpenParenthesis
     closer = Tokens.Types.CloseParenthesis
 
-    if not opens_and_closes(chunk, opener, closer):
+    if not opens_and_closes(tokens, opener, closer):
         return
 
-    if not balanced(chunk, opener, closer):
+    if not balanced(tokens, opener, closer):
         return
 
-    trees, tokens_consumed = get_multiple_trees(chunk[1:-1])
+    trees, tokens_consumed = get_multiple_trees(tokens[1:-1])
 
     function = trees[0]
     arguments = trees[1:]
