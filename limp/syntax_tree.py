@@ -17,6 +17,13 @@ def create_from(tokens):
         return node.tree
 
 
+def get_node_for(chunk):
+    for function in _NODE_FUNCTIONS:
+        node = function(chunk)
+        if node:
+            return node
+
+
 _NODE_FUNCTIONS = [
     limp.parsing.simple.float_node,
     limp.parsing.simple.integer_node,
@@ -33,10 +40,3 @@ _NODE_FUNCTIONS = [
     limp.parsing.function.node,
     limp.parsing.function_call.node,
 ]
-
-
-def get_node_for(chunk):
-    for function in _NODE_FUNCTIONS:
-        node = function(chunk)
-        if node:
-            return node
