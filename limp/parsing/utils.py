@@ -1,6 +1,10 @@
 import limp.tokens as Tokens
-from enum import Enum, auto, unique
 from limp.parsing.node import Node
+from enum import Enum, auto, unique
+from collections import namedtuple
+
+
+Node = namedtuple('_Node', 'tree tokens_consumed')
 
 
 def get_multiple_trees(chunk):
