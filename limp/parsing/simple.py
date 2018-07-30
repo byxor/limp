@@ -1,6 +1,6 @@
 import limp.tokens as Tokens
 import functools
-from limp.parsing.utils import *
+from limp.parsing.shared import *
 
 
 def _apply_sign(node):

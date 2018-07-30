@@ -1,5 +1,5 @@
 import limp.tokens as Tokens
-from limp.parsing.utils import *
+from limp.parsing.shared import *
 
 
 def node(chunk):

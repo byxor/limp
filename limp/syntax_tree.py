@@ -6,8 +6,7 @@ import limp.parsing.object_
 import limp.parsing.function
 import limp.parsing.if_statement
 import limp.parsing.function_call
-from limp.parsing.utils import *
-from limp.parsing.node import Node
+from limp.parsing.shared import *
 from enum import Enum, auto, unique
 
 

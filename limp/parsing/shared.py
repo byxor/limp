@@ -1,5 +1,4 @@
 import limp.tokens as Tokens
-from limp.parsing.node import Node
 from enum import Enum, auto, unique
 from collections import namedtuple
 

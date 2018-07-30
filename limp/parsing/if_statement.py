@@ -1,6 +1,6 @@
 import limp.tokens as Tokens
 import limp.syntax as Syntax
-from limp.parsing.utils import *
+from limp.parsing.shared import *
 
 
 def node(tokens):
