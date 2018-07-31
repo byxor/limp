@@ -63,6 +63,8 @@ class Repl:
             return evaluate(code, self.__environment)
         except Errors.EmptyCode:
             return ""
+        except Exception as e:
+            return f"You got an error...\n{type(e).__name__}: {str(e)}\n"
 
     def __display_result(self, result):
         self._output(f"{result}\n")

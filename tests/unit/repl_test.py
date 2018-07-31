@@ -57,6 +57,19 @@ def test_repl_uses_standard_input_and_output_by_default():
         _default_output_is_used)
 
 
+def test_repl_remains_running_despite_errors():
+    Helpers.test_chain(
+        _given_a_repl_with_mocked_streams,
+        _when_an_error_is_thrown,
+        _input_is_evaluated_and_output_is_displayed([
+            ("",                                          ""),
+            ("\n",                                        ""),
+            (integer(10),                                 "10"),
+            (integer(20),                                 "20"),
+            (invoke(symbol("+"), integer(1), integer(2)), "3"),
+        ]))
+
+
 ### Helpers
 
 
@@ -140,6 +153,12 @@ def _input_is_evaluated_and_output_is_displayed(data):
             _output_was_written(expected_output_text + "\n")(state)
         return state
     return generated_function
+
+
+def _when_an_error_is_thrown(state):
+    _next_input_is("!aojfs%$&z_^ERROR")(state)
+    _tick(state)
+    return state
 
 
 def _next_input_is(value):
