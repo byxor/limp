@@ -9,3 +9,7 @@ def test_that_empty_code_raises_an_error():
 
 def test_that_invoking_nothing_raises_an_error():
     yield assert_raises, Errors.EmptyFunctionCall, limp.evaluate, "()"
+
+
+def test_that_unclosed_strings_raise_errors():
+    yield assert_raises, Errors.UnclosedString, limp.evaluate, '"foo'

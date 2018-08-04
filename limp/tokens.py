@@ -1,6 +1,8 @@
 import limp.syntax as Syntax
+import limp.errors as Errors
 import re
 from rply import LexerGenerator
+from rply.errors import LexingError
 from collections import namedtuple
 from enum import Enum, auto, unique
 
@@ -8,7 +10,10 @@ Token = namedtuple('Token', 'type_ contents')
 
 
 def create_from(source_code):
-    return [Token(token.gettokentype(), token.value) for token in _lex(source_code)]
+    try:
+        return [Token(token.gettokentype(), token.value) for token in _lex(source_code)]
+    except LexingError:
+        raise Errors.UnclosedString()
 
 
 def _lex(source_code):

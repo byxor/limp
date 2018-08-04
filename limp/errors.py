@@ -30,3 +30,11 @@ class EmptyFunctionCall(LimpError):
         message += "* Wrapping a function in parentheses will invoke it.\n"
         message += "* Did you write '()' by mistake?"
         super().__init__(message)
+
+
+class UnclosedString(LimpError):
+    def __init__(self):
+        message = "You forgot to close a string literal."
+        super().__init__(message)
+
+
