@@ -4,12 +4,6 @@ import operator
 from nose.tools import assert_equals
 
 
-ARBITRARY_NAME = "arbitrary"
-ARBITRARY_VALUES = [0, 1, "value"]
-ARBITRARY_LIMP_FUNCTION = f"(function ({ARBITRARY_NAME}) {ARBITRARY_NAME})"
-ARBITRARY_PYTHON_FUNCTION = lambda x: x
-
-
 def evaluation_fixture(name, data):
     def the_test():
         for source_code, expected_result in data:
