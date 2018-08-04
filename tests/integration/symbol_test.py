@@ -9,15 +9,14 @@ from tests.syntax import *
 
 
 def test_getting_symbols():
-    symbols = {
+    environment = Environment.create_standard()
+
+    environment.define_multiple({
         'x': 10,
         'y': 20,
         'z': 30,
         'foo': 100,
-    }
-
-    environment = Environment.create_standard()
-    environment.define_multiple(symbols.items())
+    }.items())
 
     data = [
         ('x',   10),
