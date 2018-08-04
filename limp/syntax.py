@@ -13,8 +13,7 @@ STRING_DELIMITER = '"'
 FUNCTION_DELIMITER = '->'
 SELF_REFERENCE = 'this'
 
-IF = 'if'
-CONDITION = 'condition'
+CONDITIONAL = 'if'
 
 OPEN_LIST = '['
 CLOSE_LIST = ']'

@@ -23,15 +23,12 @@ def boolean(value):
     return Syntax.TRUE if value else Syntax.FALSE
 
 
-def if_statement(condition, main_body, else_body=""):
-    return form(Syntax.IF, condition, main_body, else_body)
-
-
-def condition_statement(*condition_value_pairs):
-    contents = []
-    for pair in condition_value_pairs:
-        contents.append(list_of(*pair))
-    return form(Syntax.CONDITION, list_of(*contents))
+def conditional(*pairs):
+    code = f'{Syntax.CONDITIONAL} {{ '
+    for condition, return_value in pairs:
+        code += f"{condition}:{return_value} "
+    code += '}'
+    return code
 
 
 def invoke(function, *args):

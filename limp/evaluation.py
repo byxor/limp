@@ -32,6 +32,6 @@ _evaluators = {
 
     _TreeTypes.Function:     Evaluators.function,
     _TreeTypes.FunctionCall: Evaluators.function_call,
-    _TreeTypes.IfStatement:  Evaluators.if_statement,
+    _TreeTypes.Conditional:  Evaluators.conditional,
 }
 

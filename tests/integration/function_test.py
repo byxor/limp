@@ -8,14 +8,13 @@ SQUARE_ROOT = function(['n'], invoke(SQUARE_ROOT, 'n'))
 SUBTRACT = function(['a', 'b'], invoke(SUBTRACT, 'a', 'b'))
 SELF_REFERENCING_FUNCTION = function(
     ['n'],
-    if_statement(
-        invoke(GREATER_THAN, 'n', integer(0)),
-        invoke(ADD,
-               integer(1),
-               invoke(
-                   self_reference(),
-                   invoke(SUBTRACT, 'n', integer(1)))),
-        integer(0))
+    conditional(
+        (invoke(GREATER_THAN, 'n', integer(0)),
+         invoke(ADD, integer(1), invoke(self_reference(), invoke(SUBTRACT, 'n', integer(1))))),
+
+        (boolean(True),
+         integer(0))
+    )
 )
 
 

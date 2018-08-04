@@ -4,7 +4,6 @@ import limp.parsing.list_
 import limp.parsing.simple
 import limp.parsing.object_
 import limp.parsing.function
-import limp.parsing.if_statement
 import limp.parsing.function_call
 import limp.parsing.conditional
 from limp.parsing.shared import *

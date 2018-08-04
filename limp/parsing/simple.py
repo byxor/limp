@@ -1,4 +1,5 @@
 import limp.tokens as Tokens
+import limp.syntax as Syntax
 import functools
 from limp.parsing.shared import *
 
@@ -40,6 +41,6 @@ object_delimiter_node = _basic_node(Types.ObjectDelimiter, Tokens.Types.ObjectDe
 
 
 def symbol_node(tokens):
-    if tokens[0].contents == "if":
+    if tokens[0].contents == Syntax.Conditional:
         return
     return _basic_node(Types.Symbol, Tokens.Types.Symbol)(tokens)

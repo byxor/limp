@@ -79,10 +79,9 @@ def function(tree, environment):
     return internal_function
 
 
-def if_statement(tree, environment):
+def conditional(tree, environment):
     from limp.evaluation import evaluate
-    condition = evaluate(tree[1], environment)
-    if condition:
-        return evaluate(tree[2], environment)
-    else:
-        return evaluate(tree[3], environment)
+    for condition, result in tree[1]:
+        passed = evaluate(condition, environment)
+        if passed:
+            return evaluate(result, environment)
