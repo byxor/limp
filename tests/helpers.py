@@ -1,6 +1,4 @@
 import limp
-import limp.environment as Environment
-import operator
 from nose.tools import assert_equals
 
 

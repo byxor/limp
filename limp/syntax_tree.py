@@ -1,5 +1,3 @@
-import limp.tokens as Tokens
-import limp.syntax as Syntax
 import limp.parsing.list_
 import limp.parsing.simple
 import limp.parsing.object_

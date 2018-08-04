@@ -40,7 +40,7 @@ def object_(tree, environment):
         key = key_tree[1]
         value = evaluate(value_tree, environment)
         the_object[key] = value
-        
+
     return the_object
 
 

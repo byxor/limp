@@ -57,7 +57,7 @@ def test_accessing_attributes():
 
         ('{profiles: {byxor: {is-cool: true}}}.profiles.byxor.is-cool', True),
     ]
-    
+
     for source_code, expected_result in data:
         result = limp.evaluate(source_code, environment)
         yield assert_equals, expected_result, result

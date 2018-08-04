@@ -289,7 +289,7 @@ data = [
                                             (TT.List, [(TT.String, '"red"'),
                                                        (TT.String, '"green"'),
                                                        (TT.String, '"blue"')]))])),
-                                          
+
 
     # Nested Objects
     ('{foo:{}}', (TT.Object,
@@ -371,7 +371,7 @@ if {
   (= age 30): "thirty"
 }
 ''', (TT.Conditional,
-      
+
       [((TT.FunctionCall,
          (TT.Symbol, '='),
          [(TT.Symbol, 'age'),

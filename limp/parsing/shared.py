@@ -74,7 +74,7 @@ def _perform_search(tokens, lookahead):
                 if new_node:
                     return new_node
             return node
-    
+
 
 def lookahead(node, tokens):
     attribute_access_nodes = [node]
@@ -88,10 +88,10 @@ def lookahead(node, tokens):
             i += future_node.tokens_consumed + 1
         else:
             break
-            
+
     tokens_consumed = sum([n.tokens_consumed for n in attribute_access_nodes])
     tokens_consumed += len(attribute_access_nodes) - 1
-            
+
     if len(attribute_access_nodes) > 1:
         return Node(_transform(attribute_access_nodes), tokens_consumed)
 

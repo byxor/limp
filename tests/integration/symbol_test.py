@@ -1,8 +1,6 @@
 import limp
 import limp.errors as Errors
 import limp.environment as Environment
-import tests.helpers as Helpers
-import operator
 from nose.tools import *
 from tests.syntax import *
 
