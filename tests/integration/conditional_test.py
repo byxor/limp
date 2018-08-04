@@ -24,10 +24,10 @@ t0 = Helpers.evaluation_fixture("test_conditionals", [
      1),
 
     (conditional(
-        [invoke(ARE_EQUAL, integer(0), integer(1)), string("NotThisOne")],
-        [invoke(ARE_EQUAL, integer(0), integer(2)), string("NorThisOne")],
-        [invoke(ARE_EQUAL, integer(0), integer(0)), string("This one!")],
-        [invoke(ARE_EQUAL, integer(0), integer(3)), string("NorNorThisOne")]),
+        (invoke(ARE_EQUAL, integer(0), integer(1)), string("NotThisOne")),
+        (invoke(ARE_EQUAL, integer(0), integer(2)), string("NorThisOne")),
+        (invoke(ARE_EQUAL, integer(0), integer(0)), string("This one!")),
+        (invoke(ARE_EQUAL, integer(0), integer(3)), string("NorNorThisOne"))),
      "This one!")
 ])
 
