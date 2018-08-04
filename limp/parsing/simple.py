@@ -41,6 +41,6 @@ object_delimiter_node = _basic_node(Types.ObjectDelimiter, Tokens.Types.ObjectDe
 
 
 def symbol_node(tokens):
-    if tokens[0].contents == Syntax.Conditional:
+    if tokens[0].contents == Syntax.CONDITIONAL:
         return
     return _basic_node(Types.Symbol, Tokens.Types.Symbol)(tokens)
