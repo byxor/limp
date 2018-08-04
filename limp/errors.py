@@ -24,16 +24,6 @@ class EmptyCode(LimpError):
         super().__init__("There is no code here to run.")
 
 
-class ExtraClosingParenthesis(LimpError):
-    def __init__(self, amount):
-        super().__init__(_parentheses_message(amount, "many"))
-
-
-class MissingClosingParenthesis(LimpError):
-    def __init__(self, amount):
-        super().__init__(_parentheses_message(amount, "few"))
-
-
 class EmptyInvocation(LimpError):
     def __init__(self):
         message = "You cannot invoke nothing.\n\n"
