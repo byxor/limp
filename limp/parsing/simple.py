@@ -7,14 +7,18 @@ from limp.parsing.shared import *
 def _apply_sign(node):
     tree = node[0]
     contents = tree[1]
+
     sign = contents[0]
-    if sign == "+":
-        return Node((Types.UnaryPositive, (tree[0], contents[1:])), 1)
-    elif sign == "-":
-        return Node((Types.UnaryNegative, (tree[0], contents[1:])), 1)
+
+    if sign == Syntax.POSITIVE:
+        type_ = Types.UnaryPositive
+    elif sign == Syntax.NEGATIVE:
+        type_ = Types.UnaryNegative
     else:
         return node
-            
+
+    return Node((type_, (tree[0], contents[1:])), 1)
+
 
 def _node(mutator, tree_type, token_type):
     def internal(tokens):
