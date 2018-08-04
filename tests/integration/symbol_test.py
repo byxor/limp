@@ -10,13 +10,6 @@ from tests.syntax import *
 
 def test_getting_symbols():
     symbols = {
-        'variable': 20,
-        'abc': None,
-        'def': None,
-        'add': operator.add,
-        'subtract': operator.sub,
-        'multiply': lambda x, y, z: x * y * z,
-        'return10': lambda: 10,
         'x': 10,
         'y': 20,
         'z': 30,
