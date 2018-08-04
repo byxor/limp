@@ -1,9 +1,10 @@
 import limp.tokens as Tokens
+import limp.syntax as Syntax
 from limp.parsing.shared import *
 
 
 def node(tokens):
-    if tokens[0].contents != 'if':
+    if tokens[0].contents != Syntax.CONDITIONAL:
         return
 
     if len(tokens) < 5:
