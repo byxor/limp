@@ -8,7 +8,7 @@ def create_empty():
 
 def create_standard():
     environment = _Environment()
-    environment.define_batch_of(StandardLibrary.symbols())
+    environment.define_multiple(StandardLibrary.symbols())
     return environment
 
 
@@ -33,7 +33,7 @@ class _Environment:
             else:
                 raise Errors.UndefinedSymbol(name)
 
-    def define_batch_of(self, symbols):
+    def define_multiple(self, symbols):
         for name, value in symbols:
             self.define(name, value)
 

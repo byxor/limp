@@ -25,7 +25,7 @@ def sample_environment():
         'z': 30,
         'foo': 100,
     }
-    environment.define_batch_of(extras.items())
+    environment.define_multiple(extras.items())
     return environment
 
 
