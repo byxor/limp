@@ -16,6 +16,8 @@ def get_multiple_trees(chunk):
             trees.append(node.tree)
             start += node.tokens_consumed
             tokens_consumed += node.tokens_consumed
+        else:
+            start += 1
     return trees, tokens_consumed
 
 
@@ -95,3 +97,4 @@ class Types(Enum):
     Object = auto()
     ObjectDelimiter = auto()
     AttributeAccess = auto()
+    Conditional = auto()

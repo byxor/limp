@@ -101,6 +101,7 @@ def test_creation_from_source_code():
                                    (Tokens.Types.AttributeAccessDelimiter, '.'),
                                    (Tokens.Types.Symbol, 'street')]),
     ]
+
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)
         print("-------------")

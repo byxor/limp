@@ -275,34 +275,6 @@ data = [
                                                     [(TT.String, '"foo"'),
                                                      (TT.String, '"bar"')])])),
 
-    # If Statements
-    ('(if true 10)', (TT.IfStatement, (TT.Boolean, 'true'), (TT.Integer, '10'), None)),
-
-    ('(if true 10 20)', (TT.IfStatement,
-                         (TT.Boolean, 'true'),
-                         (TT.Integer, '10'),
-                         (TT.Integer, '20'))),
-
-    ('(if (not true) "foo" "bar")', (TT.IfStatement,
-                                     (TT.FunctionCall,
-                                      (TT.Symbol, 'not'),
-                                      [(TT.Boolean, 'true')]),
-                                     (TT.String, '"foo"'),
-                                     (TT.String, '"bar"'))),
-
-    ('(if (= 0b0 0b1) (+ 1 2) (->30))', (TT.IfStatement,
-                                         (TT.FunctionCall,
-                                          (TT.Symbol, '='),
-                                          [(TT.Binary, '0b0'),
-                                           (TT.Binary, '0b1')]),
-                                         (TT.FunctionCall,
-                                          (TT.Symbol, '+'),
-                                          [(TT.Integer, '1'),
-                                           (TT.Integer, '2')]),
-                                         (TT.Function,
-                                          [],
-                                          (TT.Integer, '30')))),
-
     # Objects
     ('{}', (TT.Object, [])),
 
@@ -382,6 +354,41 @@ data = [
                                   (TT.List, []))]),
                                (TT.Symbol, 'xyz'))])),
 
+    # Conditionals
+    ('if {true:10}', (TT.Conditional, [((TT.Boolean, 'true'), (TT.Integer, '10'))])),
+
+    ('if {(= age 10): "ten"}', (TT.Conditional,
+                                [((TT.FunctionCall,
+                                   (TT.Symbol, '='),
+                                   [(TT.Symbol, 'age'),
+                                    (TT.Integer, '10')]),
+                                  (TT.String, '"ten"'))])),
+
+    ('''
+if {
+  (= age 10): "ten"
+  (= age 20): "twenty"
+  (= age 30): "thirty"
+}
+''', (TT.Conditional,
+      
+      [((TT.FunctionCall,
+         (TT.Symbol, '='),
+         [(TT.Symbol, 'age'),
+          (TT.Integer, '10')]),
+        (TT.String, '"ten"')),
+
+       ((TT.FunctionCall,
+         (TT.Symbol, '='),
+         [(TT.Symbol, 'age'),
+          (TT.Integer, '20')]),
+        (TT.String, '"twenty"')),
+
+       ((TT.FunctionCall,
+         (TT.Symbol, '='),
+         [(TT.Symbol, 'age'),
+          (TT.Integer, '30')]),
+        (TT.String, '"thirty"'))])),
 ]
 
 

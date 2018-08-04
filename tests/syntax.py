@@ -27,7 +27,7 @@ def if_statement(condition, main_body, else_body=""):
     return form(Syntax.IF, condition, main_body, else_body)
 
 
-def conditional(*condition_value_pairs):
+def condition_statement(*condition_value_pairs):
     contents = []
     for pair in condition_value_pairs:
         contents.append(list_of(*pair))

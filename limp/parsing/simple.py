@@ -36,5 +36,10 @@ hexadecimal_node = _numeric_node(Types.Hexadecimal, Tokens.Types.Hexadecimal)
 
 string_node           = _basic_node(Types.String, Tokens.Types.String)
 boolean_node          = _basic_node(Types.Boolean, Tokens.Types.Boolean)
-symbol_node           = _basic_node(Types.Symbol, Tokens.Types.Symbol)
 object_delimiter_node = _basic_node(Types.ObjectDelimiter, Tokens.Types.ObjectDelimiter)
+
+
+def symbol_node(tokens):
+    if tokens[0].contents == "if":
+        return
+    return _basic_node(Types.Symbol, Tokens.Types.Symbol)(tokens)

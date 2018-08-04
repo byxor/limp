@@ -6,6 +6,7 @@ import limp.parsing.object_
 import limp.parsing.function
 import limp.parsing.if_statement
 import limp.parsing.function_call
+import limp.parsing.conditional
 from limp.parsing.shared import *
 from enum import Enum, auto, unique
 
@@ -31,11 +32,11 @@ _NODE_FUNCTIONS = [
     limp.parsing.simple.binary_node,
     limp.parsing.simple.string_node,
     limp.parsing.simple.boolean_node,
-    limp.parsing.simple.symbol_node,
     limp.parsing.simple.object_delimiter_node,
+    limp.parsing.conditional.node,
+    limp.parsing.simple.symbol_node,
     limp.parsing.list_.node,
     limp.parsing.object_.node,
-    limp.parsing.if_statement.node,
     limp.parsing.function.node,
     limp.parsing.function_call.node,
 ]
