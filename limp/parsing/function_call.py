@@ -14,7 +14,7 @@ def node(tokens):
         return
 
     trees, tokens_consumed = get_multiple_trees(tokens[1:-1])
-    
+
     try:
         function = trees[0]
     except IndexError:
@@ -24,4 +24,3 @@ def node(tokens):
     tokens_consumed += 2
 
     return Node((Types.FunctionCall, function, arguments), tokens_consumed)
-
