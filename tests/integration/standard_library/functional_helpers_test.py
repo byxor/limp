@@ -128,4 +128,8 @@ t0 = Helpers.evaluation_fixture("test", [
             REDUCE,
             ADD)),
      12),
+
+    (invoke(RANGE, integer(0)), []),
+    (invoke(RANGE, integer(1)), [0]),
+    (invoke(RANGE, integer(5)), [0, 1, 2, 3, 4]),
 ])

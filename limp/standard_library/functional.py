@@ -1,11 +1,13 @@
 PARTIAL = "partial"
 CHAIN = "chain"
+RANGE = "range"
 
 
 def symbols():
     return {
         PARTIAL: _partial,
         CHAIN: _chain,
+        RANGE: lambda limit: [n for n in range(limit)]
     }
 
 
