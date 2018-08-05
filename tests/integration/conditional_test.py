@@ -57,6 +57,6 @@ t2 = Helpers.evaluation_fixture("test_nested_conditionals", [
              (boolean(False),
               string("IT ISN'T ME")),
              string("Bingo")
-         ))
-    ), "Bingo"),
+         ))),
+     "Bingo"),
 ])
