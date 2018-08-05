@@ -46,3 +46,17 @@ t1 = Helpers.evaluation_fixture("test_default_return_values", [
         (integer(10))),
      10),
 ])
+
+
+t2 = Helpers.evaluation_fixture("test_nested_conditionals", [
+    (conditional(
+        (boolean(False),
+         string("NotMe!")),
+        (boolean(True),
+         conditional(
+             (boolean(False),
+              string("IT ISN'T ME")),
+             string("Bingo")
+         ))
+    ), "Bingo"),
+])
