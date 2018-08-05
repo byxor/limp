@@ -38,3 +38,9 @@ class UnclosedString(LimpError):
         super().__init__(message)
 
 
+class MalformedObject(LimpError):
+    pass
+
+
+class IncorrectObjectDelimiter(LimpError):
+    pass
