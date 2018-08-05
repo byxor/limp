@@ -1,6 +1,11 @@
 import tests.helpers as Helpers
 from tests.syntax import *
 from limp.standard_library.strings import *
+from limp.standard_library.comparisons import *
+
+
+DOUBLE_CHARACTER = function(["c"], invoke(REPEAT, "c", integer(2)))
+IS_UPPERCASE = function(["c"], invoke(ARE_EQUAL, "c", invoke(UPPERCASE, "c")))
 
 
 t0 = Helpers.evaluation_fixture("test", [
@@ -89,4 +94,8 @@ t0 = Helpers.evaluation_fixture("test", [
     (invoke(GET_ELEMENT, string("especially family"), integer(0)), "e"),
     (invoke(GET_ELEMENT, string("before the chance"), integer(2)), "f"),
     (invoke(GET_ELEMENT, string("is lost."),          integer(3)), "l"),
+
+    (invoke(MAP, DOUBLE_CHARACTER, string("hello again")), "hheelllloo  aaggaaiinn"),
+
+    (invoke(FILTER, IS_UPPERCASE, string("look_at_THis_UGly_suPeR_Onion")), "__TH_UG_PR_O"),
 ])

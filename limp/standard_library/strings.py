@@ -18,6 +18,9 @@ ALL_BUT_FIRST = Shared.ALL_BUT_FIRST
 ALL_BUT_LAST = Shared.ALL_BUT_LAST
 GET_ELEMENT = Shared.GET_ELEMENT
 
+MAP = Shared.MAP
+FILTER = Shared.FILTER
+
 
 def symbols():
     return {

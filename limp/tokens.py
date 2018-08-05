@@ -37,7 +37,7 @@ def _matchers():
         (Types.CloseParenthesis, re.escape(')')),
         (Types.OpenCurlyBrace, re.escape('{')),
         (Types.CloseCurlyBrace, re.escape('}')),
-        (Types.ObjectDelimiter, re.escape(':')),
+        (Types.ObjectDelimiter, re.escape(Syntax.OBJECT_DELIMITER)),
         (Types.OpenSquareBracket, re.escape('[')),
         (Types.CloseSquareBracket, re.escape(']')),
         (Types.FunctionDelimiter, re.escape(Syntax.FUNCTION_DELIMITER)),

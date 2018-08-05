@@ -10,6 +10,8 @@ FALSE = 'false'
 
 STRING_DELIMITER = '"'
 
+OBJECT_DELIMITER = ':'
+
 FUNCTION_DELIMITER = '->'
 SELF_REFERENCE = 'this'
 

@@ -11,12 +11,17 @@ ALL_BUT_FIRST = "all-but-first"
 ALL_BUT_LAST = "all-but-last"
 REVERSE = "reverse"
 EMPTY = "empty?"
+MAP = "map"
+FILTER = "filter"
+REDUCE = "reduce"
 
 
 def symbols():
     return {
         CONCATENATE: _concatenate,
         LENGTH: _length,
+        MAP: _map,
+        FILTER: _filter,
         CONTAINS: lambda a, b: b in a,
         FIRST_ELEMENT: lambda x: x[0],
         LAST_ELEMENT: lambda x: x[-1],
@@ -51,3 +56,17 @@ def _concatenate(*args):
 
 def _length(x):
     return len(x)
+
+
+def _map(function, elements):
+    if isinstance(elements, str):
+        return "".join(seq([c for c in elements]).map(function))
+    else:
+        return seq(elements).map(function)
+
+
+def _filter(function, elements):
+    if isinstance(elements, str):
+        return "".join(seq([c for c in elements]).filter(function))
+    else:
+        return seq(elements).filter(function)
