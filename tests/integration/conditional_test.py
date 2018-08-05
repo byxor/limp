@@ -46,4 +46,3 @@ t1 = Helpers.evaluation_fixture("test_default_return_values", [
         (integer(10))),
      10),
 ])
-
