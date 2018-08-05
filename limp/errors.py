@@ -1,3 +1,6 @@
+import limp.syntax as Syntax
+
+
 class LimpError(Exception):
     pass
 
@@ -39,8 +42,12 @@ class UnclosedString(LimpError):
 
 
 class MalformedObject(LimpError):
-    pass
+    def __init__(self):
+        message = "There's something wrong with one of your object literals."
+        super().__init__(message)
 
 
 class IncorrectObjectDelimiter(LimpError):
-    pass
+    def __init__(self):
+        message = f"Object literals require {Syntax.OBJECT_DELIMITER} between keys and values."
+        super().__init__(message)
