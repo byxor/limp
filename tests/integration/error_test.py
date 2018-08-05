@@ -13,9 +13,6 @@ def test_that_calling_nothing_raises_an_error():
     yield assert_raises, Errors.EmptyFunctionCall, limp.evaluate, "()"
 
 
-## not supplying arguments?
-
-
 # Strings
 
 def test_that_unclosed_strings_raise_errors():
