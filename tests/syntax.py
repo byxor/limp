@@ -25,8 +25,12 @@ def boolean(value):
 
 def conditional(*pairs):
     code = f'{Syntax.CONDITIONAL} {{ '
-    for condition, return_value in pairs:
-        code += f"{condition}:{return_value} "
+    for thing in pairs:
+        if type(thing) == str:
+            code += thing + " "
+        else:
+            condition, return_value = thing
+            code += f"{condition}:{return_value} "
     code += '}'
     return code
 

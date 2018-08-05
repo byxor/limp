@@ -85,3 +85,7 @@ def conditional(tree, environment):
         passed = evaluate(condition, environment)
         if passed:
             return evaluate(result, environment)
+
+    default_return_value = tree[2]
+    if default_return_value:
+        return evaluate(default_return_value, environment)

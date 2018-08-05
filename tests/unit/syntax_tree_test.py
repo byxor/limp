@@ -355,14 +355,15 @@ data = [
                                (TT.Symbol, 'xyz'))])),
 
     # Conditionals
-    ('if {true:10}', (TT.Conditional, [((TT.Boolean, 'true'), (TT.Integer, '10'))])),
+    ('if {true:10}', (TT.Conditional, [((TT.Boolean, 'true'), (TT.Integer, '10'))], None)),
 
     ('if {(= age 10): "ten"}', (TT.Conditional,
                                 [((TT.FunctionCall,
                                    (TT.Symbol, '='),
                                    [(TT.Symbol, 'age'),
                                     (TT.Integer, '10')]),
-                                  (TT.String, '"ten"'))])),
+                                  (TT.String, '"ten"'))],
+                                None)),
 
     ('''
 if {
@@ -388,7 +389,9 @@ if {
          (TT.Symbol, '='),
          [(TT.Symbol, 'age'),
           (TT.Integer, '30')]),
-        (TT.String, '"thirty"'))])),
+        (TT.String, '"thirty"'))],
+
+      None)),
 ]
 
 

@@ -25,9 +25,13 @@ def node(tokens):
     tokens_consumed += 3
 
     pairs = []
+    default_return_value = None
     for i in range(0, len(trees), 3):
-        condition = trees[i]
-        value = trees[i+2]
-        pairs.append((condition, value))
+        if i + 1 >= len(trees):
+            default_return_value = trees[i]
+        else:
+            condition = trees[i]
+            value = trees[i+2]
+            pairs.append((condition, value))
 
-    return Node((Types.Conditional, pairs), tokens_consumed)
+    return Node((Types.Conditional, pairs, default_return_value), tokens_consumed)
