@@ -63,6 +63,13 @@ def test_creation_from_source_code():
                                    (Tokens.Types.String, '"Hello there!"'),
                                    (Tokens.Types.CloseParenthesis, ')')]),
 
+        ('(send "\\\"Hello there!\\\"")', [(Tokens.Types.OpenParenthesis, '('),
+                                           (Tokens.Types.Symbol, 'send'),
+                                           (Tokens.Types.String, '"\\\"Hello there!\\\""'),
+                                           (Tokens.Types.CloseParenthesis, ')')]),
+
+        ('"\\\""', [(Tokens.Types.String, '"\\\""')]),
+
         ('(display "0   4")',     [(Tokens.Types.OpenParenthesis, '('),
                                    (Tokens.Types.Symbol, 'display'),
                                    (Tokens.Types.String, '"0   4"'),
@@ -105,6 +112,7 @@ def test_creation_from_source_code():
     for source_code, expected_tokens in data:
         tokens = Tokens.create_from(source_code)
         print("-------------")
+        print(source_code)
         print(tokens)
         print(expected_tokens)
         yield assert_equals, expected_tokens, tokens

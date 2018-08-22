@@ -1,7 +1,9 @@
 symbol = lambda tree, environment: environment.resolve(tree[1])
-string = lambda tree, environment: tree[1][1:-1]
 boolean = lambda tree, environment: tree[1] == "true"
 
+# Strings ------------------------------------------
+
+string = lambda tree, environment: tree[1][1:-1].replace("\\n", "\n").replace("\\\"", "\"").replace("\\\\", "\\")
 
 # Numeric ------------------------------------------
 

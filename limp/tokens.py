@@ -59,8 +59,11 @@ def _symbol_regex():
 
 
 def _string_regex():
-    DELIMITER = re.escape(Syntax.STRING_DELIMITER)
-    return f"{DELIMITER}[^{DELIMITER}]*{DELIMITER}"
+    return f"{re.escape(Syntax.STRING_DELIMITER)}" + \
+           f"({re.escape(Syntax.ESCAPE_SEQUENCE)}" + \
+           f".|[^{re.escape(Syntax.STRING_DELIMITER)}" + \
+           f"{re.escape(Syntax.ESCAPE_SEQUENCE)}])" + \
+           f"*{re.escape(Syntax.STRING_DELIMITER)}"
 
 
 _maybe_signed = lambda number_regex: f"(\+|-)?{number_regex}"

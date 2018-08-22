@@ -9,6 +9,7 @@ TRUE = 'true'
 FALSE = 'false'
 
 STRING_DELIMITER = '"'
+ESCAPE_SEQUENCE = '\\'
 
 OBJECT_DELIMITER = ':'
 
