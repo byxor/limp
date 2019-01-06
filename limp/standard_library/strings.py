@@ -1,11 +1,29 @@
+import limp.environment as Environment
 import limp.standard_library.shared as Shared
 
-STRIP = "strip"
-REPEAT = "repeat"
-LOWERCASE = "lowercase"
-UPPERCASE = "uppercase"
-SPLIT = "split"
-JOIN = "join-string"
+MODULE = "strings"
+_method = lambda name: f"{MODULE}.{name}"
+
+STRIP = _method("strip")
+REPEAT = _method("repeat")
+LOWERCASE = _method("lowercase")
+UPPERCASE = _method("uppercase")
+SPLIT = _method("split")
+JOIN = _method("join")
+
+def symbols():
+    return {
+        MODULE: {
+            "join": lambda separator, list_: separator.join(list_),
+            "split": lambda delimiter, string: string.split(delimiter),
+            "strip": lambda s: s.strip(),
+            "lowercase": lambda s: s.lower(),
+            "uppercase": lambda s: s.upper(),
+            "repeat": lambda s, amount: s * amount,
+            "split": lambda delimiter, string: string.split(delimiter),
+        },
+    }
+
 
 EMPTY = Shared.EMPTY
 REVERSE = Shared.REVERSE
@@ -17,17 +35,5 @@ LAST_ELEMENT = Shared.LAST_ELEMENT
 ALL_BUT_FIRST = Shared.ALL_BUT_FIRST
 ALL_BUT_LAST = Shared.ALL_BUT_LAST
 GET_ELEMENT = Shared.GET_ELEMENT
-
 MAP = Shared.MAP
 FILTER = Shared.FILTER
-
-
-def symbols():
-    return {
-        STRIP: lambda s: s.strip(),
-        LOWERCASE: lambda s: s.lower(),
-        UPPERCASE: lambda s: s.upper(),
-        REPEAT: lambda s, amount: s * amount,
-        SPLIT: lambda delimiter, string: string.split(delimiter),
-        JOIN: lambda separator, list_: separator.join(list_),
-    }
