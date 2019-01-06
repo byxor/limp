@@ -71,6 +71,9 @@ t0 = Helpers.evaluation_fixture("test", [
 
     (invoke(JOIN, string("_::_"), list_of(string("tayne"), string("brain"))),
      "tayne_::_brain"),
+    
+    (invoke(JOIN, string(", "), list_of(integer(1), integer(2), integer(3))),
+     "1, 2, 3"),
 
     (invoke(FIRST_ELEMENT, string("ruby da cherry")),  "r"),
     (invoke(FIRST_ELEMENT, string("love my parents")), "l"),
