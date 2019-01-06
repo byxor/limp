@@ -1,4 +1,3 @@
-import limp.environment as Environment
 import limp.standard_library.shared as Shared
 
 MODULE = "strings"
