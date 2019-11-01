@@ -39,7 +39,7 @@ Welcome to LIMP! You're now in a REPL, have fun.
 5
 > (+ 1 2)
 3
-> (if (= 256 (** 2 8)) "You know it.")
+> if {= 256 (** 2 8): "You know it."}
 You know it.
 > (map (n -> (+ n 1)) [1 2 3 4])
 [2 3 4 5]
